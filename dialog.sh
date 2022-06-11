@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ##
 
 ## START OF FUNCTIONS
@@ -179,7 +178,7 @@ echo "func not installed"
         wget_screen_sudo
     fi 
 
-    ## forth run
+## forth run
     if [ $wget = 0 ] && [ $screen = 1 ] && [ $sudo = 1 ]
     then
         screen_sudo
