@@ -1,9 +1,5 @@
 #!/bin/bash
 
-test
-
-##
-
 ## START OF FUNCTIONS
 
 
