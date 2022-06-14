@@ -1480,9 +1480,10 @@ function dialog_check {
 }
 
 function distro_check {
-    if [ ! -e /etc/debian_version ]
-    then
-        echo "This script is only for Debian 10"
+   if ! grep -q 10 /etc/debian_version
+   then
+        echo "This script is only working on Debian 10!"
+        exit
     fi
 }
 
