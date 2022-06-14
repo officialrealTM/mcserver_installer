@@ -1483,12 +1483,20 @@ function dialog_check {
         fi
 }
 
+function distro_check {
+    if [ ! -e /etc/debian_version ]
+    then
+        echo "This script is only for Debian 10"
+    fi
+}
+
 ## END OF FUNCTIONS
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
 else
     clear
+    distro_check
     dialog_check
     mkdir Minecraft
     pathfinder
