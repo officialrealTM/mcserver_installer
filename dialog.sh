@@ -1637,6 +1637,12 @@ clear
 esac
 }
 
+
+function forge_installer {
+
+    java -jar *.jar --installServer
+}
+
 function forge_custom_version {
 
     dialog --title "Define RAM" \
@@ -1647,13 +1653,18 @@ rm forge_v_number.txt
 # get respose
 respose=$?
 
+if [ $forge_ex_version_number = "10.12.2.1154" ] || [ $forge_ex_version_number = "10.12.2.1155" ] || [ $forge_ex_version_number = "10.12.2.1161" ]
+then
+    forge_custom_bug_version
+else
+
 # get data stored in $ram using input redirection
 
 # make a decsion
 case $respose in
   0)
         cd Minecraft
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$forge_version_number-$forge_ex_version_number-$version_tag/forge-$forge_version_number-$forge_ex_version_number-$version_tag-installer.jar
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$forge_version_number-$forge_ex_version_number/forge-$forge_version_number-$forge_ex_version_number-installer.jar
         forge_installer
         rm *installer.jar
         rm *.log
@@ -1666,11 +1677,14 @@ case $respose in
   255)
    echo "[ESC] key pressed."
 esac
+fi
 }
 
-function forge_installer {
+function forge_custom_bug_version {
 
-    java -jar *.jar --installServer
+    clear
+    echo "Hallo"
+
 }
 
 ## END OF FUNCTIONS
