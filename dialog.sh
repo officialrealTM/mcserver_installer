@@ -304,55 +304,141 @@ clear
 case $CHOICE in
         1)
             check_java8
+            version_grab
+            check_current8
             vp_1.7
             ;;
         2)
             check_java8
+            version_grab
+            check_current8
             vp_1.8
             ;;
         3)
             check_java8
+            version_grab
+            check_current8
             vp_1.9
             ;;
         4)
             check_java8
+            version_grab
+            check_current8
             vp_1.10
             ;;
         5)
             check_java8
+            version_grab
+            check_current8
             vp_1.11
             ;;
         6)
             check_java8
+            version_grab
+            check_current8
             vp_1.12
             ;;
         7)
             check_java8
+            version_grab
+            check_current8
             vp_1.13
             ;;
         8)
             check_java8
+            version_grab
+            check_current8
             vp_1.14
             ;;
         9)
             check_java8
+            version_grab
+            check_current8
             vp_1.15
             ;;
         10)
             check_java8
+            version_grab
+            check_current8
             vp_1.16
             ;;
         11)
             check_java16
+            version_grab
+            check_current16
             vp_1.17
             ;;
         12)
             check_java17
+            version_grab
+            check_current17
             vp_1.18
             ;;
 esac    
 
 }
+
+function version_grab {
+    echo "java -version" > javaversiongrabber.sh
+    chmod +x javaversiongrabber.sh
+    ./javaversiongrabber.sh &> javaversion.txt
+    compare
+}
+
+function compare {
+
+    if grep -q 1.8.* javaversion.txt
+    then
+        javaversion=8
+    fi
+
+    if grep -q 17.* javaversion.txt
+    then
+        javaversion=17 
+    fi
+
+    if grep -q 16.* javaversion.txt
+    then
+        javaversion=16
+    fi
+
+    rm javaversiongrabber.sh 
+    rm javaversion.txt
+}
+
+function check_current8 {
+
+    if [ $javaversion -eq 8 ]
+    then
+        echo ""
+    else
+        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 8 is required.\nChange it to Java 8 in the following menu' 10 60
+        sudo update-alternatives --config java
+    fi
+}
+
+function check_current16 {
+
+    if [ $javaversion -eq 16 ]
+    then
+        echo ""
+    else
+        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 16 is required.\nChange it to Java 16 in the following menu' 10 60
+        sudo update-alternatives --config java
+    fi
+}
+
+function check_current17 {
+
+    if [ $javaversion -eq 17 ]
+    then
+        echo ""
+    else
+        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60
+        sudo update-alternatives --config java
+    fi
+}
+
 
 function java8 {
 clear
@@ -1518,50 +1604,74 @@ clear
 case $CHOICE in
         1)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.7
             ;;
         2)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.8
             ;;
         3)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.9
             ;;
         4)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.10
             ;;
         5)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.11
             ;;
         6)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.12
             ;;
         7)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.13
             ;;
         8)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.14
             ;;
         9)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.15
             ;;
         10)
             check_java8
+            version_grab
+            check_current8
             forge_vp_1.16
             ;;
         11)
             check_java16
+            version_grab
+            check_current16
             forge_vp_1.17
             ;;
         12)
             check_java17
+            version_grab
+            check_current17
             forge_vp_1.18
             ;;
 esac    
