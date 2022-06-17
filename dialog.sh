@@ -379,9 +379,8 @@ esac
 }
 
 function version_grab {
-    echo "java -version" > javaversiongrabber.sh
-    chmod +x javaversiongrabber.sh
-    ./javaversiongrabber.sh &> javaversion.txt
+    java=$"java -version"
+    $java &> javaversion.txt
     compare
 }
 
@@ -392,17 +391,18 @@ function compare {
         javaversion=8
     fi
 
+    
+    if grep -q 16.* javaversion.txt
+    then
+        javaversion=16
+    fi
+    
+    
     if grep -q 17.* javaversion.txt
     then
         javaversion=17 
     fi
 
-    if grep -q 16.* javaversion.txt
-    then
-        javaversion=16
-    fi
-
-    rm javaversiongrabber.sh 
     rm javaversion.txt
 }
 
