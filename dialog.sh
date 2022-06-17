@@ -1577,8 +1577,7 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.7"
-         2 "1.7.2")
+OPTIONS=(1 "1.7.10")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1591,19 +1590,468 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            #1.7
-            echo "Test"
-            ;;
-        2)
-            #1.7.2
-            forge_version_number="1.7.2"
-            version_tag="mc172"
+            #1.7.10
+            latest_1710=1
             forge_version_picker
             ;;
+
             
 esac
 
 }
+
+function forge_vp_1.8 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.8"
+         2 "1.8.8"
+         3 "1.8.9")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.8
+            latest_18=1
+            forge_version_picker
+            ;;
+        2)
+            #1.8.8
+            latest_188=1
+            forge_version_picker
+            ;;
+        3)
+            #1.8.9
+            latest_189=1
+            forge_version_picker
+            ;;
+
+            
+esac
+
+}
+
+
+function forge_vp_1.9 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.9"
+         2 "1.9.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.9
+            latest_19=1
+            forge_version_picker
+            ;;
+        2)
+            #1.9.4
+            latest_194=1
+            forge_version_picker
+            ;;
+
+            
+esac
+
+}
+
+function forge_vp_1.10 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.10"
+         2 "1.10.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.10
+            latest_110=1
+            forge_version_picker
+            ;;
+        2)
+            #1.10.2
+            latest_1102=1
+            forge_version_picker
+            ;;
+
+            
+esac
+
+}
+
+
+function forge_vp_1.11 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.11"
+         2 "1.11.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.11
+            latest_111=1
+            forge_version_picker
+            ;;
+        2)
+            #1.11.2
+            latest_1112=1
+            forge_version_picker
+            ;;
+
+            
+esac
+
+}
+
+function forge_vp_1.12 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.12"
+         2 "1.12.1"
+         3 "1.12.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.12
+            latest_111=1
+            forge_version_picker
+            ;;
+        2)
+            #1.12.1
+            latest_1112=1
+            forge_version_picker
+            ;;
+        3)
+            #1.12.2
+            latest_1122=1
+            forge_version_picker
+            ;;
+
+            
+esac
+
+}
+
+
+function forge_vp_1.13 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.13.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.13.2
+            latest_1132=1
+            forge_version_picker
+            ;;
+esac
+
+}
+
+
+function forge_vp_1.14 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.14.2"
+         2 "1.14.3"
+         3 "1.14.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.14.2
+            latest_1142=1
+            forge_version_picker
+            ;;
+        2)
+            #1.14.3
+            latest_1143=1
+            forge_version_picker
+            ;;
+        3)
+            #1.14.4
+            latest_1144=1
+            forge_version_picker
+            ;;
+esac
+
+}
+
+
+function forge_vp_1.15 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.15"
+         2 "1.15.1"
+         3 "1.15.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.15
+            latest_115=1
+            forge_version_picker
+            ;;
+        2)
+            #1.15.1
+            latest_1151=1
+            forge_version_picker
+            ;;
+        3)
+            #1.15.2
+            latest_1152=1
+            forge_version_picker
+            ;;
+esac
+
+}
+
+
+function forge_vp_1.16 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.16.1"
+         2 "1.16.2"
+         3 "1.16.3"
+         4 "1.16.4"
+         5 "1.16.5")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.16.1
+            latest_1161=1
+            forge_version_picker
+            ;;
+        2)
+            #1.16.2
+            latest_1162=1
+            forge_version_picker
+            ;;
+        3)
+            #1.16.3
+            latest_1163=1
+            forge_version_picker
+            ;;
+        4)
+            #1.16.4
+            latest_1164=1
+            forge_version_picker
+            ;;
+        5)
+            #1.16.5
+            latest_1165=1
+            forge_version_picker
+            ;;
+
+esac
+
+}
+
+
+function forge_vp_1.17 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.17.1")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.17.1
+            latest_1171=1
+            forge_version_picker
+            ;;
+
+esac
+
+}
+
+function forge_vp_1.18 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.18"
+         2 "1.18.1"
+         3 "1.18.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.18
+            latest_118=1
+            forge_version_picker
+            ;;
+        2)
+            #1.18.1
+            latest_1181=1
+            forge_version_picker
+            ;;
+        3)
+            #1.18.2
+            latest_1182=1
+            forge_version_picker
+            ;;
+
+esac
+
+}
+
 
 function forge_version_picker {
 
@@ -1628,13 +2076,229 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             cd Minecraft
-             wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.2-10.12.2.1161-mc172/forge-1.7.2-10.12.2.1161-mc172-installer.jar
+             latest_forge
              ;;
         2)
             forge_custom_version
             ;;
 esac
+}
+
+
+function latest_forge {
+
+    if [ $latest_1710 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.2-10.12.2.1161-mc172/forge-1.7.2-10.12.2.1161-mc172-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_18 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8-11.14.4.1577/forge-1.8-11.14.4.1577-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_188 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.8-11.15.0.1655/forge-1.8.8-11.15.0.1655-installer.jar
+        forge_installer_routine
+  
+
+    elif [ $latest_189 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-installer.jar
+        forge_installer_routine
+   
+
+    elif [ $latest_19 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.9-12.16.1.1938-1.9.0/forge-1.9-12.16.1.1938-1.9.0-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_194 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.9.4-12.17.0.2317-1.9.4/forge-1.9.4-12.17.0.2317-1.9.4-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_110 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.10-12.18.0.2000-1.10.0/forge-1.10-12.18.0.2000-1.10.0-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1102 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.10.2-12.18.3.2511/forge-1.10.2-12.18.3.2511-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_111 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.11-13.19.1.2199/forge-1.11-13.19.1.2199-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1112 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.11.2-13.20.1.2588/forge-1.11.2-13.20.1.2588-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_112 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12-14.21.1.2443/forge-1.12-14.21.1.2443-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1121 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.1-14.22.1.2485/forge-1.12.1-14.22.1.2485-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1122 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.2-14.23.5.2860/forge-1.12.2-14.23.5.2860-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1132 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.13.2-25.0.223/forge-1.13.2-25.0.223-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1142 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.2-26.0.63/forge-1.14.2-26.0.63-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1143 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.3-27.0.60/forge-1.14.3-27.0.60-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1144 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.4-28.2.26/forge-1.14.4-28.2.26-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_115 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15-29.0.4/forge-1.15-29.0.4-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1151 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15.1-30.0.51/forge-1.15.1-30.0.51-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1152 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15.2-31.2.57/forge-1.15.2-31.2.57-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1161 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.1-32.0.108/forge-1.16.1-32.0.108-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1162 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.2-33.0.61/forge-1.16.2-33.0.61-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1163 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.3-34.1.42/forge-1.16.3-34.1.42-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1164 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.4-35.1.37/forge-1.16.4-35.1.37-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1165 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.5-36.2.35/forge-1.16.5-36.2.35-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1171 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.17.1-37.1.1/forge-1.17.1-37.1.1-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_118 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18-38.0.17/forge-1.18-38.0.17-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1181 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.1-39.1.2/forge-1.18.1-39.1.2-installer.jar
+        forge_installer_routine
+    
+
+    elif [ $latest_1182 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.2-40.1.51/forge-1.18.2-40.1.51-installer.jar
+        forge_installer_routine
+    
+    fi
+}
+
+function forge_installer_routine {
+
+    forge_installer
+        rm *installer.jar
+        rm *.log
+        mv *universal.jar server.jar
+        select_ram
 }
 
 
@@ -1658,18 +2322,14 @@ then
     forge_custom_bug_version
 else
 
-# get data stored in $ram using input redirection
+# get data stored in $forge_v_number using input redirection
 
 # make a decsion
 case $respose in
   0)
         cd Minecraft
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/$forge_version_number-$forge_ex_version_number/forge-$forge_version_number-$forge_ex_version_number-installer.jar
-        forge_installer
-        rm *installer.jar
-        rm *.log
-        mv *universal.jar server.jar
-        select_ram
+        forge_installer_routine
         ;;
   1)
         echo "Cancel pressed."
