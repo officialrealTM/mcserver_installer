@@ -2427,11 +2427,6 @@ rm forge_v_number.txt
 # get respose
 respose=$?
 
-if [ $forge_ex_version_number = "10.12.2.1154" ] || [ $forge_ex_version_number = "10.12.2.1155" ] || [ $forge_ex_version_number = "10.12.2.1161" ]
-then
-    forge_custom_bug_version
-else
-
 # get data stored in $forge_v_number using input redirection
 
 # make a decsion
@@ -2450,12 +2445,6 @@ esac
 fi
 }
 
-function forge_custom_bug_version {
-
-    clear
-    echo "Hallo"
-
-}
 
 ## END OF FUNCTIONS
 
