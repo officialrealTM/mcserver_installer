@@ -374,6 +374,12 @@ case $CHOICE in
             check_current17
             vp_1.18
             ;;
+        13)
+            check_java17
+            version_grab
+            check_current17
+            vp_1.19
+            ;;
 esac    
 
 }
@@ -1430,6 +1436,40 @@ esac
 }
 
 
+function vp_1.19 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.19")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.19
+            clear
+            cd Minecraft
+            wget https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar
+            sleep 1
+            select_ram
+            ;;
+esac
+
+}
+
+
 function select_ram {
 
 HEIGHT=40
@@ -1572,9 +1612,9 @@ function distro_check {
 
 function forge {
 
-HEIGHT=40
+HEIGHT=50
 WIDTH=80
-CHOICE_HEIGHT=12
+CHOICE_HEIGHT=13
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the major Version you want to install:"
@@ -1589,8 +1629,9 @@ OPTIONS=(1 "1.7"
          8 "1.14"
          9 "1.15"
          10 "1.16"
-         11 "1.17"
-         12 "1.18")
+         11 "1.17")
+        #  12 "1.18"
+        #  13 "1.19")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1674,6 +1715,11 @@ case $CHOICE in
             check_current17
             forge_vp_1.18
             ;;
+        13)
+            check_java17
+            version_grab
+            check_current17
+            forge_vp_1.19
 esac    
     
 }
@@ -2163,6 +2209,38 @@ esac
 }
 
 
+function forge_vp_1.19 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.19")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.19
+            latest_119=1
+            forge_version_picker
+            ;;
+
+esac
+
+}
+
+
 function forge_version_picker {
 
 HEIGHT=40
@@ -2399,12 +2477,18 @@ function latest_forge {
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.2-40.1.51/forge-1.18.2-40.1.51-installer.jar
         forge_installer_routine
     
+
+    elif [ $latest_119 -eq 1 ]
+    then
+        cd Minecraft
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19-41.0.38/forge-1.19-41.0.38-installer.jar
+        forge_installer_routine
     fi
 }
 
 function forge_installer_routine {
 
-    forge_installer
+        forge_installer
         rm *installer.jar
         rm *.log
         mv *universal.jar server.jar
@@ -2442,7 +2526,7 @@ case $respose in
   255)
    echo "[ESC] key pressed."
 esac
-fi
+
 }
 
 
