@@ -2,7 +2,6 @@
 
 ## START OF FUNCTIONS
 
-
 function only_wget {
     echo "Only wget"
     clear
@@ -270,119 +269,157 @@ clear
 }
 
 
-
 function vanilla {
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the major Version you want to install:"
 
-OPTIONS=(1 "1.7"
-         2 "1.8"
-         3 "1.9"
-         4 "1.10"
-         5 "1.11"
-         6 "1.12"
-         7 "1.13"
-         8 "1.14"
-         9 "1.15"
-         10 "1.16"
-         11 "1.17"
-         12 "1.18")
+dialog --title "Choose Version" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter the version number you want to install (e.g 1.8.9) " 8 60 2>mcversions.txt
+version=0
+version=$(<mcversions.txt)
+ver=$(<mcversions.txt)
+version=$(echo $version | sed -e 's/\.//g')
+rm mcversions.txt
+# get respose
+respose=$?
 
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
+# get data stored in $ram using input redirection
 
-clear
-case $CHOICE in
-        1)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.7
-            ;;
-        2)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.8
-            ;;
-        3)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.9
-            ;;
-        4)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.10
-            ;;
-        5)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.11
-            ;;
-        6)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.12
-            ;;
-        7)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.13
-            ;;
-        8)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.14
-            ;;
-        9)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.15
-            ;;
-        10)
-            check_java8
-            version_grab
-            check_current8
-            vp_1.16
-            ;;
-        11)
-            check_java16
-            version_grab
-            check_current16
-            vp_1.17
-            ;;
-        12)
-            check_java17
-            version_grab
-            check_current17
-            vp_1.18
-            ;;
-        13)
-            check_java17
-            version_grab
-            check_current17
-            vp_1.19
-            ;;
-esac    
+# make a decsion
+case $respose in
+  0)
+        compare_exit
+        ;;
+  1)
+        echo "Cancel pressed."
+        exit
+        ;;
+  255)
+        echo "[ESC] key pressed."
+        exit
+        ;;
+esac
+        
+    
+}
+
+function proof {
+
+    if [ $new_version -ge 170 ]
+    then
+        check_valid
+    else
+        not_supported
+    fi
+}
+
+function second_check {
+
+    if [[ $new_version -le 164 ]]
+    then
+        not_supported
+    else
+        check_valid
+    fi
+}
+
+function third_check {
+
+    if [[ $version -ge 171 ]]
+    then
+        check_valid
+    else
+        not_supported
+    fi
+}
+
+function multiply {
+
+    if [[ $version -le 119 ]]
+    then
+        new_version=$(( $version*10 ))
+        echo $new_version
+        second_check
+    else
+        third_check
+       
+    fi
+}
+
+function tester {
+
+if [[ $version -lt 17 ]]
+then    
+    not_supported
+    
+else
+    multiply
+fi
+}
+
+function compare_exit {
+
+    if [[ $version -eq 0 ]]
+    then
+        clear
+    else
+        tester
+    fi
+}
+
+function not_supported {
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7 and above ' 10 60
+    clear
+    vanilla
 
 }
+
+function java_selector {
+
+    if [ $ver = "1.17" ] || [ $ver = "1.17.1" ]
+    then
+        check_java16
+        version_grab
+        check_current16
+        dl=$(python3 mcurlgrabber.py server-url $ver)
+        cd Minecraft
+        wget $dl
+        sleep 1
+        select_ram
+    elif [ $ver = "1.18" ] ||  [ $ver = "1.18.1" ] ||  [ $ver = "1.18.2" ] || [ $ver = "1.19" ]
+    then
+        check_java17
+        version_grab
+        check_current17
+        dl=$(python3 mcurlgrabber.py server-url $ver)
+        cd Minecraft
+        wget $dl
+        sleep 1
+        select_ram
+    else
+        check_java8
+        version_grab
+        check_current8
+        dl=$(python3 mcurlgrabber.py server-url $ver)
+        cd Minecraft
+        wget $dl
+        sleep 1
+        select_ram
+    fi
+
+}
+
+function check_valid {
+    python3 mcurlgrabber.py server-url $ver
+    if [ $? -eq 1 ]
+    then
+        dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered does not exist or was entered in the wrong format!\nHint: Snapshot versions are not supported! ' 10 60
+        clear
+        vanilla
+    else
+        java_selector
+    fi
+}
+
 
 function version_grab {
     java=$"java -version"
@@ -622,851 +659,6 @@ function install_java17 {
     sleep 5
     clear
     dialog --infobox "Java 17 has been installed now!" 10 30 
-}
-
-
-function vp_1.7 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.7"
-         2 "1.7.1"
-         3 "1.7.2"
-         4 "1.7.3"
-         5 "1.7.4"
-         6 "1.7.5"
-         7 "1.7.6"
-         8 "1.7.7"
-         9 "1.7.8"
-         10 "1.7.9"
-         11 "1.7.10")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.7
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3f031ab8b9cafedeb822febe89d271b72565712c/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.7.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/d26d79675147253b7a35dd32dc5dbba0af1be7e2/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.7.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3716cac82982e7c2eb09f83028b555e9ea606002/server.jar
-            sleep 1
-            select_ram
-            ;;
-        4)
-            #1.7.3
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/707857a7bc7bf54fe60d557cca71004c34aa07bb/server.jar
-            sleep 1
-            select_ram
-            ;;
-        5)
-            #1.7.4
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/61220311cef80aecc4cd8afecd5f18ca6b9461ff/server.jar
-            sleep 1
-            select_ram
-            ;;
-        6)
-            #1.7.5
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/e1d557b2e31ea881404e41b05ec15c810415e060/server.jar
-            sleep 1
-            select_ram
-            ;;
-        7)
-            #1.7.6
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/41ea7757d4d7f74b95fc1ac20f919a8e521e910c/server.jar
-            sleep 1
-            select_ram
-            ;;
-        8)
-            #1.7.7
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a6ffc1624da980986c6cc12a1ddc79ab1b025c62/server.jar
-            sleep 1
-            select_ram
-            ;;
-        9)
-            #1.7.8
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/c69ebfb84c2577661770371c4accdd5f87b8b21d/server.jar
-            sleep 1
-            select_ram
-            ;;
-        10)
-            #1.7.9
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/4cec86a928ec171fdc0c6b40de2de102f21601b5/server.jar
-            sleep 1
-            select_ram
-            ;;
-        11)
-            #1.7.10
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/952438ac4e01b4d115c5fc38f891710c4941df29/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.8 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.8"
-         2 "1.8.1"
-         3 "1.8.2"
-         4 "1.8.3"
-         5 "1.8.4"
-         6 "1.8.5"
-         7 "1.8.6"
-         8 "1.8.7"
-         9 "1.8.8"
-         10 "1.8.9")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.8
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a028f00e678ee5c6aef0e29656dca091b5df11c7/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.8.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/68bfb524888f7c0ab939025e07e5de08843dac0f/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.8.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a37bdd5210137354ed1bfe3dac0a5b77fe08fe2e/server.jar
-            sleep 1
-            select_ram
-            ;;
-        4)
-            #1.8.3
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/163ba351cb86f6390450bb2a67fafeb92b6c0f2f/server.jar
-            sleep 1
-            select_ram
-            ;;
-        5)
-            #1.8.4
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/dd4b5eba1c79500390e0b0f45162fa70d38f8a3d/server.jar
-            sleep 1
-            select_ram
-            ;;
-        6)
-            #1.8.5
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/ea6dd23658b167dbc0877015d1072cac21ab6eee/server.jar
-            sleep 1
-            select_ram
-            ;;
-        7)
-            #1.8.6
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/2bd44b53198f143fb278f8bec3a505dad0beacd2/server.jar
-            sleep 1
-            select_ram
-            ;;
-        8)
-            #1.8.7
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/35c59e16d1f3b751cd20b76b9b8a19045de363a9/server.jar
-            sleep 1
-            select_ram
-            ;;
-        9)
-            #1.8.8
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/5fafba3f58c40dc51b5c3ca72a98f62dfdae1db7/server.jar
-            sleep 1
-            select_ram
-            ;;
-        10)
-            #1.8.9
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/b58b2ceb36e01bcd8dbf49c8fb66c55a9f0676cd/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-function vp_1.9 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.9"
-         2 "1.9.1"
-         3 "1.9.2"
-         4 "1.9.3"
-         5 "1.9.4")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.9
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/b4d449cf2918e0f3bd8aa18954b916a4d1880f0d/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.9.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/bf95d9118d9b4b827f524c878efd275125b56181/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.9.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/2b95cc7b136017e064c46d04a5825fe4cfa1be30/server.jar
-            sleep 1
-            select_ram
-            ;;
-        4)
-            #1.9.3
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/8e897b6b6d784f745332644f4d104f7a6e737ccf/server.jar
-            sleep 1
-            select_ram
-            ;;
-        5)
-            #1.9.4
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/edbb7b1758af33d365bf835eb9d13de005b1e274/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.10 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.10"
-         2 "1.10.1"
-         3 "1.10.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.10
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a96617ffdf5dabbb718ab11a9a68e50545fc5bee/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.10.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/cb4c6f9f51a845b09a8861cdbe0eea3ff6996dee/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.10.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3d501b23df53c548254f5e3f66492d178a48db63/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-function vp_1.11 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.11"
-         2 "1.11.1"
-         3 "1.11.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.11
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/48820c84cb1ed502cb5b2fe23b8153d5e4fa61c0/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.11.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/1f97bd101e508d7b52b3d6a7879223b000b5eba0/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.11.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/f00c294a1576e03fddcac777c3cf4c7d404c4ba4/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.12 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.12"
-         2 "1.12.1"
-         3 "1.12.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.12
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/8494e844e911ea0d63878f64da9dcc21f53a3463/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.12.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.12.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/886945bfb2b978778c3a0288fd7fab09d315b25f/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.13 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.13"
-         2 "1.13.1"
-         3 "1.13.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.13
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/d0caafb8438ebd206f99930cfaecfa6c9a13dca0/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.13.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/fe123682e9cb30031eae351764f653500b7396c9/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.13.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3737db93722a9e39eeada7c27e7aca28b144ffa7/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.14 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.14"
-         2 "1.14.1"
-         3 "1.14.2"
-         4 "1.14.3"
-         5 "1.14.4")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.14
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/f1a0073671057f01aa843443fef34330281333ce/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.14.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/ed76d597a44c5266be2a7fcd77a8270f1f0bc118/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.14.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/808be3869e2ca6b62378f9f4b33c946621620019/server.jar
-            sleep 1
-            select_ram
-            ;;
-        4)
-            #1.14.3
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/d0d0fe2b1dc6ab4c65554cb734270872b72dadd6/server.jar
-            sleep 1
-            select_ram
-            ;;
-        5)
-            #1.14.4
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3dc3d84a581f14691199cf6831b71ed1296a9fdf/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.15 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.15"
-         2 "1.15.1"
-         3 "1.15.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.15
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/e9f105b3c5c7e85c7b445249a93362a22f62442d/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.15.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.15.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149ac3a215f6c636b07/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.16 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.16"
-         2 "1.16.1"
-         3 "1.16.2"
-         4 "1.16.3"
-         5 "1.16.4"
-         6 "1.16.5")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.16
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a0d03225615ba897619220e256a266cb33a44b6b/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.16.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a412fd69db1f81db3f511c1463fd304675244077/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.16.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar
-            sleep 1
-            select_ram
-            ;;
-        4)
-            #1.16.3
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/f02f4473dbf152c23d7d484952121db0b36698cb/server.jar
-            sleep 1
-            select_ram
-            ;;
-        5)
-            #1.16.4
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar
-            sleep 1
-            select_ram
-            ;;
-        6)
-            #1.16.5
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/1b557e7b033b583cd9f66746b7a9ab1ec1673ced/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.17 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.17"
-         2 "1.17.1")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.17
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.17.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/0a269b5f2c5b93b1712d0f5dc43b6182b9ab254e/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.18 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.18"
-         2 "1.18.1"
-         3 "1.18.2")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.18
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/3cf24a8694aca6267883b17d934efacc5e44440d/server.jar
-            sleep 1
-            select_ram
-            ;;
-        2)
-            #1.18.1
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/125e5adf40c659fd3bce3e66e67a16bb49ecc1b9/server.jar
-            sleep 1
-            select_ram
-            ;;
-        3)
-            #1.18.2
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
-}
-
-
-function vp_1.19 {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=12
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Versions"
-MENU="Select the exact Version you want to install:"
-
-OPTIONS=(1 "1.19")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
-case $CHOICE in
-        1)
-            #1.19
-            clear
-            cd Minecraft
-            wget https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar
-            sleep 1
-            select_ram
-            ;;
-esac
-
 }
 
 
@@ -2528,7 +1720,6 @@ case $respose in
 esac
 
 }
-
 
 ## END OF FUNCTIONS
 
