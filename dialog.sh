@@ -792,6 +792,17 @@ function dialog_check {
         fi
 }
 
+function python3_check {  
+        apt-cache policy dialog > python3.txt
+        if grep -q none python3.txt
+        then
+            apt install python3 -y   
+            rm python3.txt
+        else
+            rm python3.txt    
+        fi
+}
+
 function distro_check {
    if ! grep -q 10 /etc/debian_version
    then
@@ -1729,6 +1740,7 @@ else
     clear
     distro_check
     dialog_check
+    python3_check
     mkdir Minecraft
     pathfinder
     startup
