@@ -803,6 +803,25 @@ function python3_check {
         fi
 }
 
+function pip3_check {
+
+    apt-cache policy pip3 > pip3.txt
+    if grep -q none pip3.txt
+    then
+        apt install python3-pip -y
+        rm pip3.txt
+    else
+        rm pip3.txt
+    fi
+
+}
+
+function pip3_module_check {
+
+    pip3 install packaging
+    clear
+}
+
 function distro_check {
    if ! grep -q 10 /etc/debian_version
    then
@@ -1741,6 +1760,8 @@ else
     distro_check
     dialog_check
     python3_check
+    pip3_check
+    pip3_module_check
     mkdir Minecraft
     pathfinder
     startup
