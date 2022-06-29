@@ -1,14 +1,14 @@
 import sys
 import urllib.request
 import json
-
+from packaging import version
 
 def find_version_info(ver):
     versions_raw = urllib.request.urlopen("https://launchermeta.mojang.com/mc/game/version_manifest.json").read()
     versions = json.loads(versions_raw)["versions"]
 
     for version_info in versions:
-        if version_info["id"] == ver:
+        if version.parse(version_info["id"]) == ver:
             version_info_raw = urllib.request.urlopen(version_info["url"]).read()
             return json.loads(version_info_raw)
 
@@ -31,7 +31,11 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         raise Exception("Invalid arguments")
 
+    v = version.parse(sys.argv[2])
+    if not isinstance(v, version.Version):
+        sys.exit(1)
+
     if sys.argv[1] == "server-url":
-        get_server_url(sys.argv[2])
+        get_server_url(v)
     elif sys.argv[1] == "java-version":
-        get_java_version(sys.argv[2])
+        get_java_version(v)

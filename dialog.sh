@@ -287,7 +287,7 @@ respose=$?
 # make a decsion
 case $respose in
   0)
-        compare_exit
+        version_checker
         ;;
   1)
         echo "Cancel pressed."
@@ -302,72 +302,28 @@ esac
     
 }
 
-function proof {
+function version_checker {
 
-    if [ $new_version -ge 170 ]
-    then
-        check_valid
-    else
-        not_supported
-    fi
-}
+function version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$ver"; }
+function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" == "$ver"; }
+function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$ver"; }
+function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
-function second_check {
+minVer=1.7
+maxVer=1.19
 
-    if [[ $new_version -le 164 ]]
-    then
-        not_supported
-    else
-        check_valid
-    fi
-}
-
-function third_check {
-
-    if [[ $version -ge 171 ]]
-    then
-        check_valid
-    else
-        not_supported
-    fi
-}
-
-function multiply {
-
-    if [[ $version -le 119 ]]
-    then
-        new_version=$(( $version*10 ))
-        echo $new_version
-        second_check
-    else
-        third_check
-       
-    fi
-}
-
-function tester {
-
-if [[ $version -lt 17 ]]
-then    
+if version_lt $ver $minVer; then
     not_supported
-    
+elif version_gt $ver $maxVer; then
+    not_supported
 else
-    multiply
+    check_valid
 fi
-}
 
-function compare_exit {
-
-    if [[ $version -eq 0 ]]
-    then
-        clear
-    else
-        tester
-    fi
 }
 
 function not_supported {
-    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7 and above ' 10 60
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.19 ' 10 60
     clear
     vanilla
 
