@@ -1464,10 +1464,19 @@ function exit_routine {
 }
 
 function installer_routine {
-
+    touch .installed
+    clear
     apt install dialog python3 python3-pip wget screen sudo
     pip3 install packaging
-    clear
+    
+}
+
+
+function installed_check {
+    if [[ ! -e .installed ]]
+    then
+        installer_box
+    fi
 }
 
 
@@ -1479,7 +1488,7 @@ else
     clear
     distro_check
     dialog_check
-    installer_box
+    installed_check
     mkdir Minecraft
     pathfinder
     choose_type
