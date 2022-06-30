@@ -2,240 +2,6 @@
 
 ## START OF FUNCTIONS
 
-function only_wget {
-    echo "Only wget"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nwget" 7 60
-
-    response=$?
-    case $response in
-        0) clear && apt install wget -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-function only_screen {
-    echo "Only Screen"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nscreen" 7 60
-
-    response=$?
-    case $response in
-        0) clear && apt install screen -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-function only_sudo {
-    echo "Only screen"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nsudo" 9 60
-
-    response=$?
-    case $response in
-        0) clear && apt install sudo -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-function wget_screen {
-    echo "wget screen"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nwget\nscreen" 9 60
-
-    response=$?
-    case $response in
-        0) clear && apt install wget screen -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-function wget_sudo {
-    echo "wget sudo"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nwget\nsudo" 9 60
-
-    response=$?
-    case $response in
-        0) clear && apt install wget sudo -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-
-function screen_sudo {
-    echo "screen sudo"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nscreen\nsudo" 9 60
-
-    response=$?
-    case $response in
-        0) clear && apt install screen sudo -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-
-function wget_screen_sudo {
-    echo "wget screen sudo"
-    clear
-    dialog --title "Install required programs" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "Do you want the following programs to be installed:\n \nwget\nscreen\nsudo" 10 60
-
-    response=$?
-    case $response in
-        0) clear && apt install wget screen sudo -y && success;;
-        1) decline;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-
-function success {
-
-    dialog --infobox "All required programs have been installed!" 3 60
-    sleep 3
-    choose_type
-}
-
-
-function fine {
-
-    dialog --infobox "All required programs are already installed!" 3 60
-    sleep 3
-    choose_type
-}
-
-function decline {
-
-    clear
-    dialog --title "Error" \
-    --backtitle "MC-Server Installer by realTM" \
-    --yesno "These programs are required for the script to work! \nDo you want to install them?" 10 60
-
-    response=$?
-    case $response in
-        0) not_installed;;
-        1) clear && exit;;
-        255) echo "[ESC] key pressed.";;
-    esac
-}
-
-
-function not_installed {
-echo "func not installed"
-## first run
-    if [ $wget = 1 ] && [ $screen = 0 ] && [ $sudo = 0 ] 
-    then
-        only_wget
-    fi
-
-    if [ $wget = 0 ] && [ $screen = 1 ] && [ $sudo = 0 ]
-    then
-        only_screen
-    fi
-
-    if [ $wget = 0 ] && [ $screen = 0 ] && [ $sudo = 1 ]
-    then
-        only_sudo
-    fi
-
-## second run
-    if [ $wget = 1 ] && [ $screen = 1 ] && [ $sudo = 0 ]
-    then
-        wget_screen
-    fi
-
-    if [ $wget = 1 ] && [ $screen = 0 ] && [ $sudo = 1 ]
-    then
-        wget_sudo
-    fi
-## third run
-    if [ $wget = 1 ] && [ $screen = 1 ] && [ $sudo = 1 ]
-    then
-        wget_screen_sudo
-    fi 
-
-## forth run
-    if [ $wget = 0 ] && [ $screen = 1 ] && [ $sudo = 1 ]
-    then
-        screen_sudo
-    fi
-
-## all installed
-    if [ $wget = 0 ] && [ $screen = 0 ] && [ $sudo = 0 ]
-    then
-        fine
-    fi    
-}
-
-
-function checker {
-    wget=0
-    screen=0
-    sudo=0
-    if grep -q none wget.txt
-    then
-        wget=1   
-        rm wget.txt
-    else
-        rm wget.txt    
-    fi
-
-    if grep -q none screen.txt
-    then
-        echo "Screen not found"
-        screen=1
-        rm screen.txt
-    else
-        rm screen.txt
-    fi
-
-    if grep -q none sudo.txt
-    then
-        sudo=1
-        rm sudo.txt
-    else
-        rm sudo.txt
-    fi
-    echo "not installed"
-    not_installed
-}
-
-
-
-function startup {
-
-## check
-
-apt-cache policy wget > wget.txt
-apt-cache policy screen > screen.txt
-apt-cache policy sudo > sudo.txt
-dialog --infobox "Checking if required programs are installed..." 3 60
-sleep 3
-checker
-}
-
-
 function choose_type {
 
 HEIGHT=40
@@ -299,7 +65,6 @@ case $respose in
         ;;
 esac
         
-    
 }
 
 function version_checker {
@@ -748,35 +513,6 @@ function dialog_check {
         fi
 }
 
-function python3_check {  
-        apt-cache policy dialog > python3.txt
-        if grep -q none python3.txt
-        then
-            apt install python3 -y   
-            rm python3.txt
-        else
-            rm python3.txt    
-        fi
-}
-
-function pip3_check {
-
-    apt-cache policy pip3 > pip3.txt
-    if grep -q none pip3.txt
-    then
-        apt install python3-pip -y
-        rm pip3.txt
-    else
-        rm pip3.txt
-    fi
-
-}
-
-function pip3_module_check {
-
-    pip3 install packaging
-    clear
-}
 
 function distro_check {
    if ! grep -q 10 /etc/debian_version
@@ -1707,6 +1443,34 @@ esac
 
 }
 
+function installer_box {
+
+    clear
+    dialog --title "Required Programs" \
+    --backtitle "MC-Server Installer by realTM" \
+    --yesno "The following programs will be installed (or upgraded if they are already installed)\n \n- dialog\n- python3\n- python3-pip\n- pip3 packaging\n- wget\n- screen\n- sudo " 15 60
+
+    response=$?
+    case $response in
+        0) installer_routine;;
+        1) exit_routine;;
+        255) echo "[ESC] key pressed.";;
+    esac
+}
+
+function exit_routine {
+    exit
+    clear
+}
+
+function installer_routine {
+
+    apt install dialog python3 python3-pip wget screen sudo
+    pip3 install packaging
+    clear
+}
+
+
 ## END OF FUNCTIONS
 
 if [ "$EUID" -ne 0 ]
@@ -1715,10 +1479,8 @@ else
     clear
     distro_check
     dialog_check
-    python3_check
-    pip3_check
-    pip3_module_check
+    installer_box
     mkdir Minecraft
     pathfinder
-    startup
+    choose_type
 fi
