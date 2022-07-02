@@ -2172,9 +2172,9 @@ function normal_forge {
 
 function forge_custom_version {
 
-    dialog --title "Define RAM" \
+dialog --title "Custom Forge Version" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the Versionnumber you want to install: " 8 60 2>forge_v_number.txt
+--inputbox "Enter the Forge version number you want to install\n\nThe exact Forge version number can be found here: https://files.minecraftforge.net/net/minecraftforge/forge/ \n" 12 80 2>forge_v_number.txt
 forge_ex_version_number=$(<forge_v_number.txt)
 rm forge_v_number.txt
 # get respose
