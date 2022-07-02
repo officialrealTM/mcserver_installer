@@ -40,10 +40,10 @@ function vanilla {
 dialog --title "Choose Version" \
 --backtitle "MC-Server Installer by realTM" \
 --inputbox "Enter the version number you want to install (e.g 1.8.9) " 8 60 2>mcversions.txt
-version=0
-version=$(<mcversions.txt)
+#version=0
+#version=$(<mcversions.txt)
 ver=$(<mcversions.txt)
-version=$(echo $version | sed -e 's/\.//g')
+#version=$(echo $version | sed -e 's/\.//g')
 rm mcversions.txt
 # get respose
 respose=$?
@@ -151,7 +151,7 @@ function java_selector {
 
 function check_valid {
     python3 mcurlgrabber.py server-url $ver
-    if [ $? -eq 1 ]
+    if [[ $? -eq 1 ]]
     then
         dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered does not exist or was entered in the wrong format!\nHint: Snapshot versions are not supported! ' 10 60
         clear
@@ -950,9 +950,9 @@ OPTIONS=(1 "1.7"
          8 "1.14"
          9 "1.15"
          10 "1.16"
-         11 "1.17")
-        #  12 "1.18"
-        #  13 "1.19")
+         11 "1.17"
+         12 "1.18"
+         13 "1.19")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1654,7 +1654,7 @@ mkdir $dirname
 
 function latest_forge {
 
-    if [ $latest_1710 -eq 1 ]
+    if [[ $latest_1710 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1663,7 +1663,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_18 -eq 1 ]
+    elif [[ $latest_18 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1672,7 +1672,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_188 -eq 1 ]
+    elif [[ $latest_188 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1681,7 +1681,7 @@ function latest_forge {
         forge_installer_routine
   
 
-    elif [ $latest_189 -eq 1 ]
+    elif [[ $latest_189 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1690,7 +1690,7 @@ function latest_forge {
         forge_installer_routine
    
 
-    elif [ $latest_19 -eq 1 ]
+    elif [[ $latest_19 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1699,7 +1699,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_194 -eq 1 ]
+    elif [[ $latest_194 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1708,7 +1708,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_110 -eq 1 ]
+    elif [[ $latest_110 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1717,7 +1717,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1102 -eq 1 ]
+    elif [[ $latest_1102 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1726,7 +1726,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_111 -eq 1 ]
+    elif [[ $latest_111 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1735,7 +1735,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1112 -eq 1 ]
+    elif [[ $latest_1112 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1744,7 +1744,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_112 -eq 1 ]
+    elif [[ $latest_112 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1753,7 +1753,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1121 -eq 1 ]
+    elif [[ $latest_1121 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1762,7 +1762,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1122 -eq 1 ]
+    elif [[ $latest_1122 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1771,7 +1771,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1132 -eq 1 ]
+    elif [[ $latest_1132 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1780,7 +1780,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1142 -eq 1 ]
+    elif [[ $latest_1142 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1789,7 +1789,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1143 -eq 1 ]
+    elif [[ $latest_1143 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1798,7 +1798,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1144 -eq 1 ]
+    elif [[ $latest_1144 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1807,7 +1807,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_115 -eq 1 ]
+    elif [[ $latest_115 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1816,7 +1816,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1151 -eq 1 ]
+    elif [[ $latest_1151 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1825,7 +1825,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1152 -eq 1 ]
+    elif [[ $latest_1152 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1834,7 +1834,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1161 -eq 1 ]
+    elif [[ $latest_1161 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1843,7 +1843,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1162 -eq 1 ]
+    elif [[ $latest_1162 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1852,7 +1852,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1163 -eq 1 ]
+    elif [[ $latest_1163 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1861,7 +1861,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1164 -eq 1 ]
+    elif [[ $latest_1164 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1870,7 +1870,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1165 -eq 1 ]
+    elif [[ $latest_1165 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1879,7 +1879,7 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_1171 -eq 1 ]
+    elif [[ $latest_1171 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
@@ -1888,40 +1888,40 @@ function latest_forge {
         forge_installer_routine
     
 
-    elif [ $latest_118 -eq 1 ]
+    elif [[ $latest_118 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18-38.0.17/forge-1.18-38.0.17-installer.jar
-        forge_installer_routine
+        forge_new_installer_routine
     
 
-    elif [ $latest_1181 -eq 1 ]
+    elif [[ $latest_1181 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.1-39.1.2/forge-1.18.1-39.1.2-installer.jar
-        forge_installer_routine
+        forge_new_installer_routine
     
 
-    elif [ $latest_1182 -eq 1 ]
+    elif [[ $latest_1182 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.2-40.1.51/forge-1.18.2-40.1.51-installer.jar
-        forge_installer_routine
+        forge_new_installer_routine
     
 
-    elif [ $latest_119 -eq 1 ]
+    elif [[ $latest_119 -eq 1 ]]
     then
         folder_creator_forge
         cd Servers
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19-41.0.38/forge-1.19-41.0.38-installer.jar
-        forge_installer_routine
+        forge_new_installer_routine
     fi
 }
 
@@ -1932,6 +1932,191 @@ function forge_installer_routine {
         mv *universal.jar server.jar
         ram_version_checker
 }
+
+function forge_new_installer_routine {
+        forge_installer
+        rm *installer.jar
+        rm *.log
+        mv *universal.jar server.jar
+        new_select_ram_17
+}
+
+function new_select_ram_17 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=10
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Allocate RAM"
+MENU="How much RAM do you want to allocate to your Minecraft Server?"
+
+OPTIONS=(1 "1GB"
+         2 "2GB"
+         3 "3GB"
+         4 "4GB"
+         5 "5GB"
+         6 "6GB"
+         7 "7GB"
+         8 "8GB"
+         9 "Custom Amount")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+ case $CHOICE in
+        1)
+             ram=1G
+             forge_script_creator_17
+             chmod +x start.sh
+             finalize
+             ;;
+        2)
+             ram=2G
+             forge_script_creator_17
+             chmod +x start.sh
+             finalize
+             ;;
+        3)
+            ram=3G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+            ;;
+        4)
+            ram=4G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+             ;;
+        5)
+            ram=5G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+             ;;
+        6)
+            ram=6G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+            ;;
+        7)
+            ram=7G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+            ;;
+        8)
+            ram=8G
+            forge_script_creator_17
+            chmod +x start.sh
+            finalize
+            ;;
+        9)
+            forge_custom_ram_17
+            ;;
+ esac
+
+}
+
+function forge_custom_ram_17 {
+
+dialog --title "Define RAM" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>ram.txt
+ram=$(<ram.txt)
+rm ram.txt
+# get respose
+respose=$?
+
+# get data stored in $ram using input redirection
+
+# make a decsion
+case $respose in
+  0)
+        forge_script_creator_17
+        finalize
+        ;;
+  1)
+        echo "Cancel pressed."
+        ;;
+  255)
+   echo "[ESC] key pressed."
+esac
+        
+    
+}
+
+function forge_script_creator_17 {
+
+    code=$(grep -o "$ver-[^/]*" run.sh)
+    rm run.bat
+    rm run.sh
+    touch user_jvm_args.txt
+echo "function compare {" >> start.sh
+echo "" >> start.sh
+echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=8" >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh
+    
+echo "    if grep -q 16.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=16" >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh    
+    
+echo "    if grep -q 17.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=17 " >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh
+echo "    rm javaversion.txt" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh 
+echo "function check_java17 {" >> start.sh
+echo "" >> start.sh
+echo "    DIR=\"/usr/java/jdk-17/"\" >> start.sh
+echo "    if [ ! -d \$DIR ]" >> start.sh
+echo "    then" >> start.sh
+echo "        java17" >> start.sh
+echo "    fi" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh 
+echo "function version_grab {" >> start.sh
+echo "    java=$\"java -version"\" >> start.sh
+echo "    \$java &> javaversion.txt" >> start.sh
+echo "    compare" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh
+echo "function check_current17 {" >> start.sh
+echo "" >> start.sh
+echo "    if [[ ! \$javaversion -eq "17" ]]" >> start.sh
+echo "    then" >> start.sh
+echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60" >> start.sh
+echo "        sudo update-alternatives --config java" >> start.sh
+echo "    fi" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh
+echo "check_java17" >> start.sh
+echo "version_grab" >> start.sh
+echo "check_current17" >> start.sh
+echo "" >> start.sh
+echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$code/unix_args.txt \"\$@"\" >> start.sh
+    chmod +x start.sh
+    echo "" >> user_jvm_args.txt
+    echo "-Xms512M" >> user_jvm_args.txt
+    echo "-Xmx$ram" >> user_jvm_args.txt
+}
+
+
 
 function ram_version_checker {
 
@@ -1949,12 +2134,41 @@ function ram_version_checker {
 }
 
 
-
-
 function forge_installer {
 
     java -jar *.jar --installServer
 }
+
+function forge_new_version_check {
+    if [[ $ver = "1.18" ]] || [[ $ver = "1.18.1" ]] || [[ $ver = "1.18.2" ]] || [[ $ver = "1.19" ]]
+    then
+            folder_creator_forge
+            cd Servers
+            cd $dirname
+            wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
+            forge_new_installer_routine
+    else
+        normal_forge
+    fi
+
+
+}
+
+function normal_forge {
+        folder_creator_forge
+        cd Servers
+        cd $dirname
+        if [[ $forge_ex_version_number = "11.15.1.1890" ]] || [[ $forge_ex_version_number = "11.15.1.1902" ]] || [[ $forge_ex_version_number = "11.15.1.2318" ]]
+        then
+            wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number-$ver/forge-$ver-$forge_ex_version_number-$ver-installer.jar
+        else
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
+        fi
+        forge_installer_routine
+
+
+}
+
 
 function forge_custom_version {
 
@@ -1971,17 +2185,13 @@ respose=$?
 # make a decsion
 case $respose in
   0)
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$forge_version_number-$forge_ex_version_number/forge-$forge_version_number-$forge_ex_version_number-installer.jar
-        forge_installer_routine
+        forge_new_version_check
         ;;
   1)
         echo "Cancel pressed."
         ;;
   255)
-   echo "[ESC] key pressed."
+   echo "[ESC] key pressed." 
 esac
 
 }
