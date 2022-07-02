@@ -2219,7 +2219,7 @@ function exit_routine {
 function installer_routine {
     touch .installed
     clear
-    apt install dialog python3 python3-pip wget screen sudo
+    apt install dialog python3 python3-pip wget screen sudo -y
     pip3 install packaging
     
 }
