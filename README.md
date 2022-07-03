@@ -118,7 +118,7 @@ These are all the packages used in this script:
 
 **Used Packages:** dialog, sudo, wget, screen, Python3, Python3-pip, Pip3-Packaging
 
-**Python Module:** mcurlgrabber.py (Thanks to Christian!)
+**Python Module:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
 
 
 ## Support
