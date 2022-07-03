@@ -46,7 +46,7 @@ apt install git
 
 Downloading the script:
 ```bash
-git clone git@github.com:TMLetsPlays/mcserver_installer.git
+git clone https://github.com/officialrealTM/mcserver_installer.git
 ```
 
 Going into the downloaded folder:
