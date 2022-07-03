@@ -1611,7 +1611,7 @@ HEIGHT=40
 WIDTH=80
 CHOICE_HEIGHT=10
 BACKTITLE="MC-Server Installer by realTM"
-TITLE="Forge-Version Picket"
+TITLE="Forge-Version Picker"
 MENU="Which Forge Version should be installed?"
 
 OPTIONS=(1 "Latest"
