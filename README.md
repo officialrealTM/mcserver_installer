@@ -125,3 +125,7 @@ These are all the packages used in this script:
 
 For support, join my [Discord](https://realtm.link/discord) and create a Ticket.  
 (*Support in German and English*)
+
+## Screenshots
+
+![Screen](https://pic.realtm.depowershell_y0dmgWKHMt.png)
