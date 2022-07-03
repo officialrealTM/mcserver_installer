@@ -128,4 +128,4 @@ For support, join my [Discord](https://realtm.link/discord) and create a Ticket.
 
 ## Screenshots
 
-![Screen](https://pic.realtm.depowershell_y0dmgWKHMt.png)
+![Screen](https://pic.realtm.de/powershell_y0dmgWKHMt.png)
