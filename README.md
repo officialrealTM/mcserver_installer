@@ -41,12 +41,12 @@ Just download the script, execute it, choose if you want a Vanilla or Forge Serv
 Prerequisites:
 
 ```bash
-  apt install git
+apt install git
 ```
 
 Downloading the script:
 ```bash
-   git clone git@github.com:TMLetsPlays/mcserver_installer.git
+git clone git@github.com:TMLetsPlays/mcserver_installer.git
 ```
 
 Going into the downloaded folder:
