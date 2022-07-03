@@ -125,28 +125,3 @@ These are all the packages used in this script:
 
 For support, join my [Discord](https://realtm.link/discord) and create a Ticket.  
 (*Support in German and English*)
-
-## Screenshots
-Server type selector
-![Screen](https://pic.realtm.de/select_server_type.png)  
-
-RAM selector
-![Screen](https://pic.realtm.de/select_ram.png)
-
-Vanilla Version Dialog
-![Screen](https://pic.realtm.de/select_mc_version.png)
-
-Minecraft-Forge Version Selector
-![Screen](https://pic.realtm.de/forge_version_select.png)
-
-Minecraft-Forge Subversion Selector
-![Screen](https://pic.realtm.de/forge_subversion_select.png)
-
-Forge Version Selector
-![Screen](https://pic.realtm.de/forge_vernum_select.png)
-
-Custom Forge Version Input
-![Screen](https://pic.realtm.de/forge_custom_version.png)
-
-Installation Success
-![Screen](https://pic.realtm.de/installation_success.png)
