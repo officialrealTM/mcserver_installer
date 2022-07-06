@@ -65,7 +65,7 @@ Starting the Script:
 No. (or maybe yes?) This Script has been developed and tested on Debian 10 only.  
 Try it on other Distros at your own risk!
 
-#### **Where a my Serverfiles locted?**
+#### **Where are my Serverfiles located?**
 
 You Minecraft Server files will get stored in `/Servers/Minecraft-<versionnumber>`  
 
@@ -86,7 +86,7 @@ In the last line of this file you can adjust the number after `-Xmx` to adjust m
 
 No. This script can only install full game versions. Snapshot Versions are not supported!
 
-#### **I've accedentially closed my Minecraft console. How can I open it again?** 
+#### **I've accidentally closed my Minecraft console. How can I open it again?** 
 Dont worry, the console will kept open in the background using *screen*.  
 Use this command, to show all active screen sessions:`screen -ls`  
 
