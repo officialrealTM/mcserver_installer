@@ -1930,6 +1930,7 @@ function forge_installer_routine {
         rm *installer.jar
         rm *.log
         mv *universal.jar server.jar
+        mv forge*.jar server.jar
         ram_version_checker
 }
 
@@ -1938,6 +1939,7 @@ function forge_new_installer_routine {
         rm *installer.jar
         rm *.log
         mv *universal.jar server.jar
+        mv forge*.jar server.jar
         new_select_ram_17
 }
 
