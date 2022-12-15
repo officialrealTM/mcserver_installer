@@ -2235,6 +2235,13 @@ function installed_check {
 }
 
 
+update_dialog () {
+
+    dialog --title 'Update' --msgbox 'To update the script execute the following command: \ngit pull' 5 20
+    exit
+
+}
+
 update_needed () {
 
 dialog --title "Script Outdated!" \
@@ -2243,7 +2250,7 @@ dialog --title "Script Outdated!" \
 
 response2=$?
 case $response2 in
-   0) git pull;;
+   0) update_dialog ;;
    1) ;;
    255) echo "[ESC] key pressed.";;
 esac
