@@ -2234,6 +2234,32 @@ function installed_check {
     fi
 }
 
+
+update_needed () {
+
+dialog --title "Script Outdated!" \
+--backtitle "MC-Server Installer by realTM" \
+--yesno "The installed Scriptversion is outdated! \nYour Version: $scriptversion \nLatest Version: $latestver\n Do you want to update the script?" 8 60
+
+response2=$?
+case $response2 in
+   0) git pull;;
+   1) ;;
+   255) echo "[ESC] key pressed.";;
+esac
+
+}
+
+
+compare_version () {
+
+    	if [[ ! $latestver = $scriptversion ]]
+        then
+            update_needed
+        fi
+
+}
+
 function servers_folder {
 
     if [[ ! -d Servers ]]
@@ -2245,6 +2271,15 @@ function servers_folder {
 
 ## END OF FUNCTIONS
 
+## Script Version
+scriptversion="1.0"
+##
+
+## Latest Version
+latestver=$(curl -s https://version.realtm.de)
+##
+
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
 else
@@ -2252,6 +2287,7 @@ else
     distro_check
     dialog_check
     installed_check
+    compare_version
     servers_folder
     pathfinder
     choose_type
