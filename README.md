@@ -1,18 +1,18 @@
 
 # Minecraft Server Installer Script (Vanilla & Forge) 1.7.X - 1.19+
-## About the project
+## <u>About the project</u>
 
-This *"simple"* Bash-Script makes installing Minecraft Servers on Linux very easy.  
-Just download the script, execute it, choose if you want a Vanilla or Forge Server, select the version you want to install and your server is ready to go!  
-
+With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla or Forge, as easy and beginner-friendly as possible. 
+After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_csgo) and providing a detailed [Documentation](https://docs.realtm.de) for them, there were still questions and problems on how to install a Minecraft Server on a Linux-Server.
+Thats why I created this All-in-One solution for installing a Minecraft Server (Forge & Vanilla)
 
 
 ## Requirements
 
- - SSH-Connection to your server (obviously^^)
+ - SSH-Connection to your server
  - Root Access to server (Script need to be executed as root)
- - This script works on Debian 10 ONLY! (More about Support can be found in the FAQ Section)
- - Git-Package need to be installed on the server (More information under "Installation")
+ - This script works on Debian 10 ONLY! (More about compatibility can be found in the FAQ Section)
+ - Git needs to be installed on the server (--> Installation)
 
 
 
@@ -20,8 +20,8 @@ Just download the script, execute it, choose if you want a Vanilla or Forge Serv
 ### General Features:
 - Graphical User Interface (GUI)
 - Easy-to-Use (even for beginners!)
-- Automatic installation of required programs
-- Automatic installation of Java Versions for different Minecraft Versions (e.g. Minecraft 1.7.X - 1.8.9 uses Java 8)
+- Automatic installation of required programs/packages
+- Automatic installation of Java Versions for different Minecraft Versions (Including Java 8, Java 16, Java 17)
 - Creating Minecraft Server start-scripts (including a check if the correct Java Version is selcted)
 - Adjustable RAM-Allocation when installing a Minecraft Server
 - Installed Servers are stored in Sub-Folders, to install more than one instance
@@ -62,8 +62,8 @@ Starting the Script:
 
 #### **Can I use this Script on Debian 11, Ubuntu or other Distros?**
 
-No. (or maybe yes?) This Script has been developed and tested on Debian 10 only.  
-Try it on other Distros at your own risk!
+No. This Script has been developed and tested on Debian 10 only.  
+Therefore the script prevents you from executing it on other Distros.
 
 #### **Where are my Serverfiles located?**
 
@@ -109,7 +109,8 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Adding Support for Minecraft Spigot
+- Add support for more Distros (e.g. Ubuntu, Debian 11)
+- Add support for Minecraft Spigot
 
 
 
@@ -118,7 +119,7 @@ These are all the packages used in this script:
 
 **Used Packages:** dialog, sudo, wget, screen, Python3, Python3-pip, Pip3-Packaging
 
-**Python Module:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
+**Python Script:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
 
 
 ## Support
