@@ -7,7 +7,7 @@ def find_version_info(ver):
     versions_raw = urllib.request.urlopen("https://launchermeta.mojang.com/mc/game/version_manifest.json").read()
     versions = json.loads(versions_raw)["versions"]
 
-    for version_info in versions:
+    for version_info in filter(lambda x: x["type"] == "release", versions):
         if version.parse(version_info["id"]) == ver:
             version_info_raw = urllib.request.urlopen(version_info["url"]).read()
             return json.loads(version_info_raw)

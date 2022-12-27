@@ -2279,7 +2279,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="1.0"
+scriptversion="1.1"
 ##
 
 ## Latest Version
