@@ -39,7 +39,8 @@ function vanilla {
 
 dialog --title "Choose Version" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the version number you want to install (e.g 1.8.9) " 8 60 2>mcversions.txt
+--no-cancel \
+--inputbox "Enter the version number you want to install (e.g 1.8.9)\n\n[Leave blank to exit]\n " 10 60 2>mcversions.txt
 #version=0
 #version=$(<mcversions.txt)
 ver=$(<mcversions.txt)
@@ -57,11 +58,9 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
-        exit
         ;;
   255)
         echo "[ESC] key pressed."
-        exit
         ;;
 esac
         
@@ -88,10 +87,15 @@ fi
 }
 
 function not_supported {
+
+    if [[ $ver == "" ]]
+    then
+        exit
+    else
     dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.19 ' 10 60
     clear
     vanilla
-
+    fi
 }
 
 function folder_creator_vanilla {
@@ -2279,7 +2283,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="1.1"
+scriptversion="1.2"
 ##
 
 ## Latest Version
