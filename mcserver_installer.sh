@@ -926,11 +926,15 @@ function dialog_check {
 
 
 function distro_check {
-   if ! grep -q 10 /etc/debian_version
-   then
-        echo "This script is only working on Debian 10!"
-        exit
-    fi
+        current_version=$(</etc/debian/version)
+        if [[ ! $current_version  == "10"* ]]
+        then
+	        if [[ ! $current_version == "11"* ]]
+		        then
+				    echo "Not Supported"
+                    exit
+	fi	
+fi 
 }
 
 ## Start of Function Blocks regarding Minecraft Forge:
