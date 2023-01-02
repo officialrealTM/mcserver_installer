@@ -66,8 +66,8 @@ Starting the Script:
 #### **Can I use this Script on Ubuntu or other Distros?**
 
 No. At least not yet.
-The Script has been tested on the following Distros: -> Supported Distros
-I aim to add support for me distros in the future.
+The Script has been tested on --> Supported Distros.
+I aim to add support for more distros in the future.
 
 #### **Where are my Serverfiles located?**
 
