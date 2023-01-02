@@ -931,7 +931,7 @@ function distro_check {
         then
 	        if [[ ! $current_version == "11"* ]]
 		        then
-				    echo "Not Supported"
+				    echo "Your Linux Distribution is not supported."
                     exit
 	fi	
 fi 
