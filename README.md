@@ -6,6 +6,9 @@ With this project, my goal was to make installing Minecraft servers, no matter i
 After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_csgo) and providing a detailed [Documentation](https://docs.realtm.de) for them, there were still questions and problems on how to install a Minecraft Server on a Linux-Server.
 Thats why I created this All-in-One solution for installing a Minecraft Server (Forge & Vanilla)
 
+## Supported Distros
+ - Debian 10/11 
+
 
 ## Requirements
 
@@ -60,10 +63,11 @@ Starting the Script:
 ```
 ## FAQ
 
-#### **Can I use this Script on Debian 11, Ubuntu or other Distros?**
+#### **Can I use this Script on Ubuntu or other Distros?**
 
-No. This Script has been developed and tested on Debian 10 only.  
-Therefore the script prevents you from executing it on other Distros.
+No. At least not yet.
+The Script has been tested on the following Distros: -> Supported Distros
+I aim to add support for me distros in the future.
 
 #### **Where are my Serverfiles located?**
 
@@ -109,7 +113,7 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Add support for more Distros (e.g. Ubuntu, Debian 11)
+- Add support for more Distros (e.g. Ubuntu)
 - Add support for Minecraft Spigot
 
 
