@@ -28,6 +28,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Creating Minecraft Server start-scripts (including a check if the correct Java Version is selcted)
 - Adjustable RAM-Allocation when installing a Minecraft Server
 - Installed Servers are stored in Sub-Folders, to install more than one instance
+- Support for multiple Linux Distributions
 
 ### Minecraft Vanilla Features:
 - Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.19.X
