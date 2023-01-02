@@ -78,7 +78,7 @@ When installing multiple servers of the same type (e.g. two Minecraft 1.8.9 Serv
 #### **Can I run more than one server at once?**
 
 ##### Yes. But here you need to keep a few things in mind:
-- You Linux server need to be powerfull enough
+- Your Linux server need to be powerfull enough
 - You need to adjust the Port of the second/third/etc. Minecraft server (because Port 25565 is already in use.) This can be adjusted in the `server.properties` file  
 
 #### **Can I change the amount of RAM allocated to my Minecraft Server after the installation?**
