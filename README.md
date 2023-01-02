@@ -14,7 +14,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 
  - SSH-Connection to your server
  - Root Access to server (Script need to be executed as root)
- - This script works on Debian 10 ONLY! (More about compatibility can be found in the FAQ Section)
+ - This script works on the -->  Supported Distros ONLY! (More about compatibility can be found in the FAQ Section)
  - Git needs to be installed on the server (--> Installation)
 
 
