@@ -7,7 +7,8 @@ After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_c
 Thats why I created this All-in-One solution for installing a Minecraft Server (Forge & Vanilla).
 
 ## Supported Distros
- - Debian 10/11 
+ - Debian 10/11
+ - Ubuntu 18.04
 
 
 ## Requirements
