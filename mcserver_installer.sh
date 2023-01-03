@@ -282,8 +282,13 @@ function check_java17 {
 }
 
 function install_java8 {
+
     dialog --infobox "Java 8 will be installed now" 10 30 && sleep 3
     clear
+    if [[ $ubuntu == "true" ]]
+    then
+        sudo apt-get install openjdk-8-jdk
+    else
     apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common -y
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
@@ -292,6 +297,7 @@ function install_java8 {
     sudo update-alternatives --config java
     sleep 5
     clear
+    fi
     dialog --infobox "Java 8 has been installed now!" 10 30 
 }
 
@@ -924,17 +930,31 @@ function dialog_check {
         fi
 }
 
+check_debian () {
 
-function distro_check {
-        current_version=$(</etc/debian/version)
+    current_version=$(</etc/debian_version)
         if [[ ! $current_version  == "10"* ]]
         then
 	        if [[ ! $current_version == "11"* ]]
 		        then
-				    echo "Your Linux Distribution is not supported."
+				    
+                    echo "Your Linux Distribution is not supported."
                     exit
 	fi	
 fi 
+}
+
+distro_check () {
+
+
+    ubuntuver=$(lsb_release -r)
+    if [[ $ubuntuver == *"18.04" ]]
+    then
+        ubuntu=true
+    else
+        check_debian
+    fi
+
 }
 
 ## Start of Function Blocks regarding Minecraft Forge:
@@ -2287,7 +2307,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="2.0"
+scriptversion="3.0"
 ##
 
 ## Latest Version
