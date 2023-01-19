@@ -1,4 +1,5 @@
 
+  
 # Minecraft Server Installer Script (Vanilla & Forge) 1.7.X - 1.19+
 ## <u>About the project</u>
 
@@ -18,8 +19,8 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 
  - SSH-Connection to your server
  - Root Access to server (Script need to be executed as root)
- - This script works on the -->  Supported Distros ONLY! (More about compatibility can be found in the FAQ Section)
- - Git needs to be installed on the server (--> Installation)
+ - Linux-based operating systems (only on [Supported Distros](https://github.com/officialrealTM/mcserver_installer#supported-distros))
+ - Git needs to be installed on the server --> [Installation](https://github.com/officialrealTM/mcserver_installer#installation)
 
 
 
@@ -32,7 +33,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Creating Minecraft Server start-scripts (including a check if the correct Java Version is selcted)
 - Adjustable RAM-Allocation when installing a Minecraft Server
 - Installed Servers are stored in Sub-Folders, to install more than one instance
-- Support for multiple Linux Distributions
+- Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
 - Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.19.X
@@ -68,12 +69,10 @@ Starting the Script:
 ```
 ## FAQ
 
-#### **Can I use this Script on Ubuntu or other Distros?**
+#### **Can I use this Script on other Distros?**
 
-No. At least not yet.
-The Script has been tested on --> Supported Distros.
-I aim to add support for more distros in the future.
-
+No. At least not yet. The Script has been developed and tested on --> [Supported Distros](https://github.com/officialrealTM/mcserver_installer#supported-distros).
+To disable the Distro check see: [Experimental Settings](https://github.com/officialrealTM/mcserver_installer#experimental-settings)
 #### **Where are my Serverfiles located?**
 
 You Minecraft Server files will get stored in `/Servers/Minecraft-<versionnumber>`  
@@ -82,7 +81,7 @@ When installing multiple servers of the same type (e.g. two Minecraft 1.8.9 Serv
 
 #### **Can I run more than one server at once?**
 
-##### Yes. But here you need to keep a few things in mind:
+Yes. But here you need to keep a few things in mind:
 - Your Linux server need to be powerfull enough
 - You need to adjust the Port of the second/third/etc. Minecraft server (because Port 25565 is already in use.) This can be adjusted in the `server.properties` file  
 
@@ -93,7 +92,7 @@ In the last line of this file you can adjust the number after `-Xmx` to adjust m
 
 #### **Can I use this script to install Snapshot Versions of Minecraft?**
 
-No. This script can only install full game versions. Snapshot Versions are not supported!
+**No.** This script can only install full game versions. Snapshot Versions are not supported!
 
 #### **I've accidentally closed my Minecraft console. How can I open it again?** 
 Dont worry, the console will kept open in the background using *screen*.  
@@ -119,6 +118,7 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 ## Roadmap
 
 - Add support for Minecraft Spigot
+- Commenting & cleaning the sourcecode
 
 
 
@@ -129,6 +129,39 @@ These are all the packages used in this script:
 
 **Python Script:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
 
+## Experimental Settings
+**Important:** With these experimental settings you can **disable** certain functions of the script.
+Use them at your own risk and **only** if you know what you are doing!
+
+**How to use:**
+All these commands must be executed in the homedirectory of the script, namely: `/mcserver_installer`
+
+ Disable Distro-check:
+```bash
+touch .skip_distro_check
+```
+  Disable Script Version check:
+```bash
+touch .skip_version_check
+```
+ Disable Installed-check:
+ ```bash
+touch .installed
+```
+
+### Undo experimental settings
+Enable Distro-check:
+```bash
+rm .skip_distro_check
+```
+  Enable Script Version check:
+ ```bash
+ rm .skip_version_check
+ ```
+Enable Installed-check (can also be used to re-check installed packages):
+```bash
+rm .installed
+```
 
 ## Support
 
