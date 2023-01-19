@@ -11,6 +11,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
  - Debian 11
  - Ubuntu 18.04
  - Ubuntu 20.04
+ - Ubuntu 22.04
 
 
 ## Requirements
@@ -117,7 +118,6 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Add support for Ubuntu 22.04
 - Add support for Minecraft Spigot
 
 
