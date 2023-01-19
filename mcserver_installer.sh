@@ -74,7 +74,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.19
+maxVer=1.19.3
 
 if version_lt $ver $minVer; then
     not_supported
@@ -114,7 +114,7 @@ mkdir $dirname
 
 function java_selector {
 
-    if [ $ver = "1.17" ] || [ $ver = "1.17.1" ]
+    if [[ $ver = "1.17"* ]]
     then
         check_java16
         version_grab
@@ -126,7 +126,7 @@ function java_selector {
         wget $dl
         sleep 1
         select_ram_16
-    elif [ $ver = "1.18" ] ||  [ $ver = "1.18.1" ] ||  [ $ver = "1.18.2" ] || [ $ver = "1.19" ]
+    elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
     then
         check_java17
         version_grab
