@@ -424,14 +424,6 @@ echo "" >> start.sh
 echo "    rm javaversion.txt" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh 
-echo "function check_java8 {" >> start.sh
-echo "" >> start.sh
-echo "    DIR=\"/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"\" >> start.sh
-echo "    if [ ! -d \$DIR ]" >> start.sh
-echo "    then" >> start.sh
-echo "        java8" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
 echo "" >> start.sh 
 echo "function version_grab {" >> start.sh
 echo "    java=$\"java -version"\" >> start.sh
@@ -448,7 +440,6 @@ echo "        sudo update-alternatives --config java" >> start.sh
 echo "    fi" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh
-echo "check_java8" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current8" >> start.sh
 echo "" >> start.sh
@@ -593,14 +584,6 @@ echo "" >> start.sh
 echo "    rm javaversion.txt" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh 
-echo "function check_java16 {" >> start.sh
-echo "" >> start.sh
-echo "    DIR=\"/usr/java/jdk-16*"\" >> start.sh
-echo "    if [ ! -d \$DIR ]" >> start.sh
-echo "    then" >> start.sh
-echo "        java16" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
 echo "" >> start.sh 
 echo "function version_grab {" >> start.sh
 echo "    java=$\"java -version"\" >> start.sh
@@ -617,7 +600,6 @@ echo "        sudo update-alternatives --config java" >> start.sh
 echo "    fi" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh
-echo "check_java16" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current16" >> start.sh
 echo "" >> start.sh
@@ -761,14 +743,6 @@ echo "" >> start.sh
 echo "    rm javaversion.txt" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh 
-echo "function check_java17 {" >> start.sh
-echo "" >> start.sh
-echo "    DIR=\"/usr/java/jdk-17/"\" >> start.sh
-echo "    if [ ! -d \$DIR ]" >> start.sh
-echo "    then" >> start.sh
-echo "        java17" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
 echo "" >> start.sh 
 echo "function version_grab {" >> start.sh
 echo "    java=$\"java -version"\" >> start.sh
@@ -785,7 +759,6 @@ echo "        sudo update-alternatives --config java" >> start.sh
 echo "    fi" >> start.sh
 echo "}" >> start.sh
 echo "" >> start.sh
-echo "check_java17" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current17" >> start.sh
 echo "" >> start.sh
