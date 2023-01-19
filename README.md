@@ -7,8 +7,10 @@ After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_c
 Thats why I created this All-in-One solution for installing a Minecraft Server (Forge & Vanilla).
 
 ## Supported Distros
- - Debian 10/11
+ - Debian 10
+ - Debian 11
  - Ubuntu 18.04
+ - Ubuntu 20.04
 
 
 ## Requirements
@@ -115,7 +117,7 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Add support for more Distros (e.g. Ubuntu)
+- Add support for Ubuntu 22.04
 - Add support for Minecraft Spigot
 
 
