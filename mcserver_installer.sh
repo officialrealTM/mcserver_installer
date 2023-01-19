@@ -919,7 +919,8 @@ fi
 
 distro_check () {
 
-
+if [[ ! -e .skip_distro_check ]]
+then
     ubuntuver=$(lsb_release -r)
     if [[ $ubuntuver == *"18.04" ]]
     then
@@ -937,6 +938,7 @@ distro_check () {
             fi
         fi
     fi
+fi
 
 }
 
@@ -2271,10 +2273,13 @@ esac
 
 compare_version () {
 
+if [[ ! -e .skip_version_check ]]
+then
     	if [[ ! $latestver = $scriptversion ]]
         then
             update_needed
         fi
+fi
 
 }
 
