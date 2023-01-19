@@ -952,7 +952,12 @@ distro_check () {
     then
         ubuntu=true
     else
-        check_debian
+        if [[ $ubuntuver == *"20.04" ]]
+        then
+            ubuntu=true
+        else
+            check_debian
+        fi
     fi
 
 }
@@ -2307,7 +2312,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="3.0"
+scriptversion="4.0"
 ##
 
 ## Latest Version
