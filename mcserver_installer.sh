@@ -287,7 +287,7 @@ function install_java8 {
     clear
     if [[ $ubuntu == "true" ]]
     then
-        sudo apt-get install openjdk-8-jdk
+        sudo apt-get install openjdk-8-jdk -y
     else
     apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common -y
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
@@ -956,7 +956,12 @@ distro_check () {
         then
             ubuntu=true
         else
-            check_debian
+            if [[ $ubuntuver == *"22.04" ]]
+            then
+                ubuntu=true
+            else
+                check_debian
+            fi
         fi
     fi
 
