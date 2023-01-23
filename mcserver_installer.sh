@@ -4,8 +4,8 @@
 
 function choose_type {
 
-HEIGHT=40
-WIDTH=80
+HEIGHT=9
+WIDTH61
 CHOICE_HEIGHT=4
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Minecraft Server Type"
@@ -2250,7 +2250,7 @@ function installed_check {
 
 update_dialog () {
 
-    dialog --title 'Update' --msgbox 'To update the script execute the following command: \ngit pull' 10 28
+    dialog --title 'Update' --msgbox '        To update execute: \n\n            git pull' 9 40
     exit
 
 }
@@ -2295,7 +2295,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="5.2"
+scriptversion="5.3"
 ##
 
 ## Latest Version
