@@ -5,7 +5,7 @@
 function choose_type {
 
 HEIGHT=9
-WIDTH61
+WIDTH=61
 CHOICE_HEIGHT=4
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Minecraft Server Type"
@@ -2295,7 +2295,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="5.4"
+scriptversion="5.5"
 ##
 
 ## Latest Version
