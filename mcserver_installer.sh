@@ -2257,9 +2257,9 @@ update_dialog () {
 
 update_needed () {
 
-dialog --title "Script Outdated!" \
+dialog --title "Outdated Script detected!" \
 --backtitle "MC-Server Installer by realTM" \
---yesno "The installed Scriptversion is outdated! \n\nInstalled Version: $scriptversion \nLatest Version: $latestver\n\nDo you want to update the script?" 10 60
+--yesno "There is an update available \n\nInstalled Version: $scriptversion \nLatest Version: $latestver\n\nDo you want to update the script?" 10 60
 
 response2=$?
 case $response2 in
