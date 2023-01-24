@@ -902,10 +902,13 @@ distro_check () {
             ubuntu=true
         else
             current_version=$(</etc/debian_version)
-            if [[ ! $current_version  == "10"* ]] || [[ ! $current_version == "11"* ]]
+            if [[ ! $current_version  == "10"* ]]
             then
-               echo "Your Linux Distribution is not supported."
-               exit 
+                if [[ ! $current_version == "11"* ]]
+                then
+                    echo "Your Linux Distribution is not supported."
+                    exit
+                fi 
             fi
         fi
     fi
