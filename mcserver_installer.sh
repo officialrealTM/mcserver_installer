@@ -2304,7 +2304,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="5.6"
+scriptversion="5.7"
 ##
 
 ## Latest Version
