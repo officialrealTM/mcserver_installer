@@ -1564,7 +1564,10 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.19")
+OPTIONS=(1 "1.19"
+         2 "1.19.1"
+         3 "1.19.2"
+         4 "1.19.3")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1580,6 +1583,24 @@ case $CHOICE in
             #1.19
             ver=1.19
             latest_119=1
+            forge_version_picker
+            ;;
+        2)
+            #1.19.1
+            ver=1.19.1
+            latest_1191=1
+            forge_version_picker
+            ;;
+        3)
+            #1.19.2
+            ver=1.19.2
+            latest_1192=1
+            forge_version_picker
+            ;;
+        4)
+            #1.19.3
+            ver=1.19.3
+            latest_1193=1
             forge_version_picker
             ;;
 
@@ -1903,8 +1924,32 @@ function latest_forge {
         folder_creator_forge
         cd Servers
         cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19-41.0.38/forge-1.19-41.0.38-installer.jar
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19-41.1.0/forge-1.19-41.1.0-installer.jar
         forge_new_installer_routine
+
+    elif [[ $latest_1191 -eq 1 ]]
+    then
+        folder_creator_forge
+        cd Servers
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.1-42.0.9/forge-1.19.1-42.0.9-installer.jar
+        forge_new_installer_routine
+
+    elif [[ $latest_1192 -eq 1 ]]
+    then
+        folder_creator_forge
+        cd Servers
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.2-43.2.3/forge-1.19.2-43.2.3-installer.jar
+        forge_new_installer_routine
+
+    elif [[ $latest_1193 -eq 1 ]]
+    then
+        folder_creator_forge
+        cd Servers
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.3-44.1.7/forge-1.19.3-44.1.7-installer.jar
+        forge_new_installer_routine 
     fi
 }
 
@@ -2256,7 +2301,7 @@ function servers_folder {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="5.5"
+scriptversion="5.6"
 ##
 
 ## Latest Version
