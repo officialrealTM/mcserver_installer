@@ -246,8 +246,14 @@ function decline_java8 {
 
 function check_java8 {
 
-    DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
-    if [ ! -d $DIR ]
+    if [[ $ubuntu = true ]]
+    then
+        DIR="/usr/lib/jvm/java-8-openjdk-amd64"
+    else
+        DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
+    fi
+
+    if [[ ! -d $DIR ]]
     then
         java8
     fi
@@ -434,7 +440,7 @@ echo "" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current8" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java -Xmx$ram -Xms512M -jar server.jar" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
 }
 
 
@@ -527,11 +533,14 @@ function custom_ram_8 {
 
 ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
+--inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
   0)
+        ram_first=$(echo "${ram//B}")
+        ram_second=$(echo "${ram_first//G}")
+        ram_third=$(echo "${ram_second// /}")
         script_creator_8
         chmod +x start.sh
         finalize
@@ -588,7 +597,7 @@ echo "" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current16" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java -Xmx$ram -Xms512M -jar server.jar" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram"G" -Xms512M -jar server.jar" >> start.sh
 }
 
 function select_ram_16 {
@@ -680,11 +689,14 @@ function custom_ram_16 {
 
 ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
+--inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
   0)
+        ram_first=$(echo "${ram//B}")
+        ram_second=$(echo "${ram_first//G}")
+        ram_third=$(echo "${ram_second// /}")
         script_creator_16
         chmod +x start.sh
         finalize
@@ -741,7 +753,7 @@ echo "" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current17" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java -Xmx$ram -Xms512M -jar server.jar" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram"G" -Xms512M -jar server.jar" >> start.sh
 }
 
 
@@ -834,11 +846,14 @@ function custom_ram_17 {
 
 ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
+--inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
   0)
+        ram_first=$(echo "${ram//B}")
+        ram_second=$(echo "${ram_first//G}")
+        ram_third=$(echo "${ram_second// /}")
         script_creator_17
         chmod +x start.sh
         finalize
@@ -876,16 +891,6 @@ function dialog_check {
         fi
 }
 
-check_debian () {
-
-    current_version=$(</etc/debian_version)
-        if [[ ! $current_version  == "10"* ]] || [[ ! $current_version == "11"* ]]
-        then
-	        echo "Your Linux Distribution is not supported."
-            exit
-	
-        fi 
-}
 
 distro_check () {
 
@@ -896,7 +901,12 @@ distro_check () {
         then
             ubuntu=true
         else
-            check_debian
+            current_version=$(</etc/debian_version)
+            if [[ ! $current_version  == "10"* ]] || [[ ! $current_version == "11"* ]]
+            then
+               echo "Your Linux Distribution is not supported."
+               exit 
+            fi
         fi
     fi
 
@@ -2004,11 +2014,14 @@ function forge_custom_ram_17 {
 
 ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
+--inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
   0)
+        ram_first=$(echo "${ram//B}")
+        ram_second=$(echo "${ram_first//G}")
+        ram_third=$(echo "${ram_second// /}")
         forge_script_creator_17
         finalize
         ;;
@@ -2082,7 +2095,7 @@ echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/
     chmod +x start.sh
     echo "" >> user_jvm_args.txt
     echo "-Xms512M" >> user_jvm_args.txt
-    echo "-Xmx$ram" >> user_jvm_args.txt
+    echo "-Xmx$ram_third"G"" >> user_jvm_args.txt
 }
 
 
