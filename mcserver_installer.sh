@@ -906,39 +906,26 @@ function dialog_check {
 check_debian () {
 
     current_version=$(</etc/debian_version)
-        if [[ ! $current_version  == "10"* ]]
+        if [[ ! $current_version  == "10"* ]] || [[ ! $current_version == "11"* ]]
         then
-	        if [[ ! $current_version == "11"* ]]
-		        then
-				    
-                    echo "Your Linux Distribution is not supported."
-                    exit
-	fi	
-fi 
+	        echo "Your Linux Distribution is not supported."
+            exit
+	
+        fi 
 }
 
 distro_check () {
 
-if [[ ! -e .skip_distro_check ]]
-then
-    ubuntuver=$(lsb_release -r)
-    if [[ $ubuntuver == *"18.04" ]]
+    if [[ ! -e .skip_distro_check ]]
     then
-        ubuntu=true
-    else
-        if [[ $ubuntuver == *"20.04" ]]
+        ubuntuver=$(lsb_release -r)
+        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]]
         then
             ubuntu=true
         else
-            if [[ $ubuntuver == *"22.04" ]]
-            then
-                ubuntu=true
-            else
-                check_debian
-            fi
+            check_debian
         fi
     fi
-fi
 
 }
 
