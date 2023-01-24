@@ -37,21 +37,12 @@ clear
 
 function vanilla {
 
-dialog --title "Choose Version" \
+ver=$(dialog --title "Choose Version" \
 --backtitle "MC-Server Installer by realTM" \
 --no-cancel \
---inputbox "Enter the version number you want to install (e.g 1.8.9)\n\n[Leave blank to exit]\n " 10 60 2>mcversions.txt
-#version=0
-#version=$(<mcversions.txt)
-ver=$(<mcversions.txt)
-#version=$(echo $version | sed -e 's/\.//g')
-rm mcversions.txt
-# get respose
+--inputbox "Enter the version number you want to install (e.g 1.8.9)\n\n[Leave blank to exit]\n " 10 60 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $ram using input redirection
-
-# make a decsion
 case $respose in
   0)
         version_checker
@@ -534,17 +525,11 @@ clear
 
 function custom_ram_8 {
 
-dialog --title "Define RAM" \
+ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>ram.txt
-ram=$(<ram.txt)
-rm ram.txt
-# get respose
+--inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $ram using input redirection
-
-# make a decsion
 case $respose in
   0)
         script_creator_8
@@ -693,17 +678,11 @@ clear
 
 function custom_ram_16 {
 
-dialog --title "Define RAM" \
+ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>ram.txt
-ram=$(<ram.txt)
-rm ram.txt
-# get respose
+--inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $ram using input redirection
-
-# make a decsion
 case $respose in
   0)
         script_creator_16
@@ -853,17 +832,11 @@ clear
 
 function custom_ram_17 {
 
-dialog --title "Define RAM" \
+ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>ram.txt
-ram=$(<ram.txt)
-rm ram.txt
-# get respose
+--inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $ram using input redirection
-
-# make a decsion
 case $respose in
   0)
         script_creator_17
@@ -2029,17 +2002,11 @@ clear
 
 function forge_custom_ram_17 {
 
-dialog --title "Define RAM" \
+ram=$(dialog --title "Define RAM" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>ram.txt
-ram=$(<ram.txt)
-rm ram.txt
-# get respose
+--inputbox "Enter Amount\n(Use this format: 1GB = 1G) " 8 60 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $ram using input redirection
-
-# make a decsion
 case $respose in
   0)
         forge_script_creator_17
@@ -2174,17 +2141,11 @@ function normal_forge {
 
 function forge_custom_version {
 
-dialog --title "Custom Forge Version" \
+forge_ex_version_number=$(dialog --title "Custom Forge Version" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the Forge version number you want to install\n\nThe exact Forge version number can be found here: https://files.minecraftforge.net/net/minecraftforge/forge/ \n" 12 80 2>forge_v_number.txt
-forge_ex_version_number=$(<forge_v_number.txt)
-rm forge_v_number.txt
-# get respose
+--inputbox "Enter the Forge version number you want to install\n\nThe exact Forge version number can be found here: https://files.minecraftforge.net/net/minecraftforge/forge/ \n" 12 80 2>&1 >/dev/tty)
 respose=$?
 
-# get data stored in $forge_v_number using input redirection
-
-# make a decsion
 case $respose in
   0)
         forge_new_version_check
