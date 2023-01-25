@@ -1,10 +1,18 @@
 #!/bin/bash
 
+###################################################################
+#Script Name	: MCServerInstaller                                                                                          
+#Description	: A powerful bash script for easy installation of a Minecraft server (Vanilla & Forge)                                                                                                                                                                   
+#Author       	: officialrealTM aka. realTM                                              
+#Email         	: support@realtm.de
+#GitHub         : https://github.com/officialrealTM/mcserver_installer                                           
+###################################################################
+
 ## START OF FUNCTIONS
 
 function choose_type {
 
-HEIGHT=9
+HEIGHT=12
 WIDTH=61
 CHOICE_HEIGHT=4
 BACKTITLE="MC-Server Installer by realTM"
@@ -12,7 +20,8 @@ TITLE="Minecraft Server Type"
 MENU="Select the type of Minecraft Server you want to install:"
 
 OPTIONS=(1 "Minecraft Vanilla"
-         2 "Minecraft Forge")
+         2 "Minecraft Forge"
+         3 "Minecraft Spigot")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -30,6 +39,10 @@ clear
          2)
              forge
              ;;
+         3)
+            spigot=true
+            spigot
+            ;;
  esac
 
 }
@@ -397,7 +410,6 @@ function install_java17 {
     dialog --infobox "Java 17 has been installed now!" 10 30 
 }
 
-#!/bin/bash
 function script_creator_8 {
 echo "function compare {" >> start.sh
 echo "" >> start.sh
@@ -474,49 +486,49 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             ram=1G
+             ram_third=1
              script_creator_8
              chmod +x start.sh
              finalize
              ;;
         2)
-             ram=2G
+             ram_third=2
              script_creator_8
              chmod +x start.sh
              finalize
              ;;
         3)
-            ram=3G
+            ram_third=3
             script_creator_8
             chmod +x start.sh
             finalize
             ;;
         4)
-            ram=4G
+            ram_third=4
             script_creator_8
             chmod +x start.sh
             finalize
              ;;
         5)
-            ram=5G
+            ram_third=5
             script_creator_8
             chmod +x start.sh
             finalize
              ;;
         6)
-            ram=6G
+            ram_third=6
             script_creator_8
             chmod +x start.sh
             finalize
             ;;
         7)
-            ram=7G
+            ram_third=7
             script_creator_8
             chmod +x start.sh
             finalize
             ;;
         8)
-            ram=8G
+            ram_third=8
             script_creator_8
             chmod +x start.sh
             finalize
@@ -597,7 +609,7 @@ echo "" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current16" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java -Xmx$ram"G" -Xms512M -jar server.jar" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
 }
 
 function select_ram_16 {
@@ -630,49 +642,49 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             ram=1G
+             ram_third=1
              script_creator_16
              chmod +x start.sh
              finalize
              ;;
         2)
-             ram=2G
+             ram_third=2
              script_creator_16
              chmod +x start.sh
              finalize
              ;;
         3)
-            ram=3G
+            ram_third=3
             script_creator_16
             chmod +x start.sh
             finalize
             ;;
         4)
-            ram=4G
+            ram_third=4
             script_creator_16
             chmod +x start.sh
             finalize
              ;;
         5)
-            ram=5G
+            ram_third=5
             script_creator_16
             chmod +x start.sh
             finalize
              ;;
         6)
-            ram=6G
+            ram_third=6
             script_creator_16
             chmod +x start.sh
             finalize
             ;;
         7)
-            ram=7G
+            ram_third=7
             script_creator_16
             chmod +x start.sh
             finalize
             ;;
         8)
-            ram=8G
+            ram_third=8
             script_creator_16
             chmod +x start.sh
             finalize
@@ -753,7 +765,7 @@ echo "" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current17" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java -Xmx$ram"G" -Xms512M -jar server.jar" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
 }
 
 
@@ -787,49 +799,49 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             ram=1G
+             ram_third=1
              script_creator_17
              chmod +x start.sh
              finalize
              ;;
         2)
-             ram=2G
+             ram_third=2
              script_creator_17
              chmod +x start.sh
              finalize
              ;;
         3)
-            ram=3G
+            ram_third=3
             script_creator_17
             chmod +x start.sh
             finalize
             ;;
         4)
-            ram=4G
+            ram_third=4
             script_creator_17
             chmod +x start.sh
             finalize
              ;;
         5)
-            ram=5G
+            ram_third=5
             script_creator_17
             chmod +x start.sh
             finalize
              ;;
         6)
-            ram=6G
+            ram_third=6
             script_creator_17
             chmod +x start.sh
             finalize
             ;;
         7)
-            ram=7G
+            ram_third=7
             script_creator_17
             chmod +x start.sh
             finalize
             ;;
         8)
-            ram=8G
+            ram_third=8
             script_creator_17
             chmod +x start.sh
             finalize
@@ -2220,6 +2232,764 @@ esac
 
 }
 
+
+## Start of Spigot Functions
+
+spigot () {
+
+HEIGHT=50
+WIDTH=80
+CHOICE_HEIGHT=13
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the major Version you want to install:"
+
+OPTIONS=(1 "1.8"
+         2 "1.9"
+         3 "1.10"
+         4 "1.11"
+         5 "1.12"
+         6 "1.13"
+         7 "1.14"
+         8 "1.15"
+         9 "1.16"
+         10 "1.17"
+         11 "1.18"
+         12 "1.19")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            ver=1.8
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.8
+            ;;
+        2)
+            ver=1.9
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.9
+            ;;
+        3)
+            ver=1.10
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.10
+            ;;
+        4)
+            ver=1.11
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.11
+            ;;
+        5)
+            ver=1.12
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.12
+            ;;
+        6)
+            ver=1.13
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.13
+            ;;
+        7)
+            ver=1.14
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.14
+            ;;
+        8)
+            ver=1.15
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.15
+            ;;
+        9)
+            ver=1.16
+            check_java8
+            version_grab
+            check_current8
+            spigot_vp_1.16
+            ;;
+        10)
+            ver=1.17
+            check_java16
+            version_grab
+            check_current16
+            spigot_vp_1.17
+            ;;
+        11)
+            ver=1.18
+            check_java17
+            version_grab
+            check_current17
+            spigot_vp_1.18
+            ;;
+        12)
+            ver=1.19
+            check_java17
+            version_grab
+            check_current17
+            spigot_vp_1.19
+esac    
+    
+}
+
+function spigot_vp_1.8 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.8"
+         2 "1.8.3"
+         3 "1.8.8")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.8
+            ver=1.8
+            spigot_installer_routine
+            ;;
+        2)
+            #1.8.3
+            ver=1.8.3
+            spigot_installer_routine
+            ;;
+        3)
+            #1.8.8
+            ver=1.8.8
+            spigot_installer_routine
+            ;;
+
+            
+esac
+
+}
+
+function spigot_vp_1.9 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.9"
+         2 "1.9.2"
+		 3 "1.9.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.9
+            ver=1.9
+            spigot_installer_routine
+            ;;
+        2)
+            #1.9.2
+            ver=1.9.2
+            spigot_installer_routine
+            ;;
+		3)
+			#1.9.4
+			ver=1.9.4
+			spigot_installer_routine
+			;;
+
+            
+esac
+
+}
+
+function spigot_vp_1.10 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.10.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.10.2
+            ver=1.10.2
+            spigot_installer_routine
+            ;;
+
+            
+esac
+
+}
+
+function spigot_vp_1.11 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.11"
+         2 "1.11.1"
+		 3 "1.11.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.11
+            ver=1.11
+            latest_111=1
+            spigot_installer_routine
+            ;;
+        2)
+            #1.11.1
+            ver=1.11.1
+            spigot_installer_routine
+            ;;
+		3)
+			#1.11.2
+			ver=1.11.2
+			spigot_installer_routine
+			;;
+
+            
+esac
+
+}
+
+function spigot_vp_1.12 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.12"
+         2 "1.12.1"
+         3 "1.12.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.12
+            ver=1.12
+            spigot_installer_routine
+            ;;
+        2)
+            #1.12.1
+            ver=1.12.1
+            spigot_installer_routine
+            ;;
+        3)
+            #1.12.2
+            ver=1.12.2
+            spigot_installer_routine
+            ;;
+
+            
+esac
+
+}
+
+function spigot_vp_1.13 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.13"
+		 2 "1.13.1"
+		 3 "1.13.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.13
+            ver=1.13
+            spigot_installer_routine
+            ;;
+		2)
+			#1.13.1
+			ver=1.13.1
+			spigot_installer_routine
+			;;
+		3)
+			#1.13.2
+			ver=1.13.2
+			spigot_installer_routine
+			;;
+esac
+
+}
+
+function spigot_vp_1.14 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.14"
+         2 "1.14.1"
+         3 "1.14.2"
+		 4 "1.14.3"
+		 5 "1.14.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.14
+            ver=1.14
+            spigot_installer_routine
+            ;;
+        2)
+            #1.14.1
+            ver=1.14.1
+            spigot_installer_routine
+            ;;
+        3)
+            #1.14.2
+            ver=1.14.2
+            spigot_installer_routine
+            ;;
+		4)
+			#1.14.3
+			ver=1.14.3
+			spigot_installer_routine
+			;;
+		5)
+			#1.14.4
+			ver=1.14.4
+			spigot_installer_routine
+			;;
+esac
+
+}
+
+function spigot_vp_1.15 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.15"
+         2 "1.15.1"
+         3 "1.15.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.15
+            ver=1.15
+            spigot_installer_routine
+            ;;
+        2)
+            #1.15.1
+            ver=1.15.1
+            spigot_installer_routine
+            ;;
+        3)
+            #1.15.2
+            ver=1.15.2
+            spigot_installer_routine
+            ;;
+esac
+
+}
+
+function spigot_vp_1.16 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.16.1"
+         2 "1.16.2"
+         3 "1.16.3"
+         4 "1.16.4"
+         5 "1.16.5")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.16.1
+            ver=1.16.1
+            spigot_installer_routine
+            ;;
+        2)
+            #1.16.2
+            ver=1.16.2
+            spigot_installer_routine
+            ;;
+        3)
+            #1.16.3
+            ver=1.16.3
+            spigot_installer_routine
+            ;;
+        4)
+            #1.16.4
+            ver=1.16.4
+            spigot_installer_routine
+            ;;
+        5)
+            #1.16.5
+            ver=1.16.5
+            spigot_installer_routine
+            ;;
+
+esac
+
+}
+
+function spigot_vp_1.17 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.17"
+         2 "1.17.1")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.17
+            ver=1.17
+            spigot_installer_routine
+            ;;
+		2)
+			#1.17.1
+			ver=1.17.1
+			spigot_installer_routine
+			;;
+
+esac
+
+}
+
+function spigot_vp_1.18 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.18"
+         2 "1.18.1"
+         3 "1.18.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.18
+            ver=1.18
+            spigot_installer_routine
+            ;;
+        2)
+            #1.18.1
+            ver=1.18.1
+            spigot_installer_routine
+            ;;
+        3)
+            #1.18.2
+            ver=1.18.2
+            spigot_installer_routine
+            ;;
+
+esac
+
+}
+
+function spigot_vp_1.19 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.19"
+         2 "1.19.1"
+         3 "1.19.2"
+         4 "1.19.3")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.19
+            ver=1.19
+            spigot_installer_routine
+            ;;
+        2)
+            #1.19.1
+            ver=1.19.1
+            spigot_installer_routine
+            ;;
+        3)
+            #1.19.2
+            ver=1.19.2
+            spigot_installer_routine
+            ;;
+        4)
+            #1.19.3
+            ver=1.19.3
+            spigot_installer_routine
+            ;;
+
+esac
+
+}
+
+compiled_folder () {
+    if [[ ! -d $path/.compiled ]]
+    then
+        mkdir .compiled
+    fi
+
+}
+
+function folder_creator_spigot {
+cd Servers
+basename="Spigot-$ver"
+dirname=$basename
+i=1
+while [ -d $dirname ]
+do
+  dirname=$basename-$i
+  ((i++))
+done
+mkdir $dirname
+
+}
+
+download_buildtools () {
+
+    cd $dirname
+    mkdir BuildTools
+    cd BuildTools
+    wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+    git config --global --unset core.autocrlf
+
+}
+
+install_spigot () {
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nYour Spigot.jar will now be compiled. \nThis process can take several minutes! ' 10 60
+    clear
+    java -jar BuildTools.jar --rev $ver
+    mv spigot-$ver.jar $path/.compiled
+    cd $path/Servers/$dirname
+    rm -R BuildTools
+
+}
+
+setup_spigot_server () {
+
+        if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
+        then
+            required_java=17
+            select_ram_17
+        elif [[ $ver = "1.17" ]] || [[ $ver = "1.17.1" ]]
+        then
+            required_java=16
+            select_ram_16
+        else
+            required_java=8
+            select_ram_8
+        fi
+
+
+}
+
+move_files () {
+
+    cp $path/.compiled/spigot-$ver.jar $path/Servers/$dirname
+    cd $path/Servers/$dirname
+    mv spigot-$ver.jar server.jar
+}
+
+test_existence () {
+
+    if [[ ! -e $path/.compiled/spigot-$ver.jar ]]
+    then
+        download_buildtools
+        install_spigot
+        move_files
+        setup_spigot_server
+
+    else
+        move_files
+        setup_spigot_server
+    fi
+
+}
+
+spigot_installer_routine () {
+    ## Main Spigot function ##
+    cd $path
+    compiled_folder
+    folder_creator_spigot
+    test_existence
+}
+
+## End of Spigot Functions
+
+## END OF FUNCTIONS
+
+## Script Version
+scriptversion="6.0"
+##
+
+## Latest Version
+latestver=$(curl -s https://version.realtm.de)
+##
+
+## Startup Function
+
 function installer_box {
 
     clear
@@ -2301,17 +3071,6 @@ function servers_folder {
 }
 
 
-## END OF FUNCTIONS
-
-## Script Version
-scriptversion="5.7"
-##
-
-## Latest Version
-latestver=$(curl -s https://version.realtm.de)
-##
-
-
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
 else
@@ -2324,3 +3083,5 @@ else
     pathfinder
     choose_type
 fi
+
+## End of Startup function
