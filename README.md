@@ -1,11 +1,11 @@
 
   
-# Minecraft Server Installer Script (Vanilla & Forge) 1.7.X - 1.19+
+# Minecraft Server Installer Script (Vanilla,Forge & Spigot) 1.7.X - 1.19+
 ## <u>About the project</u>
 
 With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla or Forge, as easy and beginner-friendly as possible. 
 After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_csgo) and providing a detailed [Documentation](https://docs.realtm.de) for them, there were still questions and problems on how to install a Minecraft Server on a Linux-Server.
-Thats why I created this All-in-One solution for installing a Minecraft Server (Forge & Vanilla).
+Thats why I created this All-in-One solution for installing a Minecraft Server (Forge, Vanilla & Spigot).
 
 ## Supported Distros
  - Debian 10
@@ -42,6 +42,11 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.19.X
 - Installing the latest Forge Version
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
+
+### Minecraft Spigot Features:
+- Supported Minecraft Spigot Versions 1.8.X - 1.19.X
+- Using Spigot's offical [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to compile the spigot.jar(s)
+- Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
 
 
 
@@ -117,7 +122,7 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Add support for Minecraft Spigot
+- Add support for Minecraft Paper
 - Commenting & cleaning the sourcecode
 
 
