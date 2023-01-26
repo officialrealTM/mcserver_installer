@@ -886,47 +886,6 @@ function finalize {
     dialog --msgbox "Your server has been installed to\nServers --> $dirname\n\nTo start it go to the folder with this command:\ncd Servers/$dirname \n\nand execute\n./start.sh" 15 60 
 }
 
-
-function pathfinder {
-
-    path=$(pwd)
-}
-
-function dialog_check {  
-        apt-cache policy dialog > dialog.txt
-        if grep -q none dialog.txt
-        then
-            apt install dialog -y   
-            rm dialog.txt
-        else
-            rm dialog.txt    
-        fi
-}
-
-
-distro_check () {
-
-    if [[ ! -e .skip_distro_check ]]
-    then
-        ubuntuver=$(lsb_release -r)
-        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]]
-        then
-            ubuntu=true
-        else
-            current_version=$(</etc/debian_version)
-            if [[ ! $current_version  == "10"* ]]
-            then
-                if [[ ! $current_version == "11"* ]]
-                then
-                    echo "Your Linux Distribution is not supported."
-                    exit
-                fi 
-            fi
-        fi
-    fi
-
-}
-
 ## Start of Function Blocks regarding Minecraft Forge:
 
 function forge {
@@ -2981,7 +2940,7 @@ spigot_installer_routine () {
 ## END OF FUNCTIONS
 
 ## Script Version
-scriptversion="6.0"
+scriptversion="6.1"
 ##
 
 ## Latest Version
@@ -3049,6 +3008,45 @@ esac
 
 }
 
+function pathfinder {
+
+    path=$(pwd)
+}
+
+function dialog_check {  
+        apt-cache policy dialog > dialog.txt
+        if grep -q none dialog.txt
+        then
+            apt install dialog -y   
+            rm dialog.txt
+        else
+            rm dialog.txt    
+        fi
+}
+
+
+distro_check () {
+
+    if [[ ! -e .skip_distro_check ]]
+    then
+        ubuntuver=$(lsb_release -r)
+        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]]
+        then
+            ubuntu=true
+        else
+            current_version=$(</etc/debian_version)
+            if [[ ! $current_version  == "10"* ]]
+            then
+                if [[ ! $current_version == "11"* ]]
+                then
+                    echo "Your Linux Distribution is not supported."
+                    exit
+                fi 
+            fi
+        fi
+    fi
+
+}
 
 compare_version () {
 
