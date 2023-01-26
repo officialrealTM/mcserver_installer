@@ -2990,7 +2990,7 @@ update_needed () {
 
 dialog --title "Outdated Script detected!" \
 --backtitle "MC-Server Installer by realTM" \
---yesno "There is an update available \n\nInstalled Version: $scriptversion \nLatest Version: $latestver\n\nDo you want to update the script?" 10 60
+--yesno "There is an update available \n\nInstalled Version: $output \nLatest Version: $latest\n\nDo you want to update the script?" 10 60
 
 response2=$?
 case $response2 in
@@ -3052,7 +3052,7 @@ then
     current_script_version=$(git describe --tags)
     output=$(echo $current_script_version | cut -f1 -d"-")
 
-    if [[ ! $latest = $output ]]
+    if [[ ! *"$latest"* = *"$output"* ]]
     then
         update_needed
     fi
@@ -3064,6 +3064,7 @@ function servers_folder {
 
     if [[ ! -d Servers ]]
     then
+        cd $path
         mkdir Servers
     fi
 }
