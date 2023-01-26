@@ -2971,7 +2971,6 @@ function installer_routine {
 
 
 function installed_check {
-    cd $path
     if [[ ! -e .installed ]]
     then
         installer_box
@@ -3041,20 +3040,21 @@ distro_check () {
 
 }
 
+## Script Version
+scriptversion="6.2"
+##
+
+## Latest Version
+latestver=$(curl -s https://version.realtm.de)
+##
+
 compare_version () {
 
 if [[ ! -e .skip_version_check ]]
 then
-    latest_release=$(curl -L -s https://api.github.com/repos/officialrealTM/mcserver_installer/releases/latest)
-    latest_version=$(echo $latest_release | grep -oP '"tag_name": "\K(.*)(?=")')
-    latest=$(echo $latest_version | cut -f1 -d"\"")
-    cd $path
-    current_script_version=$(git describe --tags)
-    output=$(echo $current_script_version | cut -f1 -d"-")
-
-    if [[ ! *"$latest"* = *"$output"* ]]
-    then
-        update_needed
+    if [[ ! $latestver = $scriptversion ]]
+        then
+            update_needed
     fi
 fi
 
