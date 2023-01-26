@@ -3041,7 +3041,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="6.3"
+scriptversion="6.4"
 ##
 
 ## Latest Version
