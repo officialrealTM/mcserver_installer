@@ -1,6 +1,6 @@
 
   
-# Minecraft Server Installer Script (Vanilla,Forge & Spigot) 1.7.X - 1.19+
+# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.19+
 ## <u>About the project</u>
 
 With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla or Forge, as easy and beginner-friendly as possible. 
