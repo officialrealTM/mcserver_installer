@@ -2,7 +2,7 @@
 
 ###################################################################
 #Script Name	: MCServerInstaller                                                                                          
-#Description	: A powerful bash script for easy installation of a Minecraft server (Vanilla & Forge)                                                                                                                                                                   
+#Description	: A powerful bash script for easy installation of a Minecraft server (Vanilla, Forge, Spigot & Paper)                                                                                                                                                                   
 #Author       	: officialrealTM aka. realTM                                              
 #Email         	: support@realtm.de
 #GitHub         : https://github.com/officialrealTM/mcserver_installer                                           
@@ -21,7 +21,8 @@ MENU="Select the type of Minecraft Server you want to install:"
 
 OPTIONS=(1 "Minecraft Vanilla"
          2 "Minecraft Forge"
-         3 "Minecraft Spigot")
+         3 "Minecraft Spigot"
+         4 "Minecraft Paper")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -43,6 +44,9 @@ clear
             spigot=true
             spigot
             ;;
+        4)
+            paper
+            ;;
  esac
 
 }
@@ -52,8 +56,7 @@ function vanilla {
 
 ver=$(dialog --title "Choose Version" \
 --backtitle "MC-Server Installer by realTM" \
---no-cancel \
---inputbox "Enter the version number you want to install (e.g 1.8.9)\n\n[Leave blank to exit]\n " 10 60 2>&1 >/dev/tty)
+--inputbox "Enter the version number you want to install (e.g 1.8.9)" 10 60 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
@@ -2845,9 +2848,13 @@ esac
 }
 
 compiled_folder () {
-    if [[ ! -d $path/.compiled ]]
+    
+    if [[ ! $disable = true ]]
     then
-        mkdir .compiled
+        if [[ ! -d $path/.compiled ]]
+        then
+            mkdir .compiled
+        fi
     fi
 
 }
@@ -2880,10 +2887,15 @@ install_spigot () {
     dialog --title 'MC-Server Installer by realTM' --msgbox ' \nYour Spigot.jar will now be compiled. \nThis process can take several minutes! ' 10 60
     clear
     java -jar BuildTools.jar --rev $ver
-    mv spigot-$ver.jar $path/.compiled
-    cd $path/Servers/$dirname
-    rm -R BuildTools
-
+    if [[ $disable = true ]]
+    then
+        cd $path/Servers/$dirname
+        rm -R BuildTools
+    else
+        mv spigot-$ver.jar $path/.compiled
+        cd $path/Servers/$dirname
+        rm -R BuildTools
+    fi
 }
 
 setup_spigot_server () {
@@ -2906,36 +2918,317 @@ setup_spigot_server () {
 
 move_files () {
 
-    cp $path/.compiled/spigot-$ver.jar $path/Servers/$dirname
-    cd $path/Servers/$dirname
-    mv spigot-$ver.jar server.jar
+    if [[ $disable = true ]]
+    then
+        cd $path/Servers/$dirname
+        mv spigot-$ver.jar server.jar
+    else
+        cp $path/.compiled/spigot-$ver.jar $path/Servers/$dirname
+        cd $path/Servers/$dirname
+        mv spigot-$ver.jar server.jar
+    fi
 }
 
 test_existence () {
-
-    if [[ ! -e $path/.compiled/spigot-$ver.jar ]]
+    
+    if [[ -e $path/.disable_spigot_archive ]]
     then
         download_buildtools
         install_spigot
         move_files
         setup_spigot_server
-
     else
-        move_files
-        setup_spigot_server
+        if [[ ! -e $path/.compiled/spigot-$ver.jar ]]
+        then
+            download_buildtools
+            install_spigot
+            move_files
+            setup_spigot_server
+        else
+            move_files
+            setup_spigot_server
+        fi
     fi
+
 
 }
 
 spigot_installer_routine () {
     ## Main Spigot function ##
     cd $path
+    if [[ -e $path/.disable_spigot_archive ]]
+    then
+        disable=true
+    fi
     compiled_folder
     folder_creator_spigot
     test_existence
 }
 
 ## End of Spigot Functions
+
+## Start of Paper Functions
+
+#!/bin/bash
+
+paper () {
+
+HEIGHT=20
+WIDTH=80
+CHOICE_HEIGHT=13
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Select Version"
+MENU="For which Minecraft Version do you want to install Paper?"
+
+OPTIONS=(1 "1.8.8"
+         2 "1.9.4"
+         3 "1.10.2"
+         4 "1.11.2"
+         5 "1.12.2"
+         6 "1.13.2"
+         7 "1.14.4"
+         8 "1.15.2"
+         9 "1.16.5"
+         10 "1.17.1"
+         11 "1.18.2"
+         12 "1.19.3")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+ case $CHOICE in
+        1)
+             version=1.8.8
+             check_java8
+             version_grab
+             check_current8
+             create_json
+             ;;
+        2)
+             version=1.9.4
+             check_java8
+             version_grab
+             check_current8
+             create_json
+             ;;
+        3)
+            version=1.10.2
+            check_java8
+            version_grab
+            check_current8
+             create_json
+            ;;
+        4)
+            version=1.11.2
+            check_java8
+            version_grab
+            check_current8
+             create_json
+             ;;
+        5)
+            version=1.12.2
+            check_java8
+            version_grab
+            check_current8
+             create_json
+             ;;
+        6)
+            version=1.13.2
+            check_java8
+            version_grab
+            check_current8
+             create_json
+            ;;
+        7)
+            version=1.14.4
+            check_java8
+            version_grab
+            check_current8
+             create_json
+            ;;
+        8)
+            version=1.15.2
+            check_java8
+            version_grab
+            check_current8
+             create_json
+            ;;
+        9)
+            version=1.16.5
+            check_java8
+            version_grab
+            check_current8
+             create_json
+            ;;
+        10)
+            version=1.17.1
+            version_grab
+            check_java16
+            check_current16
+            create_json
+            ;;
+        11)
+            version=1.18.2
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+        12)
+            version=1.19.3
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+ esac
+
+
+}
+
+create_json () {
+  curl -X 'GET' \
+  'https://api.papermc.io/v2/projects/paper/versions/'$version'' -s \
+  -H 'accept: application/json' > builds.json
+  set_build
+}
+
+set_build () {
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Select Build Number"
+MENU="Which Build of Paper do you want to install?"
+
+OPTIONS=(1 "I already know the exact build number"
+         2 "Show my the available builds")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            build_input
+            ;;
+        2)
+            show_builds
+            ;;            
+esac
+}
+
+build_input () {
+
+  build=$(dialog --title "Enter Build Number" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter the Build number you want to install " 10 60 2>&1 >/dev/tty)
+respose=$?
+
+case $respose in
+  0)
+        create_array
+        ;;
+  1)
+        echo "Cancel pressed."
+        ;;
+  255)
+        echo "[ESC] key pressed."
+        ;;
+esac
+
+}
+
+show_builds () {
+
+    input=$(cat builds.json)
+    rm $path/builds.json
+    builds=($(echo "$input" | jq -r '.builds[]'))
+    menu_items=()
+    for number in "${builds[@]}"; do
+      menu_items+=("$number" "$number")
+    done
+
+  build=$(dialog --clear \
+                  --no-tags \
+                  --backtitle "MC-Server Installer by realTM" \
+                  --title "Select Build Number" \
+                  --menu "Select the Build number you want to install:" \
+                  0 0 0 \
+                  "${menu_items[@]}" \
+                  2>&1 >/dev/tty)
+  check_existing
+}
+
+
+create_array () {
+    input=$(cat builds.json)
+    rm $path/builds.json
+    builds=($(echo "$input" | jq -r '.builds[]'))
+    check_existing
+}
+
+check_existing () {
+  if [[ " ${builds[@]} " =~ " $build " ]]; then
+  folder_creator_paper
+  download_jar
+  else
+  dialog --msgbox "The build number you've entered does not exist." 7 60
+  build_input
+  fi
+  exit
+}
+
+function folder_creator_paper {
+cd Servers
+basename="Paper-"$version"_Build-$build"
+dirname=$basename
+i=1
+while [ -d $dirname ]
+do
+  dirname=$basename-"($i)"
+  ((i++))
+done
+mkdir $dirname
+
+}
+
+download_jar () {
+    
+    cd $path/Servers/$dirname
+    wget https://api.papermc.io/v2/projects/paper/versions/$version/builds/$build/downloads/paper-$version-$build.jar
+    mv paper*.jar server.jar
+    paper_ram_selector
+}
+
+paper_ram_selector () {
+
+    if [[ $version = "1.17"* ]]
+    then
+        select_ram_16
+    elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]]
+    then
+        select_ram_17
+    else
+        select_ram_8
+    fi
+
+
+
+}
+
+## End of Paper Funcitons
 
 ## END OF FUNCTIONS
 
@@ -2946,7 +3239,7 @@ function installer_box {
     clear
     dialog --title "Required Programs" \
     --backtitle "MC-Server Installer by realTM" \
-    --yesno "The following programs will be installed (or upgraded if they are already installed)\n \n- dialog\n- python3\n- python3-pip\n- pip3 packaging\n- wget\n- screen\n- sudo " 15 60
+    --yesno "The following programs will be installed (or upgraded if they are already installed)\n \n- dialog\n- python3\n- python3-pip\n- pip3 packaging\n- wget\n- screen\n- sudo\n- jq " 15 60
 
     response=$?
     case $response in
@@ -2964,7 +3257,7 @@ function exit_routine {
 function installer_routine {
     touch .installed
     clear
-    apt install dialog python3 python3-pip wget screen sudo -y
+    apt install dialog python3 python3-pip wget screen sudo jq -y
     pip3 install packaging
     
 }
@@ -3041,7 +3334,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="6.4"
+scriptversion="7.0"
 ##
 
 ## Latest Version
@@ -3078,8 +3371,8 @@ else
     dialog_check
     compare_version
     installed_check
-    servers_folder
     pathfinder
+    servers_folder
     choose_type
 fi
 
