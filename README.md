@@ -44,9 +44,16 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
-- Supported Minecraft Spigot Versions 1.8.X - 1.19.X
+- Supported Minecraft Spigot Versions: 1.8.X - 1.19.X
 - Using Spigot's offical [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to compile the spigot.jar(s)
 - Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
+
+### Minecraft Paper Features:
+- Supported Minecraft Paper Versions: 1.8.X - 1.19.X
+- Possibility to install every existing Build of Paper
+- Show list of available Builds for each version to select from
+- Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available Builds
+- Adjusted Sub-Folder Naming (including the Build-Number)
 
 
 
@@ -63,12 +70,14 @@ Downloading the script:
 git clone https://github.com/officialrealTM/mcserver_installer.git
 ```
 
-Going into the downloaded folder:
+## Run the Script
+
+Go into the downloaded folder:
 ```bash
 cd mcserver_installer
 ```
 
-Starting the Script:
+Start the Script:
 ```bash
 ./mcserver_installer.sh
 ```
@@ -122,7 +131,6 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 
 ## Roadmap
 
-- Add support for Minecraft Paper
 - Commenting & cleaning the sourcecode
 
 
@@ -130,7 +138,7 @@ Feel free to join my [Discord](https://realtm.link/discord) to ask questions abo
 ## Tech Stack
 These are all the packages used in this script:
 
-**Used Packages:** dialog, sudo, wget, screen, Python3, Python3-pip, Pip3-Packaging
+**Used Packages:** dialog, sudo, wget, screen, jq, Python3, Python3-pip, Pip3-Packaging
 
 **Python Script:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
 
@@ -153,6 +161,10 @@ touch .skip_version_check
  ```bash
 touch .installed
 ```
+ Disable caching/archiving of compiled Spigot.jar(s):
+ ```bash
+touch .disable_spigot_archive
+```
 
 ### Undo experimental settings
 Enable Distro-check:
@@ -166,6 +178,10 @@ rm .skip_distro_check
 Enable Installed-check (can also be used to re-check installed packages):
 ```bash
 rm .installed
+```
+Enable caching/archiving of compiled Spigot.jar(s):
+```bash
+rm .disable_spigot_archive
 ```
 
 ## Support
