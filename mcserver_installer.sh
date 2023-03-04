@@ -3108,7 +3108,7 @@ TITLE="Select Build Number"
 MENU="Which Build of Paper do you want to install?"
 
 OPTIONS=(1 "I already know the exact build number"
-         2 "Show my the available builds")
+         2 "Show me the available builds")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
