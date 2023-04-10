@@ -81,7 +81,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.19.3
+maxVer=1.19.4
 
 if version_lt $ver $minVer; then
     not_supported
@@ -99,7 +99,7 @@ function not_supported {
     then
         exit
     else
-    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.19 ' 10 60
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.19.4 ' 10 60
     clear
     vanilla
     fi
@@ -1544,7 +1544,8 @@ MENU="Select the exact Version you want to install:"
 OPTIONS=(1 "1.19"
          2 "1.19.1"
          3 "1.19.2"
-         4 "1.19.3")
+         4 "1.19.3"
+         5 "1.19.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1578,6 +1579,12 @@ case $CHOICE in
             #1.19.3
             ver=1.19.3
             latest_1193=1
+            forge_version_picker
+            ;;
+        5)
+            #1.19.4
+            ver=1.19.4
+            latest_1194=1
             forge_version_picker
             ;;
 
@@ -1926,6 +1933,13 @@ function latest_forge {
         cd Servers
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.3-44.1.7/forge-1.19.3-44.1.7-installer.jar
+        forge_new_installer_routine 
+    elif [[ $latest_1194 -eq 1 ]]
+    then
+        folder_creator_forge
+        cd Servers
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.4-45.0.43/forge-1.19.4-45.0.43-installer.jar
         forge_new_installer_routine 
     fi
 }
@@ -2810,7 +2824,8 @@ MENU="Select the exact Version you want to install:"
 OPTIONS=(1 "1.19"
          2 "1.19.1"
          3 "1.19.2"
-         4 "1.19.3")
+         4 "1.19.3"
+         5 "1.19.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2840,6 +2855,11 @@ case $CHOICE in
         4)
             #1.19.3
             ver=1.19.3
+            spigot_installer_routine
+            ;;
+        5)
+            #1.19.4
+            ver=1.19.4
             spigot_installer_routine
             ;;
 
@@ -2991,7 +3011,8 @@ OPTIONS=(1 "1.8.8"
          9 "1.16.5"
          10 "1.17.1"
          11 "1.18.2"
-         12 "1.19.3")
+         12 "1.19.3"
+         13 "1.19.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3082,6 +3103,13 @@ clear
             ;;
         12)
             version=1.19.3
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+        13)
+            version=1.19.4
             version_grab
             check_java17
             check_current17
@@ -3334,7 +3362,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="7.0"
+scriptversion="7.1"
 ##
 
 ## Latest Version
