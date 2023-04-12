@@ -40,7 +40,6 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 
 ### Minecraft Forge Features:
 - Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.19.X
-- Installing the latest Forge Version
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
