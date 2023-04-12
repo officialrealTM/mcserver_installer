@@ -1,4 +1,4 @@
-#!/bin/bash
+d#!/bin/bash
 
 ###################################################################
 #Script Name	: MCServerInstaller                                                                                          
@@ -1957,8 +1957,6 @@ function forge_new_installer_routine {
         forge_installer
         rm *installer.jar
         rm *.log
-        mv *universal.jar server.jar
-        mv forge*.jar server.jar
         new_select_ram_17
 }
 
@@ -1992,49 +1990,49 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             ram=1G
+             ram_third=1
              forge_script_creator_17
              chmod +x start.sh
              finalize
              ;;
         2)
-             ram=2G
+             ram_third=2
              forge_script_creator_17
              chmod +x start.sh
              finalize
              ;;
         3)
-            ram=3G
+            ram_third=3
             forge_script_creator_17
             chmod +x start.sh
             finalize
             ;;
         4)
-            ram=4G
+            ram_third=4
             forge_script_creator_17
             chmod +x start.sh
             finalize
              ;;
         5)
-            ram=5G
+            ram_third=5
             forge_script_creator_17
             chmod +x start.sh
             finalize
              ;;
         6)
-            ram=6G
+            ram_third=6
             forge_script_creator_17
             chmod +x start.sh
             finalize
             ;;
         7)
-            ram=7G
+            ram_third=7
             forge_script_creator_17
             chmod +x start.sh
             finalize
             ;;
         8)
-            ram=8G
+            ram_third=8
             forge_script_creator_17
             chmod +x start.sh
             finalize
