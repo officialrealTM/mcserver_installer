@@ -1042,8 +1042,7 @@ case $CHOICE in
         1)
             #1.7.10
             ver=1.7.10
-            latest_1710=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1077,20 +1076,17 @@ case $CHOICE in
         1)
             #1.8
             ver=1.8
-            latest_18=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.8.8
             ver=1.8.8
-            latest_188=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.8.9
             ver=1.8.9
-            latest_189=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1124,14 +1120,12 @@ case $CHOICE in
         1)
             #1.9
             ver=1.9
-            latest_19=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.9.4
             ver=1.9.4
-            latest_194=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1164,14 +1158,12 @@ case $CHOICE in
         1)
             #1.10
             ver=1.10
-            latest_110=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.10.2
             ver=1.10.2
-            latest_1102=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1205,14 +1197,12 @@ case $CHOICE in
         1)
             #1.11
             ver=1.11
-            latest_111=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.11.2
             ver=1.11.2
-            latest_1112=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1246,20 +1236,17 @@ case $CHOICE in
         1)
             #1.12
             ver=1.12
-            latest_111=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.12.1
             ver=1.12.1
-            latest_1112=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.12.2
             ver=1.12.2
-            latest_1122=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
             
@@ -1292,8 +1279,7 @@ case $CHOICE in
         1)
             #1.13.2
             ver=1.13.2
-            latest_1132=1
-            forge_version_picker
+            forge_custom_version
             ;;
 esac
 
@@ -1326,20 +1312,17 @@ case $CHOICE in
         1)
             #1.14.2
             ver=1.14.2
-            latest_1142=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.14.3
             ver=1.14.3
-            latest_1143=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.14.4
             ver=1.14.4
-            latest_1144=1
-            forge_version_picker
+            forge_custom_version
             ;;
 esac
 
@@ -1372,20 +1355,17 @@ case $CHOICE in
         1)
             #1.15
             ver=1.15
-            latest_115=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.15.1
             ver=1.15.1
-            latest_1151=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.15.2
             ver=1.15.2
-            latest_1152=1
-            forge_version_picker
+            forge_custom_version
             ;;
 esac
 
@@ -1420,32 +1400,27 @@ case $CHOICE in
         1)
             #1.16.1
             ver=1.16.1
-            latest_1161=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.16.2
             ver=1.16.2
-            latest_1162=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.16.3
             ver=1.16.3
-            latest_1163=1
-            forge_version_picker
+            forge_custom_version
             ;;
         4)
             #1.16.4
             ver=1.16.4
-            latest_1164=1
-            forge_version_picker
+            forge_custom_version
             ;;
         5)
             #1.16.5
             ver=1.16.5
-            latest_1165=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
 esac
@@ -1477,8 +1452,7 @@ case $CHOICE in
         1)
             #1.17.1
             ver=1.17.1
-            latest_1171=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
 esac
@@ -1511,20 +1485,17 @@ case $CHOICE in
         1)
             #1.18
             ver=1.18
-            latest_118=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.18.1
             ver=1.18.1
-            latest_1181=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.18.2
             ver=1.18.2
-            latest_1182=1
-            forge_version_picker
+            forge_custom_version
             ;;
 
 esac
@@ -1560,70 +1531,32 @@ case $CHOICE in
         1)
             #1.19
             ver=1.19
-            latest_119=1
-            forge_version_picker
+            forge_custom_version
             ;;
         2)
             #1.19.1
             ver=1.19.1
-            latest_1191=1
-            forge_version_picker
+            forge_custom_version
             ;;
         3)
             #1.19.2
             ver=1.19.2
-            latest_1192=1
-            forge_version_picker
+            forge_custom_version
             ;;
         4)
             #1.19.3
             ver=1.19.3
-            latest_1193=1
-            forge_version_picker
+            forge_custom_version
             ;;
         5)
             #1.19.4
             ver=1.19.4
-            latest_1194=1
-            forge_version_picker
-            ;;
-
-esac
-
-}
-
-
-function forge_version_picker {
-
-HEIGHT=40
-WIDTH=80
-CHOICE_HEIGHT=10
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Forge-Version Picker"
-MENU="Which Forge Version should be installed?"
-
-OPTIONS=(1 "Latest"
-         2 "Custom")
-
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
-
-clear
- case $CHOICE in
-        1)
-             latest_forge
-             ;;
-        2)
             forge_custom_version
             ;;
-esac
-}
 
+esac
+
+}
 
 function folder_creator_forge {
 cd Servers
@@ -1639,310 +1572,6 @@ mkdir $dirname
 
 }
 
-
-function latest_forge {
-
-    if [[ $latest_1710 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.7.10-10.13.4.1614-1.7.10/forge-1.7.10-10.13.4.1614-1.7.10-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_18 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8-11.14.4.1577/forge-1.8-11.14.4.1577-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_188 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.8-11.15.0.1655/forge-1.8.8-11.15.0.1655-installer.jar
-        forge_installer_routine
-  
-
-    elif [[ $latest_189 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/forge-1.8.9-11.15.1.2318-1.8.9-installer.jar
-        forge_installer_routine
-   
-
-    elif [[ $latest_19 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.9-12.16.1.1938-1.9.0/forge-1.9-12.16.1.1938-1.9.0-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_194 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.9.4-12.17.0.2317-1.9.4/forge-1.9.4-12.17.0.2317-1.9.4-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_110 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.10-12.18.0.2000-1.10.0/forge-1.10-12.18.0.2000-1.10.0-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1102 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.10.2-12.18.3.2511/forge-1.10.2-12.18.3.2511-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_111 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.11-13.19.1.2199/forge-1.11-13.19.1.2199-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1112 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.11.2-13.20.1.2588/forge-1.11.2-13.20.1.2588-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_112 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12-14.21.1.2443/forge-1.12-14.21.1.2443-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1121 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.1-14.22.1.2485/forge-1.12.1-14.22.1.2485-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1122 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.2-14.23.5.2860/forge-1.12.2-14.23.5.2860-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1132 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.13.2-25.0.223/forge-1.13.2-25.0.223-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1142 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.2-26.0.63/forge-1.14.2-26.0.63-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1143 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.3-27.0.60/forge-1.14.3-27.0.60-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1144 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.14.4-28.2.26/forge-1.14.4-28.2.26-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_115 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15-29.0.4/forge-1.15-29.0.4-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1151 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15.1-30.0.51/forge-1.15.1-30.0.51-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1152 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.15.2-31.2.57/forge-1.15.2-31.2.57-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1161 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.1-32.0.108/forge-1.16.1-32.0.108-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1162 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.2-33.0.61/forge-1.16.2-33.0.61-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1163 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.3-34.1.42/forge-1.16.3-34.1.42-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1164 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.4-35.1.37/forge-1.16.4-35.1.37-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1165 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.16.5-36.2.35/forge-1.16.5-36.2.35-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_1171 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.17.1-37.1.1/forge-1.17.1-37.1.1-installer.jar
-        forge_installer_routine
-    
-
-    elif [[ $latest_118 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18-38.0.17/forge-1.18-38.0.17-installer.jar
-        forge_new_installer_routine
-    
-
-    elif [[ $latest_1181 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.1-39.1.2/forge-1.18.1-39.1.2-installer.jar
-        forge_new_installer_routine
-    
-
-    elif [[ $latest_1182 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.18.2-40.1.51/forge-1.18.2-40.1.51-installer.jar
-        forge_new_installer_routine
-    
-
-    elif [[ $latest_119 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19-41.1.0/forge-1.19-41.1.0-installer.jar
-        forge_new_installer_routine
-
-    elif [[ $latest_1191 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.1-42.0.9/forge-1.19.1-42.0.9-installer.jar
-        forge_new_installer_routine
-
-    elif [[ $latest_1192 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.2-43.2.3/forge-1.19.2-43.2.3-installer.jar
-        forge_new_installer_routine
-
-    elif [[ $latest_1193 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.3-44.1.7/forge-1.19.3-44.1.7-installer.jar
-        forge_new_installer_routine 
-    elif [[ $latest_1194 -eq 1 ]]
-    then
-        folder_creator_forge
-        cd Servers
-        cd $dirname
-        wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.4-45.0.43/forge-1.19.4-45.0.43-installer.jar
-        forge_new_installer_routine 
-    fi
-}
 
 function forge_installer_routine {
         forge_installer
@@ -2156,7 +1785,7 @@ function forge_installer {
 }
 
 function forge_new_version_check {
-    if [[ $ver = "1.18" ]] || [[ $ver = "1.18.1" ]] || [[ $ver = "1.18.2" ]] || [[ $ver = "1.19" ]]
+    if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
     then
             folder_creator_forge
             cd Servers
@@ -2190,7 +1819,7 @@ function forge_custom_version {
 
 forge_ex_version_number=$(dialog --title "Custom Forge Version" \
 --backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the Forge version number you want to install\n\nThe exact Forge version number can be found here: https://files.minecraftforge.net/net/minecraftforge/forge/ \n" 12 80 2>&1 >/dev/tty)
+--inputbox "Enter the Forge version number you want to install (e.g. 45.0.43)\n\nThe exact Forge version number can be found here: https://files.minecraftforge.net/net/minecraftforge/forge/ \n" 12 80 2>&1 >/dev/tty)
 respose=$?
 
 case $respose in
@@ -3360,7 +2989,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="7.1"
+scriptversion="7.3"
 ##
 
 ## Latest Version
