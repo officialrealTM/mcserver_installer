@@ -2989,7 +2989,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="7.3"
+scriptversion="7.4"
 ##
 
 ## Latest Version
@@ -3015,6 +3015,17 @@ function servers_folder {
         cd $path
         mkdir Servers
     fi
+}
+
+function curl_check {  
+        apt-cache policy curl > curl.txt
+        if grep -q none curl.txt
+        then
+            apt install curl -y   
+            rm curl.txt
+        else
+            rm curl.txt    
+        fi
 }
 
 
