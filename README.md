@@ -1,6 +1,6 @@
 
   
-# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.19+
+# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.20+
 ## <u>About the project</u>
 
 With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla or Forge, as easy and beginner-friendly as possible. 
@@ -36,19 +36,19 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
-- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.19.X
+- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.20.X
 
 ### Minecraft Forge Features:
-- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.19.X
+- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.20.X
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
-- Supported Minecraft Spigot Versions: 1.8.X - 1.19.X
+- Supported Minecraft Spigot Versions: 1.8.X - 1.20.X
 - Using Spigot's offical [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to compile the spigot.jar(s)
 - Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
 
 ### Minecraft Paper Features:
-- Supported Minecraft Paper Versions: 1.8.X - 1.19.X
+- Supported Minecraft Paper Versions: 1.8.X - 1.20.X
 - Possibility to install every existing Build of Paper
 - Show list of available Builds for each version to select from
 - Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available Builds
