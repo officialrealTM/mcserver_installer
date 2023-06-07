@@ -81,7 +81,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.19.4
+maxVer=1.20
 
 if version_lt $ver $minVer; then
     not_supported
@@ -99,7 +99,7 @@ function not_supported {
     then
         exit
     else
-    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.19.4 ' 10 60
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.20.X ' 10 60
     clear
     vanilla
     fi
@@ -133,7 +133,7 @@ function java_selector {
         wget $dl
         sleep 1
         select_ram_16
-    elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
+    elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
         check_java17
         version_grab
@@ -895,7 +895,7 @@ function forge {
 
 HEIGHT=50
 WIDTH=80
-CHOICE_HEIGHT=13
+CHOICE_HEIGHT=14
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the major Version you want to install:"
@@ -912,7 +912,8 @@ OPTIONS=(1 "1.7"
          10 "1.16"
          11 "1.17"
          12 "1.18"
-         13 "1.19")
+         13 "1.19"
+         14 "1.20")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1014,6 +1015,14 @@ case $CHOICE in
             version_grab
             check_current17
             forge_vp_1.19
+            ;;
+        14)
+            ver=1.20
+            check_java17
+            version_grab
+            check_current17
+            forge_vp_1.20
+            ;;
 esac    
     
 }
@@ -1558,6 +1567,37 @@ esac
 
 }
 
+function forge_vp_1.20 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.20")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.20
+            ver=1.20
+            forge_custom_version
+            ;;
+
+esac
+
+}
+
 function folder_creator_forge {
 cd Servers
 basename="Forge-$ver"
@@ -1766,10 +1806,10 @@ echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/
 function ram_version_checker {
 
 
-    if [ $ver = "1.17" ] || [ $ver = "1.17.1" ]
+    if [[ $ver = "1.17"* ]]
     then
         select_ram_17
-    elif [ $ver = "1.18" ] ||  [ $ver = "1.18.1" ] ||  [ $ver = "1.18.2" ] || [ $ver = "1.19" ]
+    elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
         select_ram_16
     else
@@ -1785,7 +1825,7 @@ function forge_installer {
 }
 
 function forge_new_version_check {
-    if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
+    if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
             folder_creator_forge
             cd Servers
@@ -1858,7 +1898,8 @@ OPTIONS=(1 "1.8"
          9 "1.16"
          10 "1.17"
          11 "1.18"
-         12 "1.19")
+         12 "1.19"
+         13 "1.20")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1953,6 +1994,13 @@ case $CHOICE in
             version_grab
             check_current17
             spigot_vp_1.19
+            ;;
+        13)
+            ver=1.20
+            check_java17
+            version_grab
+            check_current17
+            spigot_vp_1.20
 esac    
     
 }
@@ -2494,6 +2542,37 @@ esac
 
 }
 
+function spigot_vp_1.20 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.20")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.20
+            ver=1.20
+            spigot_installer_routine
+            ;;
+
+esac
+
+}
+
 compiled_folder () {
     
     if [[ ! $disable = true ]]
@@ -2547,7 +2626,7 @@ install_spigot () {
 
 setup_spigot_server () {
 
-        if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]]
+        if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
         then
             required_java=17
             select_ram_17
@@ -2620,9 +2699,9 @@ spigot_installer_routine () {
 
 paper () {
 
-HEIGHT=20
+HEIGHT=22
 WIDTH=80
-CHOICE_HEIGHT=13
+CHOICE_HEIGHT=15
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Select Version"
 MENU="For which Minecraft Version do you want to install Paper?"
@@ -2639,7 +2718,8 @@ OPTIONS=(1 "1.8.8"
          10 "1.17.1"
          11 "1.18.2"
          12 "1.19.3"
-         13 "1.19.4")
+         13 "1.19.4"
+         14 "1.20.?-pre")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2737,6 +2817,13 @@ clear
             ;;
         13)
             version=1.19.4
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+        14)
+            version=1.20
             version_grab
             check_java17
             check_current17
@@ -2872,7 +2959,7 @@ paper_ram_selector () {
     if [[ $version = "1.17"* ]]
     then
         select_ram_16
-    elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]]
+    elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]] || [[ $version = "1.20"* ]]
     then
         select_ram_17
     else
@@ -2989,7 +3076,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="7.4"
+scriptversion="8.0"
 ##
 
 ## Latest Version
