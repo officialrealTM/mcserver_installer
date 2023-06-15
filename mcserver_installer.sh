@@ -81,7 +81,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.20
+maxVer=1.20.1
 
 if version_lt $ver $minVer; then
     not_supported
@@ -1576,7 +1576,8 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.20")
+OPTIONS=(1 "1.20"
+         2 "1.20.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1593,6 +1594,10 @@ case $CHOICE in
             ver=1.20
             forge_custom_version
             ;;
+        2)
+            #1.20.1
+            ver=1.20.1
+            forge_custom_version
 
 esac
 
@@ -2551,7 +2556,7 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.20")
+OPTIONS=(1 "1.20.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2564,8 +2569,8 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            #1.20
-            ver=1.20
+            #1.20.1
+            ver=1.20.1
             spigot_installer_routine
             ;;
 
@@ -2719,7 +2724,8 @@ OPTIONS=(1 "1.8.8"
          11 "1.18.2"
          12 "1.19.3"
          13 "1.19.4"
-         14 "1.20.?-pre")
+         14 "1.20"
+         15 "1.20.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2824,6 +2830,13 @@ clear
             ;;
         14)
             version=1.20
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+        15)
+            version=1.20.1
             version_grab
             check_java17
             check_current17
@@ -3076,7 +3089,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.0"
+scriptversion="8.1"
 ##
 
 ## Latest Version
