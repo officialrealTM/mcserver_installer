@@ -2700,8 +2700,6 @@ spigot_installer_routine () {
 
 ## Start of Paper Functions
 
-#!/bin/bash
-
 paper () {
 
 HEIGHT=22
@@ -3089,7 +3087,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.1"
+scriptversion="8.2"
 ##
 
 ## Latest Version
