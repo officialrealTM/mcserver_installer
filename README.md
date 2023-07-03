@@ -3,9 +3,9 @@
 # Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.20+
 ## <u>About the project</u>
 
-With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla or Forge, as easy and beginner-friendly as possible. 
+With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla, Forge, Spigot or Paper, as easy and beginner-friendly as possible. 
 After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_csgo) and providing a detailed [Documentation](https://docs.realtm.de) for them, there were still questions and problems on how to install a Minecraft Server on a Linux-Server.
-Thats why I created this All-in-One solution for installing a Minecraft Server (Forge, Vanilla & Spigot).
+Thats why I created this All-in-One solution for installing a Minecraft Server (Forge, Vanilla, Spigot & Paper).
 
 ## Supported Distros
  - Debian 10
