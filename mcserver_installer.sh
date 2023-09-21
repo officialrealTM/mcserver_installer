@@ -3087,7 +3087,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.2"
+scriptversion="8.3"
 ##
 
 ## Latest Version
