@@ -61,13 +61,16 @@ respose=$?
 
 case $respose in
   0)
+        clear
         version_checker
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
         echo "[ESC] key pressed."
+        clear
         ;;
 esac
         
@@ -81,7 +84,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.20.3
+maxVer=1.20.4
 
 if version_lt $ver $minVer; then
     not_supported
@@ -123,35 +126,35 @@ function java_selector {
 
     if [[ $ver = "1.17"* ]]
     then
+        clear
         check_java16
         version_grab
         check_current16
         dl=$(python3 mcurlgrabber.py server-url $ver)
         folder_creator_vanilla
-        cd Servers
         cd $dirname
         wget $dl
         sleep 1
         select_ram_16
     elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
+        clear
         check_java17
         version_grab
         check_current17
         dl=$(python3 mcurlgrabber.py server-url $ver)
         folder_creator_vanilla
-        cd Servers
         cd $dirname
         wget $dl
         sleep 1
         select_ram_17
     else
+        clear
         check_java8
         version_grab
         check_current8
         dl=$(python3 mcurlgrabber.py server-url $ver)
         folder_creator_vanilla
-        cd Servers
         cd $dirname
         wget $dl
         sleep 1
@@ -206,7 +209,9 @@ function check_current8 {
     if [[ ! $javaversion -eq 8 ]]
     then
         dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 8 is required.\nChange it to Java 8 in the following menu' 10 60
+        clear
         sudo update-alternatives --config java
+        clear
     fi
 }
 
@@ -215,7 +220,9 @@ function check_current16 {
     if [[ ! $javaversion -eq 16 ]]
     then
         dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 16 is required.\nChange it to Java 16 in the following menu' 10 60
+        clear
         sudo update-alternatives --config java
+        clear
     fi
 }
 
@@ -224,7 +231,9 @@ function check_current17 {
     if [[ ! $javaversion -eq 17 ]]
     then
         dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60
+        clear
         sudo update-alternatives --config java
+        clear
     fi
 }
 
@@ -461,8 +470,8 @@ echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> st
 
 function select_ram_8 {
 
-HEIGHT=40
-WIDTH=80
+HEIGHT=20
+WIDTH=50
 CHOICE_HEIGHT=10
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Allocate RAM"
@@ -562,9 +571,11 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
    echo "[ESC] key pressed."
+   clear
 esac
         
     
@@ -617,8 +628,8 @@ echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> st
 
 function select_ram_16 {
 
-HEIGHT=40
-WIDTH=80
+HEIGHT=20
+WIDTH=50
 CHOICE_HEIGHT=10
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Allocate RAM"
@@ -718,9 +729,11 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
    echo "[ESC] key pressed."
+   clear
 esac
         
     
@@ -774,8 +787,8 @@ echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> st
 
 function select_ram_17 {
 
-HEIGHT=40
-WIDTH=80
+HEIGHT=20
+WIDTH=50
 CHOICE_HEIGHT=10
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Allocate RAM"
@@ -875,9 +888,11 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
    echo "[ESC] key pressed."
+   clear
 esac
         
     
@@ -887,14 +902,15 @@ function finalize {
 
     echo "eula=true" > eula.txt
     dialog --msgbox "Your server has been installed to\nServers --> $dirname\n\nTo start it go to the folder with this command:\ncd Servers/$dirname \n\nand execute\n./start.sh" 15 60 
+    clear
 }
 
 ## Start of Function Blocks regarding Minecraft Forge:
 
 function forge {
 
-HEIGHT=50
-WIDTH=80
+HEIGHT=22
+WIDTH=50
 CHOICE_HEIGHT=14
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
@@ -1577,7 +1593,8 @@ TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.20"
-         2 "1.20.1")
+         2 "1.20.1"
+         3 "1.20.2")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1598,6 +1615,13 @@ case $CHOICE in
             #1.20.1
             ver=1.20.1
             forge_custom_version
+            ;;
+        3)
+            #1.20.2
+            ver=1.20.2
+            forge_custom_version
+            ;;
+        
 
 esac
 
@@ -1636,8 +1660,8 @@ function forge_new_installer_routine {
 
 function new_select_ram_17 {
 
-HEIGHT=40
-WIDTH=80
+HEIGHT=20
+WIDTH=50
 CHOICE_HEIGHT=10
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Allocate RAM"
@@ -1735,9 +1759,11 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
    echo "[ESC] key pressed."
+   clear
 esac
         
     
@@ -1745,7 +1771,7 @@ esac
 
 function forge_script_creator_17 {
 
-    code=$(grep -o "$ver-[^/]*" run.sh)
+    #code=$(grep -o "$ver-[^/]*" run.sh)
     rm run.bat
     rm run.sh
     touch user_jvm_args.txt
@@ -1799,7 +1825,7 @@ echo "check_java17" >> start.sh
 echo "version_grab" >> start.sh
 echo "check_current17" >> start.sh
 echo "" >> start.sh
-echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$code/unix_args.txt \"\$@"\" >> start.sh
+echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$ver-$forge_ex_version_number/unix_args.txt \"\$@"\" >> start.sh
     chmod +x start.sh
     echo "" >> user_jvm_args.txt
     echo "-Xms512M" >> user_jvm_args.txt
@@ -1832,8 +1858,8 @@ function forge_installer {
 function forge_new_version_check {
     if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
+            clear
             folder_creator_forge
-            cd Servers
             cd $dirname
             wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
             forge_new_installer_routine
@@ -1845,8 +1871,8 @@ function forge_new_version_check {
 }
 
 function normal_forge {
+        clear
         folder_creator_forge
-        cd Servers
         cd $dirname
         if [[ $forge_ex_version_number = "11.15.1.1890" ]] || [[ $forge_ex_version_number = "11.15.1.1902" ]] || [[ $forge_ex_version_number = "11.15.1.2318" ]]
         then
@@ -1870,12 +1896,15 @@ respose=$?
 case $respose in
   0)
         forge_new_version_check
+        clear
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
-   echo "[ESC] key pressed." 
+   echo "[ESC] key pressed."
+   clear
 esac
 
 }
@@ -2556,7 +2585,8 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.20.1")
+OPTIONS=(1 "1.20.1"
+         2 "1.20.2")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2571,6 +2601,11 @@ case $CHOICE in
         1)
             #1.20.1
             ver=1.20.1
+            spigot_installer_routine
+            ;;
+        2)
+            #1.20.2
+            ver=1.20.2
             spigot_installer_routine
             ;;
 
@@ -2702,7 +2737,7 @@ spigot_installer_routine () {
 
 paper () {
 
-HEIGHT=22
+HEIGHT=25
 WIDTH=80
 CHOICE_HEIGHT=15
 BACKTITLE="MC-Server Installer by realTM"
@@ -2723,7 +2758,8 @@ OPTIONS=(1 "1.8.8"
          12 "1.19.3"
          13 "1.19.4"
          14 "1.20"
-         15 "1.20.1")
+         15 "1.20.1"
+         16 "1.20.2")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2840,6 +2876,13 @@ clear
             check_current17
             create_json
             ;;
+        16)
+            version=1.20.2
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
  esac
 
 
@@ -2895,9 +2938,11 @@ case $respose in
         ;;
   1)
         echo "Cancel pressed."
+        clear
         ;;
   255)
         echo "[ESC] key pressed."
+        clear
         ;;
 esac
 
@@ -3087,7 +3132,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.4"
+scriptversion="8.5"
 ##
 
 ## Latest Version
