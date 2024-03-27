@@ -1594,7 +1594,9 @@ MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.20"
          2 "1.20.1"
-         3 "1.20.2")
+         3 "1.20.2"
+         4 "1.20.3"
+         5 "1.20.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1621,6 +1623,17 @@ case $CHOICE in
             ver=1.20.2
             forge_custom_version
             ;;
+        4)
+            #1.20.3
+            ver=1.20.3
+            forge_custom_version
+            ;;
+        5)
+            #1.20.4
+            ver=1.20.4
+            forge_custom_version
+            ;;
+
         
 
 esac
@@ -3132,7 +3145,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.5"
+scriptversion="8.6"
 ##
 
 ## Latest Version
