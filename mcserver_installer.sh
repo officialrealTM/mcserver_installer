@@ -926,7 +926,7 @@ OPTIONS=(1 "1.7"
          8 "1.14"
          9 "1.15"
          10 "1.16"
-         11 "1.17"
+         #11 "1.17"
          12 "1.18"
          13 "1.19"
          14 "1.20")
@@ -1595,7 +1595,8 @@ MENU="Select the exact Version you want to install:"
 OPTIONS=(1 "1.20"
          2 "1.20.1"
          3 "1.20.2"
-         4 "1.20.4")
+         4 "1.20.3"
+         5 "1.20.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1623,6 +1624,11 @@ case $CHOICE in
             forge_custom_version
             ;;
         4)
+            #1.20.3
+            ver=1.20.3
+            forge_custom_version
+            ;;
+        5)
             #1.20.4
             ver=1.20.4
             forge_custom_version
@@ -1662,7 +1668,12 @@ function forge_new_installer_routine {
         forge_installer
         rm *installer.jar
         rm *.log
-        new_select_ram_17
+        if [[ $ver = "1.17"* ]]
+        then
+            ram_version_checker
+        else
+            new_select_ram_17
+        fi
 }
 
 function new_select_ram_17 {
@@ -1696,49 +1707,49 @@ clear
  case $CHOICE in
         1)
              ram_third=1
-             forge_script_creator_17
+             decide_script_version
              chmod +x start.sh
              finalize
              ;;
         2)
              ram_third=2
-             forge_script_creator_17
+             decide_script_version
              chmod +x start.sh
              finalize
              ;;
         3)
             ram_third=3
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
             ;;
         4)
             ram_third=4
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
              ;;
         5)
             ram_third=5
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
              ;;
         6)
             ram_third=6
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
             ;;
         7)
             ram_third=7
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
             ;;
         8)
             ram_third=8
-            forge_script_creator_17
+            decide_script_version
             chmod +x start.sh
             finalize
             ;;
@@ -1748,6 +1759,18 @@ clear
  esac
 
 }
+
+function decide_script_version {
+
+    if [[ §ver = "1.20.3" ]]
+    then
+        script_creator_17
+    else
+        forge_script_creator_17
+    fi
+
+}
+
 
 function forge_custom_ram_17 {
 
@@ -1761,7 +1784,7 @@ case $respose in
         ram_first=$(echo "${ram//B}")
         ram_second=$(echo "${ram_first//G}")
         ram_third=$(echo "${ram_second// /}")
-        forge_script_creator_17
+        decide_script_version
         finalize
         ;;
   1)
@@ -1846,10 +1869,10 @@ function ram_version_checker {
 
     if [[ $ver = "1.17"* ]]
     then
-        select_ram_17
+        select_ram_16
     elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
-        select_ram_16
+        select_ram_17
     else
         select_ram_8
     fi
@@ -1863,19 +1886,23 @@ function forge_installer {
 }
 
 function forge_new_version_check {
-    if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
+
+    if [[ $ver = "1.20.3" ]]
     then
-            clear
-            folder_creator_forge
-            cd $dirname
-            wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
-            forge_new_installer_routine
+        normal_forge
+    elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
+    then
+        clear
+        folder_creator_forge
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
+        forge_new_installer_routine
     else
         normal_forge
     fi
 
-
 }
+
 
 function normal_forge {
         clear
@@ -3139,7 +3166,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.7"
+scriptversion="8.8"
 ##
 
 ## Latest Version
