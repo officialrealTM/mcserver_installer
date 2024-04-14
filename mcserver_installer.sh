@@ -274,6 +274,8 @@ function check_java8 {
     if [[ $ubuntu = true ]]
     then
         DIR="/usr/lib/jvm/java-8-openjdk-amd64"
+    elif [[ $deb12 = true ]]
+        DIR="/usr/lib/jvm/temurin-8-jdk-amd64/bin/java"
     else
         DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
     fi
@@ -310,6 +312,13 @@ function install_java8 {
     if [[ $ubuntu == "true" ]]
     then
         sudo apt-get install openjdk-8-jdk -y
+    elif [[ $deb12 == "true" ]]
+    then
+        mkdir -p /etc/apt/keyrings
+        wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
+        echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+        apt update
+        apt install temurin-8-jdk -y
     else
     apt install apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common -y
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
@@ -3090,7 +3099,12 @@ function installer_routine {
     touch .installed
     clear
     apt install dialog python3 python3-pip wget screen sudo jq -y
+    if [[ $deb12 == "true" ]]
+    then
+        apt install python3-packaging -y
+    else
     pip3 install packaging
+    fi
     
 }
 
@@ -3156,8 +3170,13 @@ distro_check () {
             then
                 if [[ ! $current_version == "11"* ]]
                 then
+                    if [[ $current_version == "12"* ]]
+                    then
+                        deb12=true
+                    else
                     echo "Your Linux Distribution is not supported."
                     exit
+                    fi
                 fi 
             fi
         fi
@@ -3166,7 +3185,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="8.8"
+scriptversion="9.0"
 ##
 
 ## Latest Version

@@ -10,6 +10,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 ## Supported Distros
  - Debian 10
  - Debian 11
+ - Debian 12
  - Ubuntu 18.04
  - Ubuntu 20.04
  - Ubuntu 22.04
