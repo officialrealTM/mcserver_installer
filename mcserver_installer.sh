@@ -275,6 +275,7 @@ function check_java8 {
     then
         DIR="/usr/lib/jvm/java-8-openjdk-amd64"
     elif [[ $deb12 = true ]]
+    then
         DIR="/usr/lib/jvm/temurin-8-jdk-amd64/bin/java"
     else
         DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
@@ -3185,7 +3186,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="9.0"
+scriptversion="9.1"
 ##
 
 ## Latest Version
