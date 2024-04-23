@@ -84,7 +84,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.20.4
+maxVer=1.20.5
 
 if version_lt $ver $minVer; then
     not_supported
@@ -136,6 +136,18 @@ function java_selector {
         wget $dl
         sleep 1
         select_ram_16
+    elif [[ $ver = "1.20.5" ]]
+    then
+        clear
+        check_java21
+        version_grab
+        check_current21
+        dl=$(python3 mcurlgrabber.py server-url $ver)
+        folder_creator_vanilla
+        cd $dirname
+        wget $dl
+        sleep 1
+        select_ram_21
     elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
     then
         clear
@@ -201,6 +213,11 @@ function compare {
         javaversion=17 
     fi
 
+    if grep -q 21.* javaversion.txt
+    then
+        javaversion=21
+    fi
+
     rm javaversion.txt
 }
 
@@ -237,6 +254,17 @@ function check_current17 {
     fi
 }
 
+function check_current21 {
+
+    if [[ ! $javaversion -eq 21 ]]
+    then
+        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '$javaversion' selected, but Java 21 is required.\nChange it to Java 21 in the following menu' 10 60
+        clear
+        sudo update-alternatives --config java
+        clear
+    fi
+
+}
 
 function java8 {
 clear
@@ -303,6 +331,14 @@ function check_java17 {
     if [ ! -d $DIR ]
     then
         java17
+    fi
+}
+
+function check_java21 {
+    DIR="/usr/lib/jvm/jdk-21-oracle-x64/"
+    if [[ ! -d $DIR ]]
+    then
+        java21
     fi
 }
 
@@ -404,7 +440,7 @@ function decline_java17 {
     clear
     dialog --title "Error" \
     --backtitle "MC-Server Installer by realTM" \
-    --yesno "Java17 is required to run a Minecraft Server! \nDo you want to install it?" 10 60
+    --yesno "Java 17 is required to run a Minecraft Server! \nDo you want to install it?" 10 60
 
     response=$?
     case $response in
@@ -430,6 +466,50 @@ function install_java17 {
     sleep 5
     clear
     dialog --infobox "Java 17 has been installed now!" 10 30 
+}
+
+function java21 {
+clear
+dialog --title "Java Installer" \
+--backtitle "MC-Server Installer by realTM" \
+--yesno "Java 21 is required! Do you want to install it?" 7 60
+
+response2=$?
+case $response2 in
+   0) install_java21;;
+   1) decline_java21;;
+   255) echo "[ESC] key pressed.";;
+esac
+
+}
+
+function decline_java21 {
+
+    clear
+    dialog --title "Error" \
+    --backtitle "MC-Server Installer by realTM" \
+    --yesno "Java 21 is required to run a Minecraft Server! \nDo you want to install it?" 10 60
+
+    response=$?
+    case $response in
+        0) install_java21;;
+        1) clear && exit;;
+        255) echo "[ESC] key pressed.";;
+    esac
+}
+
+function install_java21 {
+    dialog --infobox "Java 21 will be installed now" 10 30 && sleep 3
+    clear
+    cd /tmp/
+    wget wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb
+    sudo dpkg -i jdk-21_linux-x64_bin.deb
+    rm jdk-21_linux-x64_bin.deb
+    sudo update-alternatives --config java
+    cd $path
+    sleep 5
+    clear
+    dialog --infobox "Java 21 has been installed now!" 10 30 
 }
 
 function script_creator_8 {
@@ -904,9 +984,168 @@ case $respose in
    echo "[ESC] key pressed."
    clear
 esac
-        
-    
 }
+
+function script_creator_21 {
+echo "function compare {" >> start.sh
+echo "" >> start.sh
+echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=8" >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh
+    
+echo "    if grep -q 16.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=16" >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh    
+    
+echo "    if grep -q 17.* javaversion.txt" >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=17 " >> start.sh
+echo "    fi" >> start.sh
+echo "" >> start.sh
+echo "    if grep -q 21.* javaversion.txt " >> start.sh
+echo "    then" >> start.sh
+echo "        javaversion=21" >> start.sh
+echo "    fi" >> start.sh
+echo "    rm javaversion.txt" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh 
+echo "" >> start.sh 
+echo "function version_grab {" >> start.sh
+echo "    java=$\"java -version"\" >> start.sh
+echo "    \$java &> javaversion.txt" >> start.sh
+echo "    compare" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh
+echo "function check_current21 {" >> start.sh
+echo "" >> start.sh
+echo "    if [[ ! \$javaversion -eq "21" ]]" >> start.sh
+echo "    then" >> start.sh
+echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60" >> start.sh
+echo "        sudo update-alternatives --config java" >> start.sh
+echo "    fi" >> start.sh
+echo "}" >> start.sh
+echo "" >> start.sh
+echo "version_grab" >> start.sh
+echo "check_current21" >> start.sh
+echo "" >> start.sh
+echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+}
+
+
+function select_ram_21 {
+
+HEIGHT=20
+WIDTH=50
+CHOICE_HEIGHT=10
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Allocate RAM"
+MENU="How much RAM do you want to allocate to your Minecraft Server?"
+
+OPTIONS=(1 "1GB"
+         2 "2GB"
+         3 "3GB"
+         4 "4GB"
+         5 "5GB"
+         6 "6GB"
+         7 "7GB"
+         8 "8GB"
+         9 "Custom Amount")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+ case $CHOICE in
+        1)
+             ram_third=1
+             script_creator_21
+             chmod +x start.sh
+             finalize
+             ;;
+        2)
+             ram_third=2
+             script_creator_21
+             chmod +x start.sh
+             finalize
+             ;;
+        3)
+            ram_third=3
+            script_creator_21
+            chmod +x start.sh
+            finalize
+            ;;
+        4)
+            ram_third=4
+            script_creator_21
+            chmod +x start.sh
+            finalize
+             ;;
+        5)
+            ram_third=5
+            script_creator_21
+            chmod +x start.sh
+            finalize
+             ;;
+        6)
+            ram_third=6
+            script_creator_21
+            chmod +x start.sh
+            finalize
+            ;;
+        7)
+            ram_third=7
+            script_creator_21
+            chmod +x start.sh
+            finalize
+            ;;
+        8)
+            ram_third=8
+            script_creator_21
+            chmod +x start.sh
+            finalize
+            ;;
+        9)
+            custom_ram_21
+            ;;
+ esac
+
+}
+
+function custom_ram_21 {
+
+ram=$(dialog --title "Define RAM" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
+respose=$?
+
+case $respose in
+  0)
+        ram_first=$(echo "${ram//B}")
+        ram_second=$(echo "${ram_first//G}")
+        ram_third=$(echo "${ram_second// /}")
+        script_creator_21
+        chmod +x start.sh
+        finalize
+        ;;
+  1)
+        echo "Cancel pressed."
+        clear
+        ;;
+  255)
+   echo "[ESC] key pressed."
+   clear
+esac    
+}
+
 
 function finalize {
 
@@ -3186,7 +3425,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="9.1"
+scriptversion="10.0"
 ##
 
 ## Latest Version

@@ -30,7 +30,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Graphical User Interface (GUI)
 - Easy-to-Use (even for beginners!)
 - Automatic installation of required programs/packages
-- Automatic installation of Java Versions for different Minecraft Versions (Including Java 8, Java 16, Java 17)
+- Automatic installation of Java Versions for different Minecraft Versions (Including Java 8, Java 16, Java 17 and Java 21)
 - Creating Minecraft Server start-scripts (including a check if the correct Java Version is selcted)
 - Adjustable RAM-Allocation when installing a Minecraft Server
 - Installed Servers are stored in Sub-Folders, to install more than one instance
