@@ -3425,7 +3425,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="10.0"
+scriptversion="10.1"
 ##
 
 ## Latest Version
