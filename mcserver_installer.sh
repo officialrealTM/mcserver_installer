@@ -84,7 +84,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.20.5
+maxVer=1.20.6
 
 if version_lt $ver $minVer; then
     not_supported
@@ -136,7 +136,7 @@ function java_selector {
         wget $dl
         sleep 1
         select_ram_16
-    elif [[ $ver = "1.20.5" ]]
+    elif [[ $ver = "1.20.5" ]] || [[ $ver = "1.20.6" ]]
     then
         clear
         check_java21
