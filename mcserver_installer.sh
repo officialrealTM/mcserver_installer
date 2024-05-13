@@ -3425,7 +3425,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="10.1"
+scriptversion="10.2"
 ##
 
 ## Latest Version
@@ -3471,6 +3471,7 @@ else
     clear
     distro_check
     dialog_check
+    curl_check
     compare_version
     installed_check
     pathfinder
