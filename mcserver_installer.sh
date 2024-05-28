@@ -2891,6 +2891,16 @@ case $CHOICE in
             ver=1.20.2
             spigot_installer_routine
             ;;
+        3)
+            #1.20.3
+            ver=1.20.3
+            spigot_installer_routine
+            ;;
+        4)
+            #1.20.4
+            ver=1.20.4
+            spigot_installer_routine
+            ;;
 
 esac
 
@@ -3425,7 +3435,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="10.2"
+scriptversion="10.3"
 ##
 
 ## Latest Version
