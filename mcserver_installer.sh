@@ -189,36 +189,24 @@ function check_valid {
 
 
 function version_grab {
-    java=$"java -version"
-    $java &> javaversion.txt
+    java_version=$(java -version 2>&1 | awk -F[\"_] 'NR==1{print $2}')
     compare
 }
 
 function compare {
-
-    if grep -q 1.8.* javaversion.txt
+    if [[ $java_version = "21"* ]]
+    then
+        javaversion=21
+    elif [[ $java_version = "17."* ]]
+    then
+        javaversion=17
+    elif [[ $java_version = "16."* ]]
+    then
+        javaversion=16
+    elif [[ $java_version = "1.8"* ]]
     then
         javaversion=8
     fi
-
-    
-    if grep -q 16.* javaversion.txt
-    then
-        javaversion=16
-    fi
-    
-    
-    if grep -q 17.* javaversion.txt
-    then
-        javaversion=17 
-    fi
-
-    if grep -q 21.* javaversion.txt
-    then
-        javaversion=21
-    fi
-
-    rm javaversion.txt
 }
 
 function check_current8 {
@@ -513,48 +501,41 @@ function install_java21 {
 }
 
 function script_creator_8 {
-echo "function compare {" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=8" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-    
-echo "    if grep -q 16.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=16" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh    
-    
-echo "    if grep -q 17.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=17 " >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-echo "    rm javaversion.txt" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "" >> start.sh 
-echo "function version_grab {" >> start.sh
-echo "    java=$\"java -version"\" >> start.sh
-echo "    \$java &> javaversion.txt" >> start.sh
-echo "    compare" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "function check_current8 {" >> start.sh
-echo "" >> start.sh
-echo "    if [[ ! \$javaversion -eq "8" ]]" >> start.sh
-echo "    then" >> start.sh
-echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 8 is required.\nChange it to Java 8 in the following menu' 10 60" >> start.sh
-echo "        sudo update-alternatives --config java" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "version_grab" >> start.sh
-echo "check_current8" >> start.sh
-echo "" >> start.sh
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current8 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 8 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 8 is required.\nChange it to Java 8 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current8' >> start.sh
+echo '' >> start.sh
 echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+
 }
 
 
@@ -672,48 +653,41 @@ esac
 }
 
 function script_creator_16 {
-echo "function compare {" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=8" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-    
-echo "    if grep -q 16.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=16" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh    
-    
-echo "    if grep -q 17.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=17 " >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-echo "    rm javaversion.txt" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "" >> start.sh 
-echo "function version_grab {" >> start.sh
-echo "    java=$\"java -version"\" >> start.sh
-echo "    \$java &> javaversion.txt" >> start.sh
-echo "    compare" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "function check_current16 {" >> start.sh
-echo "" >> start.sh
-echo "    if [[ ! \$javaversion -eq "16" ]]" >> start.sh
-echo "    then" >> start.sh
-echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 16 is required.\nChange it to Java 16 in the following menu' 10 60" >> start.sh
-echo "        sudo update-alternatives --config java" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "version_grab" >> start.sh
-echo "check_current16" >> start.sh
-echo "" >> start.sh
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current16 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 16 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 16 is required.\nChange it to Java 16 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current16' >> start.sh
+echo '' >> start.sh
 echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+
 }
 
 function select_ram_16 {
@@ -830,48 +804,41 @@ esac
 }
 
 function script_creator_17 {
-echo "function compare {" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=8" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-    
-echo "    if grep -q 16.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=16" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh    
-    
-echo "    if grep -q 17.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=17 " >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-echo "    rm javaversion.txt" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "" >> start.sh 
-echo "function version_grab {" >> start.sh
-echo "    java=$\"java -version"\" >> start.sh
-echo "    \$java &> javaversion.txt" >> start.sh
-echo "    compare" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "function check_current17 {" >> start.sh
-echo "" >> start.sh
-echo "    if [[ ! \$javaversion -eq "17" ]]" >> start.sh
-echo "    then" >> start.sh
-echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60" >> start.sh
-echo "        sudo update-alternatives --config java" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "version_grab" >> start.sh
-echo "check_current17" >> start.sh
-echo "" >> start.sh
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current17 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 17 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 17 is required.\nChange it to Java 17 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current17' >> start.sh
+echo '' >> start.sh
 echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+
 }
 
 
@@ -987,52 +954,41 @@ esac
 }
 
 function script_creator_21 {
-echo "function compare {" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=8" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-    
-echo "    if grep -q 16.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=16" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh    
-    
-echo "    if grep -q 17.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=17 " >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 21.* javaversion.txt " >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=21" >> start.sh
-echo "    fi" >> start.sh
-echo "    rm javaversion.txt" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "" >> start.sh 
-echo "function version_grab {" >> start.sh
-echo "    java=$\"java -version"\" >> start.sh
-echo "    \$java &> javaversion.txt" >> start.sh
-echo "    compare" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "function check_current21 {" >> start.sh
-echo "" >> start.sh
-echo "    if [[ ! \$javaversion -eq "21" ]]" >> start.sh
-echo "    then" >> start.sh
-echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60" >> start.sh
-echo "        sudo update-alternatives --config java" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "version_grab" >> start.sh
-echo "check_current21" >> start.sh
-echo "" >> start.sh
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current21 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 21 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 21 is required.\nChange it to Java 21 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current21' >> start.sh
+echo '' >> start.sh
 echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+
 }
 
 
@@ -1283,9 +1239,6 @@ case $CHOICE in
             ;;
         14)
             ver=1.20
-            check_java17
-            version_grab
-            check_current17
             forge_vp_1.20
             ;;
 esac    
@@ -1845,7 +1798,8 @@ OPTIONS=(1 "1.20"
          2 "1.20.1"
          3 "1.20.2"
          4 "1.20.3"
-         5 "1.20.4")
+         5 "1.20.4"
+         6 "1.20.6")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1880,6 +1834,11 @@ case $CHOICE in
         5)
             #1.20.4
             ver=1.20.4
+            forge_custom_version
+            ;;
+        6)
+            #1.20.6
+            ver=1.20.6
             forge_custom_version
             ;;
 
@@ -1920,10 +1879,98 @@ function forge_new_installer_routine {
         if [[ $ver = "1.17"* ]]
         then
             ram_version_checker
+        elif [[ $ver = "1.20.6" ]]
+        then
+            new_select_ram_21
         else
             new_select_ram_17
         fi
 }
+
+function new_select_ram_21 {
+
+HEIGHT=20
+WIDTH=50
+CHOICE_HEIGHT=10
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Allocate RAM"
+MENU="How much RAM do you want to allocate to your Minecraft Server?"
+
+OPTIONS=(1 "1GB"
+         2 "2GB"
+         3 "3GB"
+         4 "4GB"
+         5 "5GB"
+         6 "6GB"
+         7 "7GB"
+         8 "8GB"
+         9 "Custom Amount")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+ case $CHOICE in
+        1)
+             ram_third=1
+             decide_script_version
+             chmod +x start.sh
+             finalize
+             ;;
+        2)
+             ram_third=2
+             decide_script_version
+             chmod +x start.sh
+             finalize
+             ;;
+        3)
+            ram_third=3
+            decide_script_version
+            chmod +x start.sh
+            finalize
+            ;;
+        4)
+            ram_third=4
+            decide_script_version
+            chmod +x start.sh
+            finalize
+             ;;
+        5)
+            ram_third=5
+            decide_script_version
+            chmod +x start.sh
+            finalize
+             ;;
+        6)
+            ram_third=6
+            decide_script_version
+            chmod +x start.sh
+            finalize
+            ;;
+        7)
+            ram_third=7
+            decide_script_version
+            chmod +x start.sh
+            finalize
+            ;;
+        8)
+            ram_third=8
+            decide_script_version
+            chmod +x start.sh
+            finalize
+            ;;
+        9)
+            forge_custom_ram_17
+            ;;
+ esac
+
+}
+
 
 function new_select_ram_17 {
 
@@ -2011,9 +2058,12 @@ clear
 
 function decide_script_version {
 
-    if [[ §ver = "1.20.3" ]]
+    if [[ $ver = "1.20.3" ]]
     then
         script_creator_17
+    elif [[ $ver = "1.20.6" ]]
+    then
+        forge_script_creator_21
     else
         forge_script_creator_17
     fi
@@ -2048,67 +2098,90 @@ esac
     
 }
 
-function forge_script_creator_17 {
-
-    #code=$(grep -o "$ver-[^/]*" run.sh)
-    rm run.bat
-    rm run.sh
-    touch user_jvm_args.txt
-echo "function compare {" >> start.sh
-echo "" >> start.sh
-echo "    if grep -q 1.8.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=8" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-    
-echo "    if grep -q 16.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=16" >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh    
-    
-echo "    if grep -q 17.* javaversion.txt" >> start.sh
-echo "    then" >> start.sh
-echo "        javaversion=17 " >> start.sh
-echo "    fi" >> start.sh
-echo "" >> start.sh
-echo "    rm javaversion.txt" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "function check_java17 {" >> start.sh
-echo "" >> start.sh
-echo "    DIR=\"/usr/java/jdk-17/"\" >> start.sh
-echo "    if [ ! -d \$DIR ]" >> start.sh
-echo "    then" >> start.sh
-echo "        java17" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh 
-echo "function version_grab {" >> start.sh
-echo "    java=$\"java -version"\" >> start.sh
-echo "    \$java &> javaversion.txt" >> start.sh
-echo "    compare" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "function check_current17 {" >> start.sh
-echo "" >> start.sh
-echo "    if [[ ! \$javaversion -eq "17" ]]" >> start.sh
-echo "    then" >> start.sh
-echo "        dialog --title 'MC-Server Installer by realTM' --msgbox 'You currently have Java '\$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu' 10 60" >> start.sh
-echo "        sudo update-alternatives --config java" >> start.sh
-echo "    fi" >> start.sh
-echo "}" >> start.sh
-echo "" >> start.sh
-echo "check_java17" >> start.sh
-echo "version_grab" >> start.sh
-echo "check_current17" >> start.sh
-echo "" >> start.sh
+function forge_script_creator_21 {
+	rm run.bat
+	rm run.sh
+	touch user_jvm_args.txt
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current21 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 21 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '$javaversion' selected, but Java 21 is required.\nChange it to Java 21 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current21' >> start.sh
+echo '' >> start.sh
 echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$ver-$forge_ex_version_number/unix_args.txt \"\$@"\" >> start.sh
-    chmod +x start.sh
-    echo "" >> user_jvm_args.txt
-    echo "-Xms512M" >> user_jvm_args.txt
-    echo "-Xmx$ram_third"G"" >> user_jvm_args.txt
+	chmod +x start.sh
+	echo "" >> user_jvm_args.txt
+	echo "-Xmx$ram_third"G"" >> user_jvm_args.txt
+}
+
+function forge_script_creator_17 {
+	rm run.bat
+	rm run.sh
+	touch user_jvm_args.txt
+echo 'function compare {' > start.sh
+echo '    if [[ $java_version = "21"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=21' >> start.sh
+echo '    elif [[ $java_version = "17."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=17' >> start.sh
+echo '    elif [[ $java_version = "16."* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=16' >> start.sh
+echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        javaversion=8' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function version_grab {' >> start.sh
+echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
+echo '    compare' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'function check_current17 {' >> start.sh
+echo '' >> start.sh
+echo '    if [[ ! $javaversion -eq 17 ]]' >> start.sh
+echo '    then' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu'\'' 10 60' >> start.sh
+echo '        sudo update-alternatives --config java' >> start.sh
+echo '    fi' >> start.sh
+echo '}' >> start.sh
+echo '' >> start.sh
+echo 'version_grab' >> start.sh
+echo 'check_current17' >> start.sh
+echo '' >> start.sh
+echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$ver-$forge_ex_version_number/unix_args.txt \"\$@"\" >> start.sh
+	chmod +x start.sh
+	echo "" >> user_jvm_args.txt
+	echo "-Xmx$ram_third"G"" >> user_jvm_args.txt
 }
 
 
@@ -2314,9 +2387,6 @@ case $CHOICE in
             ;;
         13)
             ver=1.20
-            check_java17
-            version_grab
-            check_current17
             spigot_vp_1.20
 esac    
     
@@ -2869,7 +2939,9 @@ TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.20.1"
-         2 "1.20.2")
+         2 "1.20.2"
+         3 "1.20.4"
+         4 "1.20.6")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2884,21 +2956,33 @@ case $CHOICE in
         1)
             #1.20.1
             ver=1.20.1
+            check_java17
+            version_grab
+            check_current17
             spigot_installer_routine
             ;;
         2)
             #1.20.2
             ver=1.20.2
+            check_java17
+            version_grab
+            check_current17
             spigot_installer_routine
             ;;
         3)
-            #1.20.3
-            ver=1.20.3
+            #1.20.4
+            ver=1.20.4
+            check_java17
+            version_grab
+            check_current17
             spigot_installer_routine
             ;;
         4)
-            #1.20.4
-            ver=1.20.4
+            #1.20.6
+            ver=1.20.6
+            check_java21
+            version_grab
+            check_current21
             spigot_installer_routine
             ;;
 
@@ -2959,16 +3043,16 @@ install_spigot () {
 
 setup_spigot_server () {
 
-        if [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
+        if [[ $ver = "1.20.6" ]]
         then
-            required_java=17
+            select_ram_21
+        elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
+        then
             select_ram_17
         elif [[ $ver = "1.17" ]] || [[ $ver = "1.17.1" ]]
         then
-            required_java=16
             select_ram_16
         else
-            required_java=8
             select_ram_8
         fi
 
@@ -3030,7 +3114,7 @@ spigot_installer_routine () {
 
 paper () {
 
-HEIGHT=25
+HEIGHT=30
 WIDTH=80
 CHOICE_HEIGHT=15
 BACKTITLE="MC-Server Installer by realTM"
@@ -3052,7 +3136,10 @@ OPTIONS=(1 "1.8.8"
          13 "1.19.4"
          14 "1.20"
          15 "1.20.1"
-         16 "1.20.2")
+         16 "1.20.2"
+         17 "1.20.4"
+         18 "1.20.5"
+         19 "1.20.6")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3174,6 +3261,27 @@ clear
             version_grab
             check_java17
             check_current17
+            create_json
+            ;;
+        17)
+            version=1.20.4
+            version_grab
+            check_java17
+            check_current17
+            create_json
+            ;;
+        18)
+            version=1.20.5
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        19)
+            version=1.20.6
+            version_grab
+            check_java21
+            check_current21
             create_json
             ;;
  esac
@@ -3308,6 +3416,9 @@ paper_ram_selector () {
     if [[ $version = "1.17"* ]]
     then
         select_ram_16
+    elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]]
+    then
+        select_ram_21
     elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]] || [[ $version = "1.20"* ]]
     then
         select_ram_17
