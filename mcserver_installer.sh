@@ -84,7 +84,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.20.6
+maxVer=1.21
 
 if version_lt $ver $minVer; then
     not_supported
@@ -136,7 +136,7 @@ function java_selector {
         wget $dl
         sleep 1
         select_ram_16
-    elif [[ $ver = "1.20.5" ]] || [[ $ver = "1.20.6" ]]
+    elif [[ $ver = "1.20.5" ]] || [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
         clear
         check_java21
@@ -1134,7 +1134,8 @@ OPTIONS=(1 "1.7"
          #11 "1.17"
          12 "1.18"
          13 "1.19"
-         14 "1.20")
+         14 "1.20"
+         15 "1.21")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1240,6 +1241,10 @@ case $CHOICE in
         14)
             ver=1.20
             forge_vp_1.20
+            ;;
+        15)
+            ver=1.21
+            forge_vp_1.21
             ;;
 esac    
     
@@ -1848,6 +1853,37 @@ esac
 
 }
 
+function forge_vp_1.21 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.21")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.21
+            ver=1.21
+            forge_custom_version
+            ;;
+
+esac
+
+}
+
 function folder_creator_forge {
 cd Servers
 basename="Forge-$ver"
@@ -1879,7 +1915,7 @@ function forge_new_installer_routine {
         if [[ $ver = "1.17"* ]]
         then
             ram_version_checker
-        elif [[ $ver = "1.20.6" ]]
+        elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
         then
             new_select_ram_21
         else
@@ -2061,7 +2097,7 @@ function decide_script_version {
     if [[ $ver = "1.20.3" ]]
     then
         script_creator_17
-    elif [[ $ver = "1.20.6" ]]
+    elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
         forge_script_creator_21
     else
@@ -2127,7 +2163,7 @@ echo 'function check_current21 {' >> start.sh
 echo '' >> start.sh
 echo '    if [[ ! $javaversion -eq 21 ]]' >> start.sh
 echo '    then' >> start.sh
-echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '$javaversion' selected, but Java 21 is required.\nChange it to Java 21 in the following menu'\'' 10 60' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 21 is required.\nChange it to Java 21 in the following menu'\'' 10 60' >> start.sh
 echo '        sudo update-alternatives --config java' >> start.sh
 echo '    fi' >> start.sh
 echo '}' >> start.sh
@@ -2170,7 +2206,7 @@ echo 'function check_current17 {' >> start.sh
 echo '' >> start.sh
 echo '    if [[ ! $javaversion -eq 17 ]]' >> start.sh
 echo '    then' >> start.sh
-echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '$javaversion' selected, but Java 17 is required.\nChange it to Java 17 in the following menu'\'' 10 60' >> start.sh
+echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 17 is required.\nChange it to Java 17 in the following menu'\'' 10 60' >> start.sh
 echo '        sudo update-alternatives --config java' >> start.sh
 echo '    fi' >> start.sh
 echo '}' >> start.sh
@@ -2212,7 +2248,7 @@ function forge_new_version_check {
     if [[ $ver = "1.20.3" ]]
     then
         normal_forge
-    elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
+    elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]] || [[ $ver = "1.21"* ]]
     then
         clear
         folder_creator_forge
@@ -3546,7 +3582,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="11.0"
+scriptversion="12.0"
 ##
 
 ## Latest Version

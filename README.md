@@ -1,6 +1,6 @@
 
   
-# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.20+
+# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.21+
 ## <u>About the project</u>
 
 With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla, Forge, Spigot or Paper, as easy and beginner-friendly as possible. 
@@ -37,10 +37,10 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
-- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.20.X
+- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X
 
 ### Minecraft Forge Features:
-- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.20.X
+- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.21.X
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
