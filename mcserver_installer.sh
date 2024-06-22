@@ -1244,6 +1244,9 @@ case $CHOICE in
             ;;
         15)
             ver=1.21
+            check_java21
+            version_grab
+            check_current21
             forge_vp_1.21
             ;;
 esac    
@@ -2247,10 +2250,17 @@ function forge_new_version_check {
 
     if [[ $ver = "1.20.3" ]]
     then
+        clear
+        check_java21
+        versio#
+        check_current21
         normal_forge
     elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]] || [[ $ver = "1.21"* ]]
     then
         clear
+        check_java17
+        version_grab
+        check_current17
         folder_creator_forge
         cd $dirname
         wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
@@ -3582,7 +3592,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="12.0"
+scriptversion="12.1"
 ##
 
 ## Latest Version
