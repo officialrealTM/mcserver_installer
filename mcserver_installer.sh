@@ -3185,7 +3185,8 @@ OPTIONS=(1 "1.8.8"
          16 "1.20.2"
          17 "1.20.4"
          18 "1.20.5"
-         19 "1.20.6")
+         19 "1.20.6"
+         20 "1.21 (Experimental)")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3330,6 +3331,13 @@ clear
             check_current21
             create_json
             ;;
+        20)
+            version=1.21
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
  esac
 
 
@@ -3462,7 +3470,7 @@ paper_ram_selector () {
     if [[ $version = "1.17"* ]]
     then
         select_ram_16
-    elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]]
+    elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]] || [[ $version = "1.21" ]]
     then
         select_ram_21
     elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]] || [[ $version = "1.20"* ]]
@@ -3592,7 +3600,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="12.1"
+scriptversion="12.2"
 ##
 
 ## Latest Version
