@@ -2335,7 +2335,8 @@ OPTIONS=(1 "1.8"
          10 "1.17"
          11 "1.18"
          12 "1.19"
-         13 "1.20")
+         13 "1.20"
+         14 "1.21")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2434,6 +2435,11 @@ case $CHOICE in
         13)
             ver=1.20
             spigot_vp_1.20
+            ;;
+        14)
+            ver=1.21
+            spigot_vp_1.21
+            ;;
 esac    
     
 }
@@ -3036,6 +3042,41 @@ esac
 
 }
 
+
+function spigot_vp_1.21 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.21")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.21
+            ver=1.21
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+
+esac
+
+}
+
 compiled_folder () {
     
     if [[ ! $disable = true ]]
@@ -3089,7 +3130,7 @@ install_spigot () {
 
 setup_spigot_server () {
 
-        if [[ $ver = "1.20.6" ]]
+        if [[ $ver = "1.20.6" ]] || [[ $ver = "1.21" ]]
         then
             select_ram_21
         elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
@@ -3600,7 +3641,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="12.2"
+scriptversion="13.0"
 ##
 
 ## Latest Version

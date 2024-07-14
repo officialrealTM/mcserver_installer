@@ -44,7 +44,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
-- Supported Minecraft Spigot Versions: 1.8.X - 1.20.X
+- Supported Minecraft Spigot Versions: 1.8.X - 1.21.X
 - Using Spigot's offical [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to compile the spigot.jar(s)
 - Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
 
