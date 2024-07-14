@@ -49,7 +49,7 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
 
 ### Minecraft Paper Features:
-- Supported Minecraft Paper Versions: 1.8.X - 1.20.X
+- Supported Minecraft Paper Versions: 1.8.X - 1.21.X
 - Possibility to install every existing Build of Paper
 - Show list of available Builds for each version to select from
 - Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available Builds
