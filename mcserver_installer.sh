@@ -490,7 +490,7 @@ function install_java21 {
     dialog --infobox "Java 21 will be installed now" 10 30 && sleep 3
     clear
     cd /tmp/
-    wget wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb
+    wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb
     sudo dpkg -i jdk-21_linux-x64_bin.deb
     rm jdk-21_linux-x64_bin.deb
     sudo update-alternatives --config java
@@ -3641,7 +3641,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="13.0"
+scriptversion="13.1"
 ##
 
 ## Latest Version
