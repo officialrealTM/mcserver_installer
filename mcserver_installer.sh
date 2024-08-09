@@ -1865,7 +1865,8 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.21")
+OPTIONS=(1 "1.21"
+         2 "1.21.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1880,6 +1881,11 @@ case $CHOICE in
         1)
             #1.21
             ver=1.21
+            forge_custom_version
+            ;;
+        2)
+            #1.21.1
+            ver=1.21.1
             forge_custom_version
             ;;
 
@@ -1911,6 +1917,15 @@ function forge_installer_routine {
         ram_version_checker
 }
 
+function forge_new_init {
+
+    mv forge*.jar server.jar
+    rm run.bat
+    rm run.sh
+    rm user_jvm_args.txt
+
+}
+
 function forge_new_installer_routine {
         forge_installer
         rm *installer.jar
@@ -1918,8 +1933,13 @@ function forge_new_installer_routine {
         if [[ $ver = "1.17"* ]]
         then
             ram_version_checker
+        elif [[ $ver = "1.20.3" ]] || [[ $ver = "1.20.4" ]]
+        then
+            forge_new_init
+            new_select_ram_17
         elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
         then
+            forge_new_init
             new_select_ram_21
         else
             new_select_ram_17
@@ -2097,12 +2117,12 @@ clear
 
 function decide_script_version {
 
-    if [[ $ver = "1.20.3" ]]
+    if [[ $ver = "1.20.3" ]] || [[ $ver = "1.20.4" ]]
     then
         script_creator_17
     elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
-        forge_script_creator_21
+        script_creator_21
     else
         forge_script_creator_17
     fi
@@ -2135,49 +2155,6 @@ case $respose in
 esac
         
     
-}
-
-function forge_script_creator_21 {
-	rm run.bat
-	rm run.sh
-	touch user_jvm_args.txt
-echo 'function compare {' > start.sh
-echo '    if [[ $java_version = "21"* ]]' >> start.sh
-echo '    then' >> start.sh
-echo '        javaversion=21' >> start.sh
-echo '    elif [[ $java_version = "17."* ]]' >> start.sh
-echo '    then' >> start.sh
-echo '        javaversion=17' >> start.sh
-echo '    elif [[ $java_version = "16."* ]]' >> start.sh
-echo '    then' >> start.sh
-echo '        javaversion=16' >> start.sh
-echo '    elif [[ $java_version = "1.8"* ]]' >> start.sh
-echo '    then' >> start.sh
-echo '        javaversion=8' >> start.sh
-echo '    fi' >> start.sh
-echo '}' >> start.sh
-echo '' >> start.sh
-echo 'function version_grab {' >> start.sh
-echo '    java_version=$(java -version 2>&1 | awk -F[\"_] '\''NR==1{print $2}'\'')' >> start.sh
-echo '    compare' >> start.sh
-echo '}' >> start.sh
-echo '' >> start.sh
-echo 'function check_current21 {' >> start.sh
-echo '' >> start.sh
-echo '    if [[ ! $javaversion -eq 21 ]]' >> start.sh
-echo '    then' >> start.sh
-echo '        dialog --title '\''MC-Server Installer by realTM'\'' --msgbox '\''You currently have Java '\''$javaversion'\'' selected, but Java 21 is required.\nChange it to Java 21 in the following menu'\'' 10 60' >> start.sh
-echo '        sudo update-alternatives --config java' >> start.sh
-echo '    fi' >> start.sh
-echo '}' >> start.sh
-echo '' >> start.sh
-echo 'version_grab' >> start.sh
-echo 'check_current21' >> start.sh
-echo '' >> start.sh
-echo "screen -S Minecraft java @user_jvm_args.txt @libraries/net/minecraftforge/forge/$ver-$forge_ex_version_number/unix_args.txt \"\$@"\" >> start.sh
-	chmod +x start.sh
-	echo "" >> user_jvm_args.txt
-	echo "-Xmx$ram_third"G"" >> user_jvm_args.txt
 }
 
 function forge_script_creator_17 {
@@ -2248,14 +2225,17 @@ function forge_installer {
 
 function forge_new_version_check {
 
-    if [[ $ver = "1.20.3" ]]
+    if [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
         clear
         check_java21
-        versio#
+        version_grab
         check_current21
-        normal_forge
-    elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]] || [[ $ver = "1.21"* ]]
+        folder_creator_forge
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
+        forge_new_installer_routine
+    elif [[ $ver = "1.17"* ]] || [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]] 
     then
         clear
         check_java17
@@ -3052,7 +3032,8 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
-OPTIONS=(1 "1.21")
+OPTIONS=(1 "1.21"
+         2 "1.21.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3067,6 +3048,14 @@ case $CHOICE in
         1)
             #1.21
             ver=1.21
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        2)
+            #1.21.1
+            ver=1.21.1
             check_java21
             version_grab
             check_current21
@@ -3130,7 +3119,7 @@ install_spigot () {
 
 setup_spigot_server () {
 
-        if [[ $ver = "1.20.6" ]] || [[ $ver = "1.21" ]]
+        if [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
         then
             select_ram_21
         elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
@@ -3641,7 +3630,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="13.2"
+scriptversion="14.0"
 ##
 
 ## Latest Version
