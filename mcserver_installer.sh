@@ -84,7 +84,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.21.1
+maxVer=1.21.2
 
 if version_lt $ver $minVer; then
     not_supported
@@ -102,7 +102,7 @@ function not_supported {
     then
         exit
     else
-    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.20.X ' 10 60
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.21.X ' 10 60
     clear
     vanilla
     fi
@@ -3216,7 +3216,8 @@ OPTIONS=(1 "1.8.8"
          17 "1.20.4"
          18 "1.20.5"
          19 "1.20.6"
-         20 "1.21 (Experimental)")
+         20 "1.21"
+         21 "1.21.1")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3368,6 +3369,13 @@ clear
             check_current21
             create_json
             ;;
+        21)
+            version=1.21.1
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
  esac
 
 
@@ -3500,7 +3508,7 @@ paper_ram_selector () {
     if [[ $version = "1.17"* ]]
     then
         select_ram_16
-    elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]] || [[ $version = "1.21" ]]
+    elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]] || [[ $version = "1.21"* ]]
     then
         select_ram_21
     elif [[ $version = "1.18"* ]] || [[ $version = "1.19"* ]] || [[ $version = "1.20"* ]]
@@ -3630,7 +3638,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="14.0"
+scriptversion="14.1"
 ##
 
 ## Latest Version
