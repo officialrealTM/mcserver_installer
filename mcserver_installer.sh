@@ -8,6 +8,40 @@
 #GitHub         : https://github.com/officialrealTM/mcserver_installer                                           
 ###################################################################
 
+## START OF COUNTING FUNCTIONS
+CONFIG_FILE="/root/mcserver_installer/.mcserver_installer_config"
+API_BASE_URL="https://api.realtm.de"
+
+get_api_key() {
+    local api_key=""
+    if [ -f "$CONFIG_FILE" ]; then
+        api_key=$(cat "$CONFIG_FILE")
+    else
+        # Generate new API key and parse the JSON response properly
+        response=$(curl -s -X POST "$API_BASE_URL/generate-key")
+        api_key=$(echo "$response" | grep -o '"apiKey":"[^"]*"' | cut -d'"' -f4)
+        if [ -n "$api_key" ]; then
+            echo "$api_key" > "$CONFIG_FILE"
+            chmod 600 "$CONFIG_FILE"
+        else
+            echo "Failed to generate API key" >&2
+            return 1
+        fi
+    fi
+    echo "$api_key"
+}
+
+increment_counter() {
+    local api_key=$(get_api_key)
+    if [ -n "$api_key" ]; then
+        response=$(curl -s -X POST "$API_BASE_URL/increment" \
+             -H "X-API-Key: $api_key" \
+             -H "Content-Type: application/json")
+        echo "$response"
+    fi
+}
+## END OF COUNTING FUNCTIONS
+
 ## START OF FUNCTIONS
 
 function choose_type {
@@ -3638,7 +3672,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="14.2"
+scriptversion="15.0"
 ##
 
 ## Latest Version
