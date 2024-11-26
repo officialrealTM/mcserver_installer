@@ -12,32 +12,46 @@
 CONFIG_FILE="/root/mcserver_installer/.mcserver_installer_config"
 API_BASE_URL="https://api.realtm.de"
 
+validate_api_key() {
+    local api_key=$1
+    response=$(curl -s -X POST "$API_BASE_URL/increment" \
+         -H "X-API-Key: $api_key" \
+         -H "Content-Type: application/json")
+    
+    if echo "$response" | grep -q "Invalid API key"; then
+        return 1
+    fi
+    return 0
+}
+
 get_api_key() {
     local api_key=""
     if [ -f "$CONFIG_FILE" ]; then
         api_key=$(cat "$CONFIG_FILE")
-    else
-        # Generate new API key and parse the JSON response properly
-        response=$(curl -s -X POST "$API_BASE_URL/generate-key")
-        api_key=$(echo "$response" | grep -o '"apiKey":"[^"]*"' | cut -d'"' -f4)
-        if [ -n "$api_key" ]; then
-            echo "$api_key" > "$CONFIG_FILE"
-            chmod 600 "$CONFIG_FILE"
-        else
-            echo "Failed to generate API key" >&2
-            return 1
+        if validate_api_key "$api_key"; then
+            echo "$api_key"
+            return 0
         fi
     fi
-    echo "$api_key"
+    
+    # Generate new API key if validation failed or file doesn't exist
+    response=$(curl -s -X POST "$API_BASE_URL/generate-key")
+    api_key=$(echo "$response" | grep -o '"apiKey":"[^"]*"' | cut -d'"' -f4)
+    if [ -n "$api_key" ]; then
+        echo "$api_key" > "$CONFIG_FILE"
+        chmod 600 "$CONFIG_FILE"
+        echo "$api_key"
+        return 0
+    fi
+    return 1
 }
 
 increment_counter() {
     local api_key=$(get_api_key)
     if [ -n "$api_key" ]; then
-        response=$(curl -s -X POST "$API_BASE_URL/increment" \
+        curl -s -X POST "$API_BASE_URL/increment" \
              -H "X-API-Key: $api_key" \
-             -H "Content-Type: application/json")
-        echo "$response"
+             -H "Content-Type: application/json"
     fi
 }
 ## END OF COUNTING FUNCTIONS
@@ -3672,7 +3686,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="15.1"
+scriptversion="15.2"
 ##
 
 ## Latest Version
