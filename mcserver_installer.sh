@@ -9,7 +9,8 @@
 ###################################################################
 
 ## START OF COUNTING FUNCTIONS
-CONFIG_FILE="/root/mcserver_installer/.mcserver_installer_config"
+path=$(pwd)
+CONFIG_FILE="$path/.mcserver_installer_config"
 API_BASE_URL="https://api.realtm.de"
 
 validate_api_key() {
@@ -3640,11 +3641,6 @@ esac
 
 }
 
-function pathfinder {
-
-    path=$(pwd)
-}
-
 function dialog_check {  
         apt-cache policy dialog > dialog.txt
         if grep -q none dialog.txt
@@ -3686,7 +3682,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="15.2"
+scriptversion="15.3"
 ##
 
 ## Latest Version
@@ -3736,7 +3732,6 @@ else
     curl_check
     compare_version
     installed_check
-    pathfinder
     servers_folder
     choose_type
 fi
