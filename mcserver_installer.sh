@@ -3672,7 +3672,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="15.0"
+scriptversion="15.1"
 ##
 
 ## Latest Version
@@ -3716,6 +3716,7 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
 else
     clear
+    increment_counter
     distro_check
     dialog_check
     curl_check
