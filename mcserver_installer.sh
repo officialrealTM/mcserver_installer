@@ -133,7 +133,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.21.3
+maxVer=1.21.4
 
 if version_lt $ver $minVer; then
     not_supported
@@ -1915,7 +1915,8 @@ TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.21"
-         2 "1.21.1")
+         2 "1.21.1"
+         3 "1.21.3")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1935,6 +1936,11 @@ case $CHOICE in
         2)
             #1.21.1
             ver=1.21.1
+            forge_custom_version
+            ;;
+        3)
+            #1.21.3
+            ver=1.21.3
             forge_custom_version
             ;;
 
@@ -3082,7 +3088,9 @@ TITLE="Versions"
 MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.21"
-         2 "1.21.1")
+         2 "1.21.1"
+         3 "1.21.3"
+         4 "1.21.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3105,6 +3113,22 @@ case $CHOICE in
         2)
             #1.21.1
             ver=1.21.1
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        3)
+            #1.21.3
+            ver=1.21.3
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        4)
+            #1.21.4
+            ver=1.21.4
             check_java21
             version_grab
             check_current21
@@ -3266,7 +3290,8 @@ OPTIONS=(1 "1.8.8"
          18 "1.20.5"
          19 "1.20.6"
          20 "1.21"
-         21 "1.21.1")
+         21 "1.21.1"
+         22 "1.21.3")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3420,6 +3445,13 @@ clear
             ;;
         21)
             version=1.21.1
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        22)
+            version=1.21.3
             version_grab
             check_java21
             check_current21
@@ -3682,7 +3714,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="15.4"
+scriptversion="15.5"
 ##
 
 ## Latest Version
