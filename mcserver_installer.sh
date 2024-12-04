@@ -3633,7 +3633,7 @@ function installer_routine {
     touch .installed
     clear
     apt install dialog python3 python3-pip wget screen sudo jq -y
-    if [[ $deb12 == "true" ]]
+    if [[ $deb12 == "true" ]] || [[ $ubuntuver == *"24.04" ]]
     then
         apt install python3-packaging -y
     else
@@ -3690,7 +3690,7 @@ distro_check () {
     if [[ ! -e .skip_distro_check ]]
     then
         ubuntuver=$(lsb_release -r)
-        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]]
+        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]] || [[ $ubuntuver == *"24.04" ]]
         then
             ubuntu=true
         else
@@ -3714,7 +3714,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="15.5"
+scriptversion="16.0"
 ##
 
 ## Latest Version
