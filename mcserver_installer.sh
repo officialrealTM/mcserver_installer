@@ -333,50 +333,96 @@ function decline_java8 {
     esac
 }
 
-
 function check_java8 {
 
     if [[ $ubuntu = true ]]
     then
-        DIR="/usr/lib/jvm/java-8-openjdk-amd64"
+        check_java8_ubuntu
     elif [[ $deb12 = true ]]
     then
-        DIR="/usr/lib/jvm/temurin-8-jdk-amd64/bin/java"
+        check_java8_debian1
     else
-        DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
-    fi
-
-    if [[ ! -d $DIR ]]
-    then
-        java8
+        check_java8_debian2
     fi
 }
 
+function check_java8_debian1 {
+    for dir in /usr/lib/jvm/temurin-8*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    	java8
+    return 1
+}
+
+function check_java8_debian2 {
+    for dir in /usr/lib/jvm/adoptopenjdk-8*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    	java8
+    return 1
+}
+
+function check_java8_ubuntu {
+    for dir in /usr/lib/jvm/java-8*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    	java8
+    return 1
+}
+
+
+# function check_java8 {
+
+#     if [[ $ubuntu = true ]]
+#     then
+#         DIR="/usr/lib/jvm/java-8-openjdk-amd64"
+#     elif [[ $deb12 = true ]]
+#     then
+#         DIR="/usr/lib/jvm/temurin-8-jdk-amd64/bin/java"
+#     else
+#         DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
+#     fi
+
+#     if [[ ! -d $DIR ]]
+#     then
+#         java8
+#     fi
+# }
+
 function check_java16 {
-
-DIR="/usr/java/jdk-16*"
-    if [ ! -d $DIR ]
-    then
-        java16
-    fi
-
+    for dir in /usr/java/jdk-16*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    java16
+    return 1
 }
 
 function check_java17 {
-
-    DIR="/usr/java/jdk-17/"
-    if [ ! -d $DIR ]
-    then
-        java17
-    fi
+    for dir in /usr/java/jdk-17; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    java17
+    return 1
 }
 
 function check_java21 {
-    DIR="/usr/lib/jvm/jdk-21-oracle-x64/"
-    if [[ ! -d $DIR ]]
-    then
-        java21
-    fi
+    for dir in /usr/lib/jvm/jdk-21*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    java21
+    return 1
 }
 
 function install_java8 {
@@ -3714,7 +3760,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="16.0"
+scriptversion="16.1"
 ##
 
 ## Latest Version
