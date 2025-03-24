@@ -1962,7 +1962,8 @@ MENU="Select the exact Version you want to install:"
 
 OPTIONS=(1 "1.21"
          2 "1.21.1"
-         3 "1.21.3")
+         3 "1.21.3"
+         4 "1.21.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1987,6 +1988,11 @@ case $CHOICE in
         3)
             #1.21.3
             ver=1.21.3
+            forge_custom_version
+            ;;
+        4)
+            #1.21.4
+            ver=1.21.4
             forge_custom_version
             ;;
 
@@ -3337,7 +3343,8 @@ OPTIONS=(1 "1.8.8"
          19 "1.20.6"
          20 "1.21"
          21 "1.21.1"
-         22 "1.21.3")
+         22 "1.21.3"
+         23 "1.21.4")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3498,6 +3505,13 @@ clear
             ;;
         22)
             version=1.21.3
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        23)
+            version=1.21.4
             version_grab
             check_java21
             check_current21
@@ -3760,7 +3774,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="16.1"
+scriptversion="16.2"
 ##
 
 ## Latest Version
