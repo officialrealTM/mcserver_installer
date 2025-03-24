@@ -376,25 +376,6 @@ function check_java8_ubuntu {
     return 1
 }
 
-
-# function check_java8 {
-
-#     if [[ $ubuntu = true ]]
-#     then
-#         DIR="/usr/lib/jvm/java-8-openjdk-amd64"
-#     elif [[ $deb12 = true ]]
-#     then
-#         DIR="/usr/lib/jvm/temurin-8-jdk-amd64/bin/java"
-#     else
-#         DIR="/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/"
-#     fi
-
-#     if [[ ! -d $DIR ]]
-#     then
-#         java8
-#     fi
-# }
-
 function check_java16 {
     for dir in /usr/java/jdk-16*; do
         if [[ -d "$dir" ]]; then
@@ -596,7 +577,8 @@ function install_java21 {
 }
 
 function script_creator_8 {
-echo 'function compare {' > start.sh
+echo '#!/bin/bash' > start.sh
+echo 'function compare {' >> start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
 echo '        javaversion=21' >> start.sh
@@ -748,7 +730,8 @@ esac
 }
 
 function script_creator_16 {
-echo 'function compare {' > start.sh
+echo '#!/bin/bash' > start.sh
+echo 'function compare {' >> start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
 echo '        javaversion=21' >> start.sh
@@ -899,6 +882,7 @@ esac
 }
 
 function script_creator_17 {
+echo '#!/bin/bash' > start.sh
 echo 'function compare {' > start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
@@ -1049,7 +1033,8 @@ esac
 }
 
 function script_creator_21 {
-echo 'function compare {' > start.sh
+echo '#!/bin/bash' > start.sh
+echo 'function compare {' >> start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
 echo '        javaversion=21' >> start.sh
@@ -2268,7 +2253,8 @@ function forge_script_creator_17 {
 	rm run.bat
 	rm run.sh
 	touch user_jvm_args.txt
-echo 'function compare {' > start.sh
+echo '#!/bin/bash' > start.sh
+echo 'function compare {' >> start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
 echo '        javaversion=21' >> start.sh
@@ -3774,7 +3760,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="16.2"
+scriptversion="16.3"
 ##
 
 ## Latest Version
