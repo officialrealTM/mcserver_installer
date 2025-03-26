@@ -3128,7 +3128,8 @@ MENU="Select the exact Version you want to install:"
 OPTIONS=(1 "1.21"
          2 "1.21.1"
          3 "1.21.3"
-         4 "1.21.4")
+         4 "1.21.4"
+         5 "1.21.5")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3167,6 +3168,14 @@ case $CHOICE in
         4)
             #1.21.4
             ver=1.21.4
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        5)
+            #1.21.5
+            ver=1.21.5
             check_java21
             version_grab
             check_current21
@@ -3760,7 +3769,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="17.0"
+scriptversion="17.1"
 ##
 
 ## Latest Version
