@@ -63,7 +63,7 @@ function choose_type {
 
 HEIGHT=12
 WIDTH=61
-CHOICE_HEIGHT=4
+CHOICE_HEIGHT=5
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Minecraft Server Type"
 MENU="Select the type of Minecraft Server you want to install:"
@@ -71,7 +71,8 @@ MENU="Select the type of Minecraft Server you want to install:"
 OPTIONS=(1 "Minecraft Vanilla"
          2 "Minecraft Forge"
          3 "Minecraft Spigot"
-         4 "Minecraft Paper")
+         4 "Minecraft Paper"
+         5 "Velocity Proxy")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -82,24 +83,31 @@ CHOICE=$(dialog --clear \
                 2>&1 >/dev/tty)
 
 clear
- case $CHOICE in
+case $CHOICE in
          1)
+             server_type="vanilla"
              vanilla
              ;;
          2)
+             server_type="forge"
              forge
              ;;
          3)
-            spigot=true
-            spigot
-            ;;
-        4)
-            paper
-            ;;
- esac
+             server_type="spigot"
+             spigot=true
+             spigot
+             ;;
+         4)
+             server_type="paper"
+             paper
+             ;;
+         5)
+             server_type="velocity"
+             velocity
+             ;;
+esac
 
 }
-
 
 function vanilla {
 
@@ -611,8 +619,11 @@ echo '' >> start.sh
 echo 'version_grab' >> start.sh
 echo 'check_current8' >> start.sh
 echo '' >> start.sh
-echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
-
+if [[ $server_type == "velocity" ]]; then
+    echo "screen -S Velocity java -Xmx$ram_third"G" -Xms512M -jar velocity.jar" >> start.sh
+else
+    echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+fi
 }
 
 
@@ -764,8 +775,11 @@ echo '' >> start.sh
 echo 'version_grab' >> start.sh
 echo 'check_current16' >> start.sh
 echo '' >> start.sh
-echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
-
+if [[ $server_type == "velocity" ]]; then
+    echo "screen -S Velocity java -Xmx$ram_third"G" -Xms512M -jar velocity.jar" >> start.sh
+else
+    echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+fi
 }
 
 function select_ram_16 {
@@ -883,7 +897,7 @@ esac
 
 function script_creator_17 {
 echo '#!/bin/bash' > start.sh
-echo 'function compare {' > start.sh
+echo 'function compare {' >> start.sh
 echo '    if [[ $java_version = "21"* ]]' >> start.sh
 echo '    then' >> start.sh
 echo '        javaversion=21' >> start.sh
@@ -916,8 +930,11 @@ echo '' >> start.sh
 echo 'version_grab' >> start.sh
 echo 'check_current17' >> start.sh
 echo '' >> start.sh
-echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
-
+if [[ $server_type == "velocity" ]]; then
+    echo "screen -S Velocity java -Xmx$ram_third"G" -Xms512M -jar velocity.jar" >> start.sh
+else
+    echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+fi
 }
 
 
@@ -1067,8 +1084,11 @@ echo '' >> start.sh
 echo 'version_grab' >> start.sh
 echo 'check_current21' >> start.sh
 echo '' >> start.sh
-echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
-
+if [[ $server_type == "velocity" ]]; then
+    echo "screen -S Velocity java -Xmx$ram_third"G" -Xms512M -jar velocity.jar" >> start.sh
+else
+    echo "screen -S Minecraft java -Xmx$ram_third"G" -Xms512M -jar server.jar" >> start.sh
+fi
 }
 
 
@@ -3659,6 +3679,210 @@ paper_ram_selector () {
 }
 
 ## End of Paper Funcitons
+
+## Start of Velocity Functions
+
+velocity () {
+
+HEIGHT=30
+WIDTH=80
+CHOICE_HEIGHT=15
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Select Velocity Version"
+MENU="Select the version of Velocity you want to install:"
+
+curl -X 'GET' \
+  'https://api.papermc.io/v2/projects/velocity' -s \
+  -H 'accept: application/json' > velocity_versions.json
+
+versions=($(cat velocity_versions.json | jq -r '.versions[]'))
+rm velocity_versions.json
+
+
+OPTIONS=()
+i=1
+for version in "${versions[@]}"; do
+    OPTIONS+=("$i" "$version")
+    ((i++))
+done
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+
+i=1
+for version in "${versions[@]}"; do
+    if [ "$CHOICE" == "$i" ]; then
+        selected_version="$version"
+        break
+    fi
+    ((i++))
+done
+
+if [[ $(echo -e "$selected_version\n3.3.0-SNAPSHOT" | sort -V | head -n1) == "3.3.0-SNAPSHOT" ]] || [[ $selected_version > "3.3.0-SNAPSHOT" ]]; then
+    check_java21
+    version_grab
+    check_current21
+elif [[ $(echo -e "$selected_version\n3.1.1" | sort -V | head -n1) == "3.1.1" ]] || [[ $selected_version > "3.1.1" ]]; then
+    check_java17
+    version_grab
+    check_current17
+else
+    check_java8
+    version_grab
+    check_current8
+fi
+
+velocity_version=$selected_version
+velocity_create_json
+
+}
+
+velocity_create_json () {
+  curl -X 'GET' \
+  'https://api.papermc.io/v2/projects/velocity/versions/'$velocity_version'' -s \
+  -H 'accept: application/json' > velocity_builds.json
+  velocity_set_build
+}
+
+velocity_set_build () {
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Select Velocity Build Number"
+MENU="Which Build of Velocity do you want to install?"
+
+OPTIONS=(1 "I already know the exact build number"
+         2 "Show me the available builds")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            velocity_build_input
+            ;;
+        2)
+            velocity_show_builds
+            ;;            
+esac
+}
+
+velocity_build_input () {
+
+  velocity_build=$(dialog --title "Enter Build Number" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter the Build number you want to install " 10 60 2>&1 >/dev/tty)
+respose=$?
+
+case $respose in
+  0)
+        velocity_create_array
+        ;;
+  1)
+        echo "Cancel pressed."
+        clear
+        ;;
+  255)
+        echo "[ESC] key pressed."
+        clear
+        ;;
+esac
+
+}
+
+velocity_show_builds () {
+
+    input=$(cat velocity_builds.json)
+    rm $path/velocity_builds.json
+    builds=($(echo "$input" | jq -r '.builds[]'))
+    menu_items=()
+    for number in "${builds[@]}"; do
+      menu_items+=("$number" "$number")
+    done
+
+  velocity_build=$(dialog --clear \
+                  --no-tags \
+                  --backtitle "MC-Server Installer by realTM" \
+                  --title "Select Build Number" \
+                  --menu "Select the Build number you want to install:" \
+                  0 0 0 \
+                  "${menu_items[@]}" \
+                  2>&1 >/dev/tty)
+  velocity_check_existing
+}
+
+velocity_create_array () {
+    input=$(cat velocity_builds.json)
+    rm $path/velocity_builds.json
+    builds=($(echo "$input" | jq -r '.builds[]'))
+    velocity_check_existing
+}
+
+velocity_check_existing () {
+  if [[ " ${builds[@]} " =~ " $velocity_build " ]]; then
+    velocity_folder_creator
+    velocity_download_jar
+  else
+    dialog --msgbox "The build number you've entered does not exist." 7 60
+    velocity_build_input
+  fi
+}
+
+velocity_folder_creator () {
+cd Servers
+basename="Velocity-$velocity_version-Build-$velocity_build"
+dirname=$basename
+i=1
+while [ -d $dirname ]
+do
+  dirname=$basename-"($i)"
+  ((i++))
+done
+mkdir $dirname
+}
+
+velocity_download_jar () {
+    cd $path/Servers/$dirname
+    wget https://api.papermc.io/v2/projects/velocity/versions/$velocity_version/builds/$velocity_build/downloads/velocity-$velocity_version-$velocity_build.jar
+    mv velocity*.jar velocity.jar
+    velocity_ram_selector
+}
+
+velocity_ram_selector () {
+    if [[ $(echo -e "$velocity_version\n3.3.0-SNAPSHOT" | sort -V | tail -n1) == "$velocity_version" ]]; then
+        java_required=21
+    elif [[ $(echo -e "$velocity_version\n3.1.1" | sort -V | tail -n1) == "$velocity_version" ]]; then
+        java_required=17
+    else
+        java_required=8
+    fi
+
+    case $java_required in
+        21)
+            select_ram_21
+            ;;
+        17)
+            select_ram_17
+            ;;
+        8)
+            select_ram_8
+            ;;
+    esac
+}
 
 ## END OF FUNCTIONS
 

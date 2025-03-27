@@ -24,7 +24,15 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
  - Linux-based operating systems (only on [Supported Distros](https://github.com/officialrealTM/mcserver_installer#supported-distros))
  - Git needs to be installed on the server --> [Installation](https://github.com/officialrealTM/mcserver_installer#installation)
 
+## Supported Server Types
 
+This script supports the installation of various Minecraft server types, including:
+
+- **Minecraft Vanilla**: Official Minecraft server.
+- **Minecraft Forge**: For modded servers.
+- **Minecraft Spigot**: A high-performance server with plugin support.
+- **Minecraft Paper**: An optimized fork of Spigot with better performance.
+- **Velocity Proxy** (new!): A modern proxy server for managing a network of Minecraft servers.
 
 # Features
 ### General Features:
@@ -54,6 +62,13 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 - Possibility to install every existing Build of Paper
 - Show list of available Builds for each version to select from
 - Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available Builds
+- Adjusted Sub-Folder Naming (including the Build-Number)
+
+#### Features of Velocity Installation:
+- Fetches available Velocity versions from the PaperMC [API].
+- Allows selection of specific builds for installation.
+- Automatically detects and configures the required Java version (Java 8, 17, or 21) based on the selected Velocity version.
+- Generates a `start.sh` script to launch Velocity in a `screen` session.
 - Adjusted Sub-Folder Naming (including the Build-Number)
 
 
