@@ -63,7 +63,7 @@ function choose_type {
 
 HEIGHT=12
 WIDTH=61
-CHOICE_HEIGHT=5
+CHOICE_HEIGHT=6
 BACKTITLE="MC-Server Installer by realTM"
 TITLE="Minecraft Server Type"
 MENU="Select the type of Minecraft Server you want to install:"
@@ -627,117 +627,120 @@ fi
 }
 
 
-function select_ram_8 {
+select_ram_8 () {
+    HEIGHT=20
+    WIDTH=50
+    CHOICE_HEIGHT=10
+    BACKTITLE="MC-Server Installer by realTM"
+    TITLE="Allocate RAM"
+    MENU="How much RAM do you want to allocate to your Minecraft Server?"
 
-HEIGHT=20
-WIDTH=50
-CHOICE_HEIGHT=10
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Allocate RAM"
-MENU="How much RAM do you want to allocate to your Minecraft Server?"
+    OPTIONS=(1 "1GB"
+             2 "2GB"
+             3 "3GB"
+             4 "4GB"
+             5 "5GB"
+             6 "6GB"
+             7 "7GB"
+             8 "8GB"
+             9 "Custom Amount")
 
-OPTIONS=(1 "1GB"
-         2 "2GB"
-         3 "3GB"
-         4 "4GB"
-         5 "5GB"
-         6 "6GB"
-         7 "7GB"
-         8 "8GB"
-         9 "Custom Amount")
+    CHOICE=$(dialog --clear \
+                    --backtitle "$BACKTITLE" \
+                    --title "$TITLE" \
+                    --menu "$MENU" \
+                    $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                    "${OPTIONS[@]}" \
+                    2>&1 >/dev/tty)
 
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
+    response=$?
 
-clear
- case $CHOICE in
-        1)
-             ram_third=1
-             script_creator_8
-             chmod +x start.sh
-             finalize
-             ;;
-        2)
-             ram_third=2
-             script_creator_8
-             chmod +x start.sh
-             finalize
-             ;;
-        3)
-            ram_third=3
-            script_creator_8
-            chmod +x start.sh
-            finalize
-            ;;
-        4)
-            ram_third=4
-            script_creator_8
-            chmod +x start.sh
-            finalize
-             ;;
-        5)
-            ram_third=5
-            script_creator_8
-            chmod +x start.sh
-            finalize
-             ;;
-        6)
-            ram_third=6
-            script_creator_8
-            chmod +x start.sh
-            finalize
-            ;;
-        7)
-            ram_third=7
-            script_creator_8
-            chmod +x start.sh
-            finalize
-            ;;
-        8)
-            ram_third=8
-            script_creator_8
-            chmod +x start.sh
-            finalize
-            ;;
-        9)
-            custom_ram_8
-            ;;
- esac
+    clear
 
+    case $response in
+      0)
+            case $CHOICE in
+                1)
+                     selected_ram=1
+                     ;;
+                2)
+                     selected_ram=2
+                     ;;
+                3)
+                     selected_ram=3
+                     ;;
+                4)
+                     selected_ram=4
+                     ;;
+                5)
+                     selected_ram=5
+                     ;;
+                6)
+                     selected_ram=6
+                     ;;
+                7)
+                     selected_ram=7
+                     ;;
+                8)
+                     selected_ram=8
+                     ;;
+                9)
+                     custom_ram_8
+                     ;;
+            esac
+
+            if [[ -z "$skip_finalize" && -n "$selected_ram" ]]; then
+                ram_third=$selected_ram
+                script_creator_8
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+    esac
 }
 
 
-function custom_ram_8 {
+custom_ram_8 () {
+    ram=$(dialog --title "Define RAM" \
+    --backtitle "MC-Server Installer by realTM" \
+    --inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
+    response=$?
 
-ram=$(dialog --title "Define RAM" \
---backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
-respose=$?
+    clear
 
-case $respose in
-  0)
-        ram_first=$(echo "${ram//B}")
-        ram_second=$(echo "${ram_first//G}")
-        ram_third=$(echo "${ram_second// /}")
-        script_creator_8
-        chmod +x start.sh
-        finalize
-        ;;
-  1)
-        echo "Cancel pressed."
-        clear
-        ;;
-  255)
-   echo "[ESC] key pressed."
-   clear
-esac
-        
-    
+    case $response in
+      0)
+            ram_first=$(echo "${ram//B}")
+            ram_second=$(echo "${ram_first//G}")
+            ram_third=$(echo "${ram_second// /}")
+            selected_ram=$ram_third
+            if [[ -z "$skip_finalize" ]]; then
+                script_creator_8
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_8
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_8
+            ;;
+    esac
 }
 
 function script_creator_16 {
@@ -938,115 +941,120 @@ fi
 }
 
 
-function select_ram_17 {
+select_ram_17 () {
+    HEIGHT=20
+    WIDTH=50
+    CHOICE_HEIGHT=10
+    BACKTITLE="MC-Server Installer by realTM"
+    TITLE="Allocate RAM"
+    MENU="How much RAM do you want to allocate to your Minecraft Server?"
 
-HEIGHT=20
-WIDTH=50
-CHOICE_HEIGHT=10
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Allocate RAM"
-MENU="How much RAM do you want to allocate to your Minecraft Server?"
+    OPTIONS=(1 "1GB"
+             2 "2GB"
+             3 "3GB"
+             4 "4GB"
+             5 "5GB"
+             6 "6GB"
+             7 "7GB"
+             8 "8GB"
+             9 "Custom Amount")
 
-OPTIONS=(1 "1GB"
-         2 "2GB"
-         3 "3GB"
-         4 "4GB"
-         5 "5GB"
-         6 "6GB"
-         7 "7GB"
-         8 "8GB"
-         9 "Custom Amount")
+    CHOICE=$(dialog --clear \
+                    --backtitle "$BACKTITLE" \
+                    --title "$TITLE" \
+                    --menu "$MENU" \
+                    $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                    "${OPTIONS[@]}" \
+                    2>&1 >/dev/tty)
 
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
+    response=$?
 
-clear
- case $CHOICE in
-        1)
-             ram_third=1
-             script_creator_17
-             chmod +x start.sh
-             finalize
-             ;;
-        2)
-             ram_third=2
-             script_creator_17
-             chmod +x start.sh
-             finalize
-             ;;
-        3)
-            ram_third=3
-            script_creator_17
-            chmod +x start.sh
-            finalize
-            ;;
-        4)
-            ram_third=4
-            script_creator_17
-            chmod +x start.sh
-            finalize
-             ;;
-        5)
-            ram_third=5
-            script_creator_17
-            chmod +x start.sh
-            finalize
-             ;;
-        6)
-            ram_third=6
-            script_creator_17
-            chmod +x start.sh
-            finalize
-            ;;
-        7)
-            ram_third=7
-            script_creator_17
-            chmod +x start.sh
-            finalize
-            ;;
-        8)
-            ram_third=8
-            script_creator_17
-            chmod +x start.sh
-            finalize
-            ;;
-        9)
-            custom_ram_17
-            ;;
- esac
+    clear
 
+    case $response in
+      0)
+            case $CHOICE in
+                1)
+                     selected_ram=1
+                     ;;
+                2)
+                     selected_ram=2
+                     ;;
+                3)
+                     selected_ram=3
+                     ;;
+                4)
+                     selected_ram=4
+                     ;;
+                5)
+                     selected_ram=5
+                     ;;
+                6)
+                     selected_ram=6
+                     ;;
+                7)
+                     selected_ram=7
+                     ;;
+                8)
+                     selected_ram=8
+                     ;;
+                9)
+                     custom_ram_17
+                     ;;
+            esac
+
+            if [[ -z "$skip_finalize" && -n "$selected_ram" ]]; then
+                ram_third=$selected_ram
+                script_creator_17
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+    esac
 }
 
 
-function custom_ram_17 {
+custom_ram_17 () {
+    ram=$(dialog --title "Define RAM" \
+    --backtitle "MC-Server Installer by realTM" \
+    --inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
+    response=$?
 
-ram=$(dialog --title "Define RAM" \
---backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
-respose=$?
+    clear
 
-case $respose in
-  0)
-        ram_first=$(echo "${ram//B}")
-        ram_second=$(echo "${ram_first//G}")
-        ram_third=$(echo "${ram_second// /}")
-        script_creator_17
-        chmod +x start.sh
-        finalize
-        ;;
-  1)
-        echo "Cancel pressed."
-        clear
-        ;;
-  255)
-   echo "[ESC] key pressed."
-   clear
-esac
+    case $response in
+      0)
+            ram_first=$(echo "${ram//B}")
+            ram_second=$(echo "${ram_first//G}")
+            ram_third=$(echo "${ram_second// /}")
+            selected_ram=$ram_third
+            if [[ -z "$skip_finalize" ]]; then
+                script_creator_17
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_17
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_17
+            ;;
+    esac
 }
 
 function script_creator_21 {
@@ -1092,114 +1100,119 @@ fi
 }
 
 
-function select_ram_21 {
+select_ram_21 () {
+    HEIGHT=20
+    WIDTH=50
+    CHOICE_HEIGHT=10
+    BACKTITLE="MC-Server Installer by realTM"
+    TITLE="Allocate RAM"
+    MENU="How much RAM do you want to allocate to your Minecraft Server?"
 
-HEIGHT=20
-WIDTH=50
-CHOICE_HEIGHT=10
-BACKTITLE="MC-Server Installer by realTM"
-TITLE="Allocate RAM"
-MENU="How much RAM do you want to allocate to your Minecraft Server?"
+    OPTIONS=(1 "1GB"
+             2 "2GB"
+             3 "3GB"
+             4 "4GB"
+             5 "5GB"
+             6 "6GB"
+             7 "7GB"
+             8 "8GB"
+             9 "Custom Amount")
 
-OPTIONS=(1 "1GB"
-         2 "2GB"
-         3 "3GB"
-         4 "4GB"
-         5 "5GB"
-         6 "6GB"
-         7 "7GB"
-         8 "8GB"
-         9 "Custom Amount")
+    CHOICE=$(dialog --clear \
+                    --backtitle "$BACKTITLE" \
+                    --title "$TITLE" \
+                    --menu "$MENU" \
+                    $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                    "${OPTIONS[@]}" \
+                    2>&1 >/dev/tty)
 
-CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >/dev/tty)
+    response=$?
 
-clear
- case $CHOICE in
-        1)
-             ram_third=1
-             script_creator_21
-             chmod +x start.sh
-             finalize
-             ;;
-        2)
-             ram_third=2
-             script_creator_21
-             chmod +x start.sh
-             finalize
-             ;;
-        3)
-            ram_third=3
-            script_creator_21
-            chmod +x start.sh
-            finalize
-            ;;
-        4)
-            ram_third=4
-            script_creator_21
-            chmod +x start.sh
-            finalize
-             ;;
-        5)
-            ram_third=5
-            script_creator_21
-            chmod +x start.sh
-            finalize
-             ;;
-        6)
-            ram_third=6
-            script_creator_21
-            chmod +x start.sh
-            finalize
-            ;;
-        7)
-            ram_third=7
-            script_creator_21
-            chmod +x start.sh
-            finalize
-            ;;
-        8)
-            ram_third=8
-            script_creator_21
-            chmod +x start.sh
-            finalize
-            ;;
-        9)
-            custom_ram_21
-            ;;
- esac
+    clear
 
+    case $response in
+      0)
+            case $CHOICE in
+                1)
+                     selected_ram=1
+                     ;;
+                2)
+                     selected_ram=2
+                     ;;
+                3)
+                     selected_ram=3
+                     ;;
+                4)
+                     selected_ram=4
+                     ;;
+                5)
+                     selected_ram=5
+                     ;;
+                6)
+                     selected_ram=6
+                     ;;
+                7)
+                     selected_ram=7
+                     ;;
+                8)
+                     selected_ram=8
+                     ;;
+                9)
+                     custom_ram_21
+                     ;;
+            esac
+
+            if [[ -z "$skip_finalize" && -n "$selected_ram" ]]; then
+                ram_third=$selected_ram
+                script_creator_21
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "RAM selection cancelled." 6 40
+            clear
+            choose_type
+            ;;
+    esac
 }
 
-function custom_ram_21 {
+custom_ram_21 () {
+    ram=$(dialog --title "Define RAM" \
+    --backtitle "MC-Server Installer by realTM" \
+    --inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
+    response=$?
 
-ram=$(dialog --title "Define RAM" \
---backtitle "MC-Server Installer by realTM" \
---inputbox "Enter the amount of RAM you want to allocate" 8 60 2>&1 >/dev/tty)
-respose=$?
+    clear
 
-case $respose in
-  0)
-        ram_first=$(echo "${ram//B}")
-        ram_second=$(echo "${ram_first//G}")
-        ram_third=$(echo "${ram_second// /}")
-        script_creator_21
-        chmod +x start.sh
-        finalize
-        ;;
-  1)
-        echo "Cancel pressed."
-        clear
-        ;;
-  255)
-   echo "[ESC] key pressed."
-   clear
-esac    
+    case $response in
+      0)
+            ram_first=$(echo "${ram//B}")
+            ram_second=$(echo "${ram_first//G}")
+            ram_third=$(echo "${ram_second// /}")
+            selected_ram=$ram_third
+            if [[ -z "$skip_finalize" ]]; then
+                script_creator_21
+                chmod +x start.sh
+                finalize
+            fi
+            ;;
+      1)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_21
+            ;;
+      255)
+            dialog --title "MC-Server Installer by realTM" --msgbox "Custom RAM selection cancelled." 6 40
+            clear
+            select_ram_21
+            ;;
+    esac
 }
 
 
@@ -3691,13 +3704,13 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Select Velocity Version"
 MENU="Select the version of Velocity you want to install:"
 
+
 curl -X 'GET' \
   'https://api.papermc.io/v2/projects/velocity' -s \
   -H 'accept: application/json' > velocity_versions.json
 
 versions=($(cat velocity_versions.json | jq -r '.versions[]'))
 rm velocity_versions.json
-
 
 OPTIONS=()
 i=1
@@ -3714,33 +3727,48 @@ CHOICE=$(dialog --clear \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
 
+response=$?
+
 clear
 
-i=1
-for version in "${versions[@]}"; do
-    if [ "$CHOICE" == "$i" ]; then
-        selected_version="$version"
-        break
-    fi
-    ((i++))
-done
+case $response in
+  0)
+        i=1
+        for version in "${versions[@]}"; do
+            if [ "$CHOICE" == "$i" ]; then
+                velocity_version="$version"
+                break
+            fi
+            ((i++))
+        done
 
-if [[ $(echo -e "$selected_version\n3.3.0-SNAPSHOT" | sort -V | head -n1) == "3.3.0-SNAPSHOT" ]] || [[ $selected_version > "3.3.0-SNAPSHOT" ]]; then
-    check_java21
-    version_grab
-    check_current21
-elif [[ $(echo -e "$selected_version\n3.1.1" | sort -V | head -n1) == "3.1.1" ]] || [[ $selected_version > "3.1.1" ]]; then
-    check_java17
-    version_grab
-    check_current17
-else
-    check_java8
-    version_grab
-    check_current8
-fi
+        if [[ $(echo -e "$velocity_version\n3.3.0-SNAPSHOT" | sort -V | head -n1) == "3.3.0-SNAPSHOT" ]] || [[ $velocity_version > "3.3.0-SNAPSHOT" ]]; then
+            check_java21
+            version_grab
+            check_current21
+        elif [[ $(echo -e "$velocity_version\n3.1.1" | sort -V | head -n1) == "3.1.1" ]] || [[ $velocity_version > "3.1.1" ]]; then
+            check_java17
+            version_grab
+            check_current17
+        else
+            check_java8
+            version_grab
+            check_current8
+        fi
 
-velocity_version=$selected_version
-velocity_create_json
+        velocity_create_json
+        ;;
+  1)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Installation cancelled." 6 40
+        clear
+        choose_type
+        ;;
+  255)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Installation cancelled." 6 40
+        clear
+        choose_type
+        ;;
+esac
 
 }
 
@@ -3770,35 +3798,56 @@ CHOICE=$(dialog --clear \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
 
+response=$?
+
 clear
-case $CHOICE in
-        1)
-            velocity_build_input
-            ;;
-        2)
-            velocity_show_builds
-            ;;            
+
+case $response in
+  0)
+        case $CHOICE in
+            1)
+                velocity_build_input
+                ;;
+            2)
+                velocity_show_builds
+                ;;
+        esac
+        ;;
+  1)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Installation cancelled." 6 40
+        clear
+        choose_type
+        ;;
+  255)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Installation cancelled." 6 40
+        clear
+        choose_type
+        ;;
 esac
 }
 
 velocity_build_input () {
 
-  velocity_build=$(dialog --title "Enter Build Number" \
+velocity_build=$(dialog --title "Enter Build Number" \
 --backtitle "MC-Server Installer by realTM" \
 --inputbox "Enter the Build number you want to install " 10 60 2>&1 >/dev/tty)
-respose=$?
+response=$?
 
-case $respose in
+clear
+
+case $response in
   0)
         velocity_create_array
         ;;
   1)
-        echo "Cancel pressed."
+        dialog --title "MC-Server Installer by realTM" --msgbox "Build selection cancelled." 6 40
         clear
+        velocity_set_build
         ;;
   255)
-        echo "[ESC] key pressed."
+        dialog --title "MC-Server Installer by realTM" --msgbox "Build selection cancelled." 6 40
         clear
+        velocity_set_build
         ;;
 esac
 
@@ -3806,23 +3855,42 @@ esac
 
 velocity_show_builds () {
 
-    input=$(cat velocity_builds.json)
-    rm $path/velocity_builds.json
-    builds=($(echo "$input" | jq -r '.builds[]'))
-    menu_items=()
-    for number in "${builds[@]}"; do
-      menu_items+=("$number" "$number")
-    done
+input=$(cat velocity_builds.json)
+rm $path/velocity_builds.json
+builds=($(echo "$input" | jq -r '.builds[]'))
+menu_items=()
+for number in "${builds[@]}"; do
+    menu_items+=("$number" "$number")
+done
 
-  velocity_build=$(dialog --clear \
-                  --no-tags \
-                  --backtitle "MC-Server Installer by realTM" \
-                  --title "Select Build Number" \
-                  --menu "Select the Build number you want to install:" \
-                  0 0 0 \
-                  "${menu_items[@]}" \
-                  2>&1 >/dev/tty)
-  velocity_check_existing
+velocity_build=$(dialog --clear \
+                --no-tags \
+                --backtitle "MC-Server Installer by realTM" \
+                --title "Select Build Number" \
+                --menu "Select the Build number you want to install:" \
+                0 0 0 \
+                "${menu_items[@]}" \
+                2>&1 >/dev/tty)
+
+response=$?
+
+clear
+
+case $response in
+  0)
+        velocity_check_existing
+        ;;
+  1)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Build selection cancelled." 6 40
+        clear
+        velocity_set_build
+        ;;
+  255)
+        dialog --title "MC-Server Installer by realTM" --msgbox "Build selection cancelled." 6 40
+        clear
+        velocity_set_build
+        ;;
+esac
 }
 
 velocity_create_array () {
@@ -3833,13 +3901,13 @@ velocity_create_array () {
 }
 
 velocity_check_existing () {
-  if [[ " ${builds[@]} " =~ " $velocity_build " ]]; then
-    velocity_folder_creator
-    velocity_download_jar
-  else
+if [[ " ${builds[@]} " =~ " $velocity_build " ]]; then
+    velocity_ram_selector
+else
     dialog --msgbox "The build number you've entered does not exist." 7 60
+    clear
     velocity_build_input
-  fi
+fi
 }
 
 velocity_folder_creator () {
@@ -3859,10 +3927,12 @@ velocity_download_jar () {
     cd $path/Servers/$dirname
     wget https://api.papermc.io/v2/projects/velocity/versions/$velocity_version/builds/$velocity_build/downloads/velocity-$velocity_version-$velocity_build.jar
     mv velocity*.jar velocity.jar
-    velocity_ram_selector
 }
 
 velocity_ram_selector () {
+
+    skip_finalize="yes"
+
     if [[ $(echo -e "$velocity_version\n3.3.0-SNAPSHOT" | sort -V | tail -n1) == "$velocity_version" ]]; then
         java_required=21
     elif [[ $(echo -e "$velocity_version\n3.1.1" | sort -V | tail -n1) == "$velocity_version" ]]; then
@@ -3882,7 +3952,38 @@ velocity_ram_selector () {
             select_ram_8
             ;;
     esac
+
+    if [[ -n "$selected_ram" ]]; then
+        velocity_finalize_installation
+    fi
+
+    unset skip_finalize
 }
+
+velocity_finalize_installation () {
+
+    velocity_folder_creator
+    velocity_download_jar
+
+    ram_third=$selected_ram
+
+    case $java_required in
+        21)
+            script_creator_21
+            ;;
+        17)
+            script_creator_17
+            ;;
+        8)
+            script_creator_8
+            ;;
+    esac
+
+    chmod +x start.sh
+    finalize
+}
+
+# End of Velocity Functions
 
 ## END OF FUNCTIONS
 
