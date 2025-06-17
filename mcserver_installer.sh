@@ -133,7 +133,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.21.5
+maxVer=1.21.6
 
 if version_lt $ver $minVer; then
     not_supported
@@ -1948,7 +1948,8 @@ MENU="Select the exact Version you want to install:"
 OPTIONS=(1 "1.21"
          2 "1.21.1"
          3 "1.21.3"
-         4 "1.21.4")
+         4 "1.21.4"
+         5 "1.21.5")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1978,6 +1979,11 @@ case $CHOICE in
         4)
             #1.21.4
             ver=1.21.4
+            forge_custom_version
+            ;;
+        5)
+            #1.21.5
+            ver=1.21.5
             forge_custom_version
             ;;
 
@@ -3339,7 +3345,9 @@ OPTIONS=(1 "1.8.8"
          20 "1.21"
          21 "1.21.1"
          22 "1.21.3"
-         23 "1.21.4")
+         23 "1.21.4"
+         24 "1.21.5"
+         25 "1.21.6")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3507,6 +3515,20 @@ clear
             ;;
         23)
             version=1.21.4
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        24)
+            version=1.21.5
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        25)
+            version=1.21.6
             version_grab
             check_java21
             check_current21
@@ -3769,7 +3791,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="17.1"
+scriptversion="18.0"
 ##
 
 ## Latest Version
