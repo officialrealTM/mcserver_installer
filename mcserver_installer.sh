@@ -1949,7 +1949,8 @@ OPTIONS=(1 "1.21"
          2 "1.21.1"
          3 "1.21.3"
          4 "1.21.4"
-         5 "1.21.5")
+         5 "1.21.5"
+         6 "1.21.6")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1984,6 +1985,11 @@ case $CHOICE in
         5)
             #1.21.5
             ver=1.21.5
+            forge_custom_version
+            ;;
+        6)
+            #1.21.6
+            ver=1.21.6
             forge_custom_version
             ;;
 
@@ -3791,7 +3797,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="18.0"
+scriptversion="18.1"
 ##
 
 ## Latest Version
