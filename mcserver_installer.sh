@@ -3353,7 +3353,8 @@ OPTIONS=(1 "1.8.8"
          22 "1.21.3"
          23 "1.21.4"
          24 "1.21.5"
-         25 "1.21.6")
+         25 "1.21.6"
+         26 "1.21.7")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3535,6 +3536,13 @@ clear
             ;;
         25)
             version=1.21.6
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        26)
+            version=1.21.7
             version_grab
             check_java21
             check_current21
@@ -3797,7 +3805,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="18.2"
+scriptversion="18.3"
 ##
 
 ## Latest Version
