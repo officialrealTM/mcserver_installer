@@ -133,7 +133,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.21.6
+maxVer=1.21.7
 
 if version_lt $ver $minVer; then
     not_supported
@@ -3797,7 +3797,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="18.1"
+scriptversion="18.2"
 ##
 
 ## Latest Version
