@@ -1,9 +1,9 @@
 
   
-# Minecraft Server Installer Script (Vanilla,Forge, Spigot & Paper) 1.7.X - 1.21+
+# Minecraft Server Installer Script (Vanilla, Forge, Spigot, Paper & Leaf) 1.7.X - 1.21+
 ## <u>About the project</u>
 
-With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla, Forge, Spigot or Paper, as easy and beginner-friendly as possible. 
+With this project, my goal was to make installing Minecraft servers, no matter if they are Vanilla, Forge, Spigot, Paper and Leaf, as easy and beginner-friendly as possible. 
 After making some Tutorials on my [YouTube Channel](https://youtube.com/realtm_csgo) and providing a detailed [Documentation](https://docs.realtm.de) for them, there were still questions and problems on how to install a Minecraft Server on a Linux-Server.
 Thats why I created this All-in-One solution for installing a Minecraft Server (Forge, Vanilla, Spigot & Paper).
 
@@ -51,10 +51,19 @@ Thats why I created this All-in-One solution for installing a Minecraft Server (
 
 ### Minecraft Paper Features:
 - Supported Minecraft Paper Versions: 1.8.X - 1.21.X
-- Possibility to install every existing Build of Paper
-- Show list of available Builds for each version to select from
-- Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available Builds
-- Adjusted Sub-Folder Naming (including the Build-Number)
+- Possibility to install every existing build of Paper
+- Show list of available builds for each version to select from
+- Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available builds
+- Adjusted Sub-Folder Naming (including the build-number)
+
+### Minecraft Leaf Features:
+- Supported Minecraft Leaf Versions: 1.19.2 - 1.21.X
+- Possibility to install every existing build of Leaf
+- Show list of available builds for each version to select from
+- Automatic distinction between direct download versions and versions with build selection.
+- Using Leaf's official [API](https://api.leafmc.one/docs/swagger-ui/index.html) for versions that support build selection.
+- Adjusted Sub-Folder Naming (including the build-Number)
+- Important: The Leaf developers recommend using version 1.21.4 or newer. Older versions are not recommended for production use.
 
 
 
