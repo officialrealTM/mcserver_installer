@@ -71,7 +71,8 @@ MENU="Select the type of Minecraft Server you want to install:"
 OPTIONS=(1 "Minecraft Vanilla"
          2 "Minecraft Forge"
          3 "Minecraft Spigot"
-         4 "Minecraft Paper")
+         4 "Minecraft Paper"
+         5 "Minecraft Leaf")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -95,6 +96,9 @@ clear
             ;;
         4)
             paper
+            ;;
+        5)
+            leaf
             ;;
  esac
 
@@ -3696,6 +3700,365 @@ paper_ram_selector () {
 
 ## End of Paper Funcitons
 
+## Start of Leaf Functions
+
+function leaf {
+
+HEIGHT=22
+WIDTH=50
+CHOICE_HEIGHT=14
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the major Version you want to install:"
+
+OPTIONS=(1 "1.19"
+         2 "1.20"
+         3 "1.21")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            leaf_vp_1_19
+            ;;
+        2)
+            leaf_vp_1_20
+            ;;
+        3)
+            leaf_vp_1_21
+            ;;
+esac    
+    
+}
+
+function leaf_vp_1_19 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install (Direct Download):"
+
+OPTIONS=(1 "1.19.2"
+         2 "1.19.3"
+         3 "1.19.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            version=1.19.2
+            leaf_direct_download_routine
+            ;;
+        2)
+            version=1.19.3
+            leaf_direct_download_routine
+            ;;
+        3)
+            version=1.19.4
+            leaf_direct_download_routine
+            ;;
+esac
+}
+
+function leaf_vp_1_20 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.20 (Direct Download)"
+         2 "1.20.1 (Direct Download)"
+         3 "1.20.2 (Direct Download)"
+         4 "1.20.4 (Build Selection)"
+         5 "1.20.6 (Build Selection)")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            version=1.20
+            leaf_direct_download_routine
+            ;;
+        2)
+            version=1.20.1
+            leaf_direct_download_routine
+            ;;
+        3)
+            version=1.20.2
+            leaf_direct_download_routine
+            ;;
+        4)
+            version=1.20.4
+            leaf_api_installer_routine
+            ;;
+        5)
+            version=1.20.6
+            leaf_api_installer_routine
+            ;;
+esac
+}
+
+function leaf_vp_1_21 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install (Build Selection):"
+
+OPTIONS=(1 "1.21"
+         2 "1.21.2"
+         3 "1.21.3"
+         4 "1.21.4"
+         5 "1.21.5"
+         6 "1.21.6"
+         7 "1.21.7")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            version=1.21
+            leaf_api_installer_routine
+            ;;
+        2)
+            version=1.21.2
+            leaf_api_installer_routine
+            ;;
+        3)
+            version=1.21.3
+            leaf_api_installer_routine
+            ;;
+        4)
+            version=1.21.4
+            leaf_api_installer_routine
+            ;;
+        5)
+            version=1.21.5
+            leaf_api_installer_routine
+            ;;
+        6)
+            version=1.21.6
+            leaf_api_installer_routine
+            ;;
+        7)
+            version=1.21.7
+            leaf_api_installer_routine
+            ;;
+esac
+}
+
+# Routine for direct downloads from GitHub
+function leaf_direct_download_routine {
+    check_java17
+    version_grab
+    check_current17
+    folder_creator_leaf_direct
+    cd $path/Servers/$dirname
+    wget https://github.com/Winds-Studio/Leaf/releases/download/ver-$version/leaf-$version.jar
+    mv leaf*.jar server.jar
+    leaf_ram_selector
+}
+
+# Routine for API-based installation with build selection
+function leaf_api_installer_routine {
+    if [[ $version == "1.20."* ]]
+    then
+        check_java17
+        version_grab
+        check_current17
+    elif [[ $version == "1.20.6" ]] || [[ $version == "1.21"* ]]
+    then
+        check_java21
+        version_grab
+        check_current21
+    fi
+    create_leaf_json
+}
+
+create_leaf_json () {
+  curl -X 'GET' \
+  'https://api.leafmc.one/v2/projects/leaf/versions/'$version'/builds' -s \
+  -H 'accept: application/json' > builds.json
+  set_leaf_build
+}
+
+set_leaf_build () {
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Select Build Number"
+MENU="Which Build of Leaf do you want to install?"
+
+OPTIONS=(1 "I already know the exact build number"
+         2 "Show me the available builds")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            leaf_build_input
+            ;;
+        2)
+            show_leaf_builds
+            ;;            
+esac
+}
+
+leaf_build_input () {
+  
+  input=$(cat builds.json)
+  builds=($(echo "$input" | jq -r '.[].build'))
+  rm -f $path/builds.json
+
+  build=$(dialog --title "Enter Build Number" \
+--backtitle "MC-Server Installer by realTM" \
+--inputbox "Enter the Build number you want to install " 10 60 2>&1 >/dev/tty)
+  
+  respose=$?
+  if [ $respose -ne 0 ]; then
+    clear
+    return
+  fi
+
+  if [[ " ${builds[@]} " =~ " $build " ]]; then
+    folder_creator_leaf_api
+    download_leaf_jar
+  else
+    dialog --msgbox "The build number you've entered does not exist." 7 60
+    clear
+  fi
+}
+
+show_leaf_builds () {
+
+    input=$(cat builds.json)
+    builds=($(echo "$input" | jq -r '.[].build'))
+    rm -f $path/builds.json
+    
+    menu_items=()
+    for number in "${builds[@]}"; do
+      menu_items+=("$number" "")
+    done
+
+    if [ ${#menu_items[@]} -eq 0 ]; then
+        dialog --msgbox "No builds found for this Minecraft version." 7 60
+        clear
+        return
+    fi
+
+  build=$(dialog --clear \
+                  --backtitle "MC-Server Installer by realTM" \
+                  --title "Select Build Number" \
+                  --menu "Select the Build number you want to install:" \
+                  0 0 0 \
+                  "${menu_items[@]}" \
+                  2>&1 >/dev/tty)
+
+    respose=$?
+    if [ $respose -ne 0 ]; then
+        clear
+        return
+    fi
+    
+    folder_creator_leaf_api
+    download_leaf_jar
+}
+
+function folder_creator_leaf_direct {
+cd Servers
+basename="Leaf-"$version
+dirname=$basename
+i=1
+while [ -d $dirname ]
+do
+  dirname=$basename-"($i)"
+  ((i++))
+done
+mkdir $dirname
+
+}
+
+function folder_creator_leaf_api {
+cd Servers
+basename="Leaf-"$version"_Build-$build"
+dirname=$basename
+i=1
+while [ -d $dirname ]
+do
+  dirname=$basename-"($i)"
+  ((i++))
+done
+mkdir $dirname
+
+}
+
+download_leaf_jar () {
+    
+    cd $path/Servers/$dirname
+    wget https://api.leafmc.one/v2/projects/leaf/versions/$version/builds/$build/downloads/leaf-$version-$build.jar
+    mv leaf*.jar server.jar
+    leaf_ram_selector
+}
+
+leaf_ram_selector () {
+
+    if [[ $version = "1.20.6" ]] || [[ $version = "1.21"* ]]
+    then
+        select_ram_21
+    elif [[ $version = "1.19"* ]] || [[ $version = "1.20."* ]]
+    then
+        select_ram_17
+    else
+        select_ram_8
+    fi
+
+}
+
+## End of Leaf Functions
+
 ## END OF FUNCTIONS
 
 ## Startup Function
@@ -3805,7 +4168,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="18.3"
+scriptversion="19.0"
 ##
 
 ## Latest Version
