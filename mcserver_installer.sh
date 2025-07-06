@@ -3324,7 +3324,7 @@ spigot_installer_routine () {
 
 ## Start of Paper Functions
 
-paper () {
+function paper {
 
 HEIGHT=30
 WIDTH=80
@@ -3333,32 +3333,20 @@ BACKTITLE="MC-Server Installer by realTM"
 TITLE="Select Version"
 MENU="For which Minecraft Version do you want to install Paper?"
 
-OPTIONS=(1 "1.8.8"
-         2 "1.9.4"
-         3 "1.10.2"
-         4 "1.11.2"
-         5 "1.12.2"
-         6 "1.13.2"
-         7 "1.14.4"
-         8 "1.15.2"
-         9 "1.16.5"
-         10 "1.17.1"
-         11 "1.18.2"
-         12 "1.19.3"
-         13 "1.19.4"
-         14 "1.20"
-         15 "1.20.1"
-         16 "1.20.2"
-         17 "1.20.4"
-         18 "1.20.5"
-         19 "1.20.6"
-         20 "1.21"
-         21 "1.21.1"
-         22 "1.21.3"
-         23 "1.21.4"
-         24 "1.21.5"
-         25 "1.21.6"
-         26 "1.21.7")
+OPTIONS=(1 "1.8"
+         2 "1.9"
+         3 "1.10"
+         4 "1.11"
+         5 "1.12"
+         6 "1.13"
+         7 "1.14"
+         8 "1.15"
+         9 "1.16"
+         10 "1.17"
+         11 "1.18"
+         12 "1.19"
+         13 "1.20"
+         14 "1.21")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3371,190 +3359,604 @@ CHOICE=$(dialog --clear \
 clear
  case $CHOICE in
         1)
-             version=1.8.8
-             check_java8
-             version_grab
-             check_current8
-             create_json
+             paper_vp_1_8
              ;;
         2)
-             version=1.9.4
-             check_java8
-             version_grab
-             check_current8
-             create_json
+             paper_vp_1_9
              ;;
         3)
+             paper_vp_1_10
+            ;;
+        4)
+             paper_vp_1_11
+             ;;
+        5)
+             paper_vp_1_12
+             ;;
+        6)
+             paper_vp_1_13
+            ;;
+        7)
+             paper_vp_1_14
+            ;;
+        8)
+             paper_vp_1_15
+            ;;
+        9)
+             paper_vp_1_16
+            ;;
+        10)
+            paper_vp_1_17
+            ;;
+        11)
+            paper_vp_1_18
+            ;;
+        12)
+            paper_vp_1_19
+            ;;
+        13)
+            paper_vp_1_20
+            ;;
+        14)
+            paper_vp_1_21
+            ;;
+ esac
+}
+
+function paper_vp_1_8 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.8.8")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.8.8
+            version=1.8.8
+            check_java8
+            version_grab
+            check_current8
+            create_json
+            ;;
+esac
+}
+
+function paper_vp_1_9 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.9.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.9.4
+            version=1.9.4
+            check_java8
+            version_grab
+            check_current8
+            create_json
+            ;;
+esac
+}
+
+function paper_vp_1_10 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.10.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.10.2
             version=1.10.2
             check_java8
             version_grab
             check_current8
-             create_json
+            create_json
             ;;
-        4)
+esac
+}
+
+function paper_vp_1_11 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.11.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.11.2
             version=1.11.2
             check_java8
             version_grab
             check_current8
-             create_json
-             ;;
-        5)
+            create_json
+            ;;
+esac
+}
+
+function paper_vp_1_12 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.12.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.12.2
             version=1.12.2
             check_java8
             version_grab
             check_current8
-             create_json
-             ;;
-        6)
+            create_json
+            ;;
+esac
+}
+
+function paper_vp_1_13 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.13.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.13.2
             version=1.13.2
             check_java8
             version_grab
             check_current8
-             create_json
+            create_json
             ;;
-        7)
+esac
+}
+
+function paper_vp_1_14 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.14.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.14.4
             version=1.14.4
             check_java8
             version_grab
             check_current8
-             create_json
+            create_json
             ;;
-        8)
+esac
+}
+
+function paper_vp_1_15 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.15.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.15.2
             version=1.15.2
             check_java8
             version_grab
             check_current8
-             create_json
+            create_json
             ;;
-        9)
+esac
+}
+
+function paper_vp_1_16 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.16.5")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.16.5
             version=1.16.5
             check_java8
             version_grab
             check_current8
-             create_json
+            create_json
             ;;
-        10)
+esac
+}
+
+function paper_vp_1_17 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.17.1")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.17.1
             version=1.17.1
             version_grab
             check_java16
             check_current16
             create_json
             ;;
-        11)
+esac
+}
+
+function paper_vp_1_18 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.18.2")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.18.2
             version=1.18.2
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        12)
+esac
+}
+
+function paper_vp_1_19 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.19.3"
+         2 "1.19.4")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.19.3
             version=1.19.3
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        13)
+        2)
+            #1.19.4
             version=1.19.4
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        14)
+esac
+}
+
+function paper_vp_1_20 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.20"
+         2 "1.20.1"
+         3 "1.20.2"
+         4 "1.20.4"
+         5 "1.20.5"
+         6 "1.20.6")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.20
             version=1.20
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        15)
+        2)
+            #1.20.1
             version=1.20.1
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        16)
+        3)
+            #1.20.2
             version=1.20.2
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        17)
+        4)
+            #1.20.4
             version=1.20.4
             version_grab
             check_java17
             check_current17
             create_json
             ;;
-        18)
+        5)
+            #1.20.5
             version=1.20.5
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        19)
+        6)
+            #1.20.6
             version=1.20.6
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        20)
+esac
+}
+
+function paper_vp_1_21 {
+
+HEIGHT=40
+WIDTH=80
+CHOICE_HEIGHT=12
+BACKTITLE="MC-Server Installer by realTM"
+TITLE="Versions"
+MENU="Select the exact Version you want to install:"
+
+OPTIONS=(1 "1.21"
+         2 "1.21.1"
+         3 "1.21.3"
+         4 "1.21.4"
+         5 "1.21.5"
+         6 "1.21.6"
+         7 "1.21.7")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            #1.21
             version=1.21
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        21)
+        2)
+            #1.21.1
             version=1.21.1
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        22)
+        3)
+            #1.21.3
             version=1.21.3
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        23)
+        4)
+            #1.21.4
             version=1.21.4
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        24)
+        5)
+            #1.21.5
             version=1.21.5
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        25)
+        6)
+            #1.21.6
             version=1.21.6
             version_grab
             check_java21
             check_current21
             create_json
             ;;
-        26)
+        7)
+            #1.21.7
             version=1.21.7
             version_grab
             check_java21
             check_current21
             create_json
             ;;
- esac
-
-
+esac
 }
 
 create_json () {
@@ -4168,7 +4570,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="19.0"
+scriptversion="19.1"
 ##
 
 ## Latest Version
