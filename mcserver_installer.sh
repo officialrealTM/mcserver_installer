@@ -137,7 +137,7 @@ function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)"
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
 
 minVer=1.7
-maxVer=1.21.7
+maxVer=1.21.8
 
 if version_lt $ver $minVer; then
     not_supported
@@ -1954,7 +1954,9 @@ OPTIONS=(1 "1.21"
          3 "1.21.3"
          4 "1.21.4"
          5 "1.21.5"
-         6 "1.21.6")
+         6 "1.21.6"
+         7 "1.21.7"
+         8 "1.21.8")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -1994,6 +1996,16 @@ case $CHOICE in
         6)
             #1.21.6
             ver=1.21.6
+            forge_custom_version
+            ;;
+        7)
+            #1.21.7
+            ver=1.21.7
+            forge_custom_version
+            ;;
+        8)
+            #1.21.8
+            ver=1.21.8
             forge_custom_version
             ;;
 
@@ -3145,7 +3157,10 @@ OPTIONS=(1 "1.21"
          2 "1.21.1"
          3 "1.21.3"
          4 "1.21.4"
-         5 "1.21.5")
+         5 "1.21.5"
+         6 "1.21.6"
+         7 "1.21.7"
+         8 "1.21.8")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3192,6 +3207,30 @@ case $CHOICE in
         5)
             #1.21.5
             ver=1.21.5
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        6)
+            #1.21.6
+            ver=1.21.6
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        7)
+            #1.21.7
+            ver=1.21.7
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        8)
+            #1.21.8
+            ver=1.21.8
             check_java21
             version_grab
             check_current21
@@ -3888,7 +3927,8 @@ OPTIONS=(1 "1.21"
          4 "1.21.4"
          5 "1.21.5"
          6 "1.21.6"
-         7 "1.21.7")
+         7 "1.21.7"
+         8 "1.21.8")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3951,6 +3991,14 @@ case $CHOICE in
         7)
             #1.21.7
             version=1.21.7
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        8)
+            #1.21.8
+            version=1.21.8
             version_grab
             check_java21
             check_current21
@@ -4241,7 +4289,8 @@ OPTIONS=(1 "1.21"
          4 "1.21.4"
          5 "1.21.5"
          6 "1.21.6"
-         7 "1.21.7")
+         7 "1.21.7"
+         8 "1.21.8")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -4279,6 +4328,10 @@ case $CHOICE in
             ;;
         7)
             version=1.21.7
+            leaf_api_installer_routine
+            ;;
+        8)
+            version=1.21.8
             leaf_api_installer_routine
             ;;
 esac
@@ -4570,7 +4623,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="19.1"
+scriptversion="19.2"
 ##
 
 ## Latest Version
