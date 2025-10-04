@@ -1956,7 +1956,8 @@ OPTIONS=(1 "1.21"
          5 "1.21.5"
          6 "1.21.6"
          7 "1.21.7"
-         8 "1.21.8")
+         8 "1.21.8"
+         9 "1.21.9")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -2006,6 +2007,11 @@ case $CHOICE in
         8)
             #1.21.8
             ver=1.21.8
+            forge_custom_version
+            ;;
+        9)
+            #1.21.9
+            ver=1.21.9
             forge_custom_version
             ;;
 
@@ -3160,7 +3166,8 @@ OPTIONS=(1 "1.21"
          5 "1.21.5"
          6 "1.21.6"
          7 "1.21.7"
-         8 "1.21.8")
+         8 "1.21.8"
+         9 "1.21.9")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3231,6 +3238,14 @@ case $CHOICE in
         8)
             #1.21.8
             ver=1.21.8
+            check_java21
+            version_grab
+            check_current21
+            spigot_installer_routine
+            ;;
+        9)
+            #1.21.9
+            ver=1.21.9
             check_java21
             version_grab
             check_current21
@@ -3928,7 +3943,8 @@ OPTIONS=(1 "1.21"
          5 "1.21.5"
          6 "1.21.6"
          7 "1.21.7"
-         8 "1.21.8")
+         8 "1.21.8"
+         9 "1.21.9")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -3999,6 +4015,14 @@ case $CHOICE in
         8)
             #1.21.8
             version=1.21.8
+            version_grab
+            check_java21
+            check_current21
+            create_json
+            ;;
+        9)
+            #1.21.9
+            version=1.21.9
             version_grab
             check_java21
             check_current21
@@ -4623,7 +4647,7 @@ distro_check () {
 }
 
 ## Script Version
-scriptversion="19.3"
+scriptversion="19.4"
 ##
 
 ## Latest Version
