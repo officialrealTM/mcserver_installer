@@ -15,10 +15,10 @@ API_BASE_URL="https://api.realtm.de"
 
 validate_api_key() {
     local api_key=$1
-    response=$(curl -s -X POST "$API_BASE_URL/increment" \
-         -H "X-API-Key: $api_key" \
-         -H "Content-Type: application/json")
-    
+    # Ruft den neuen, nicht-speichernden Endpunkt auf
+    response=$(curl -s -X POST "$API_BASE_URL/validate-key" \
+         -H "X-API-Key: $api_key")
+
     if echo "$response" | grep -q "Invalid API key"; then
         return 1
     fi
@@ -47,15 +47,45 @@ get_api_key() {
     return 1
 }
 
+# Ersetze die Funktion in mcserver_installer_v2.sh (ab Zeile 42)
+
 increment_counter() {
     local api_key=$(get_api_key)
     if [ -n "$api_key" ]; then
+        
+        # 1. OS-Info holen (wird von distro_check() gesetzt)
+        local os_info="$OS_INFO_STRING"
+
+        # 2. Script-Version (globale Variable)
+        local version="$scriptversion"
+
+        # 3. Minecraft-Infos aus $dirname extrahieren (globale Variable)
+        local mc_type=$(echo "$dirname" | cut -d'-' -f1)
+        
+        # --- KORREKTUR HIER ---
+        # Extrahiert alles nach dem ersten '-' (z.B. "1.21.10-1" oder "1.21.3_Build-42")
+        local mc_version_raw=$(echo "$dirname" | cut -d'-' -f2-)
+        # Schritt 1: Entferne Build-Infos (z.B. _Build-42)
+        local mc_version_no_build=$(echo "$mc_version_raw" | cut -d'_' -f1)
+        # Schritt 2: Entferne Suffixe (z.B. -1)
+        local mc_version=$(echo "$mc_version_no_build" | cut -d'-' -f1)
+        # --- ENDE KORREKTUR ---
+
+        # 4. JSON-Payload bauen
+        local json_payload
+        json_payload=$(printf '{"version": "%s", "os": "%s", "mc_type": "%s", "mc_version": "%s"}' \
+                        "$version" \
+                        "$os_info" \
+                        "$mc_type" \
+                        "$mc_version")
+
+        # 5. Den neuen curl-Befehl an die v2 API senden
         curl -s -X POST "$API_BASE_URL/increment" \
              -H "X-API-Key: $api_key" \
-             -H "Content-Type: application/json"
+             -H "Content-Type: application/json" \
+             -d "$json_payload"
     fi
 }
-## END OF COUNTING FUNCTIONS
 
 ## START OF FUNCTIONS
 
@@ -1188,7 +1218,7 @@ esac
 
 
 function finalize {
-
+    increment_counter
     echo "eula=true" > eula.txt
     dialog --msgbox "Your server has been installed to\nServers --> $dirname\n\nTo start it go to the folder with this command:\ncd Servers/$dirname \n\nand execute\n./start.sh" 15 60 
     clear
@@ -4642,36 +4672,74 @@ function dialog_check {
 }
 
 
-distro_check () {
+## START OF OS CHECK
+OS_INFO_STRING="unknown" # Standardwert
+ubuntu=false # Setzt die Flags für die Java-Logik zurück
+deb12=false # Setzt die Flags für die Java-Logik zurück
 
+distro_check () {
     if [[ ! -e .skip_distro_check ]]
     then
-        ubuntuver=$(lsb_release -r)
-        if [[ $ubuntuver == *"18.04" ]] || [[ $ubuntuver == *"20.04" ]] || [[ $ubuntuver == *"22.04" ]] || [[ $ubuntuver == *"24.04" ]]
-        then
-            ubuntu=true
-        else
-            current_version=$(</etc/debian_version)
-            if [[ ! $current_version  == "10"* ]]
-            then
-                if [[ ! $current_version == "11"* ]]
-                then
-                    if [[ $current_version == "12"* ]]
-                    then
+        # Prüfe, ob lsb_release überhaupt vorhanden ist
+        if command -v lsb_release >/dev/null 2>&1; then
+            
+            # 1. Hole Distro-Name und Release-Nummer (wie von dir vorgeschlagen)
+            local distro=$(lsb_release -i -s)
+            local release=$(lsb_release -r -s)
+            
+            # 2. Setze die Haupt-Info-Variable für die API
+            OS_INFO_STRING="$distro $release"
+            
+            # 3. Setze die alten Flags für die Kompatibilität der Java-Installer
+            if [[ "$distro" == "Ubuntu" ]]; then
+                ubuntu=true
+            elif [[ "$distro" == "Debian" ]]; then
+                if [[ "$release" == "12"* ]]; then
+                    deb12=true
+                fi
+            else
+                # Wenn lsb_release etwas Unerwartetes liefert (z.B. LinuxMint),
+                # prüfen wir, ob es ein unterstütztes Debian ist.
+                if [[ -f /etc/debian_version ]]; then
+                    current_version=$(</etc/debian_version)
+                    if [[ $current_version == "12"* ]]; then
                         deb12=true
+                        OS_INFO_STRING="Debian 12" # Überschreibe OS_INFO_STRING mit dem, was wir sicher wissen
+                    elif [[ $current_version == "11"* ]]; then
+                        OS_INFO_STRING="Debian 11"
+                    elif [[ $current_version == "10"* ]]; then
+                        OS_INFO_STRING="Debian 10"
                     else
-                    echo "Your Linux Distribution is not supported."
-                    exit
+                        echo "Your Linux Distribution ($OS_INFO_STRING) is not supported."
+                        exit
                     fi
-                fi 
+                else
+                    echo "Your Linux Distribution ($OS_INFO_STRING) is not supported."
+                    exit
+                fi
+            fi
+        else
+            # Fallback für sehr alte Systeme ohne lsb_release
+            echo "lsb_release not found. Falling back to /etc/debian_version check..."
+            current_version=$(</etc/debian_version)
+            if [[ $current_version == "10"* ]]; then
+                OS_INFO_STRING="Debian 10"
+            elif [[ $current_version == "11"* ]]; then
+                OS_INFO_STRING="Debian 11"
+            elif [[ $current_version == "12"* ]]; then
+                deb12=true
+                OS_INFO_STRING="Debian 12"
+            else
+                echo "Your Linux Distribution is not supported."
+                exit
             fi
         fi
     fi
-
 }
+## END OF OS CHECK
 
 ## Script Version
-scriptversion="19.6"
+scriptversion="20.0"
 ##
 
 ## Latest Version
@@ -4715,7 +4783,6 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
 else
     clear
-    increment_counter
     distro_check
     dialog_check
     curl_check
