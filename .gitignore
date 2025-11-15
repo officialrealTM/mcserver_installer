@@ -1,0 +1,6 @@
+/Servers
+.installed
+.mcserver_installer_config
+*.jar
+/.compiled
+.git
