@@ -4694,7 +4694,7 @@ distro_check () {
             if [[ "$distro" == "Ubuntu" ]]; then
                 ubuntu=true
             elif [[ "$distro" == "Debian" ]]; then
-                if [[ "$release" == "12"* ]]; then
+                if [[ "$release" == "12"* ]] || [[ "$release" == "13"* ]]; then
                     deb12=true
                 fi
             else
@@ -4702,7 +4702,7 @@ distro_check () {
                 # prüfen wir, ob es ein unterstütztes Debian ist.
                 if [[ -f /etc/debian_version ]]; then
                     current_version=$(</etc/debian_version)
-                    if [[ $current_version == "12"* ]]; then
+                    if [[ $current_version == "12"* ]] || [[ $current_version == "13"* ]]; then
                         deb12=true
                         OS_INFO_STRING="Debian 12" # Überschreibe OS_INFO_STRING mit dem, was wir sicher wissen
                     elif [[ $current_version == "11"* ]]; then
@@ -4739,7 +4739,7 @@ distro_check () {
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="20.0"
+scriptversion="20.1"
 ##
 
 ## Latest Version
