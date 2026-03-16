@@ -769,54 +769,20 @@ function not_supported {
 
 function java_selector {
 
-    if [[ $ver = "1.17"* ]]
-    then
-        clear
-        check_java16
-        version_grab
-        check_current16
-        dl=$(python3 mcurlgrabber.py server-url $ver)
-        folder_creator_vanilla
-        cd $dirname
-        wget $dl
-        sleep 1
-        select_ram_16
-    elif [[ $ver = "1.20.5" ]] || [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
-    then
-        clear
-        check_java21
-        version_grab
-        check_current21
-        dl=$(python3 mcurlgrabber.py server-url $ver)
-        folder_creator_vanilla
-        cd $dirname
-        wget $dl
-        sleep 1
-        select_ram_21
-    elif [[ $ver = "1.18"* ]] || [[ $ver = "1.19"* ]] || [[ $ver = "1.20"* ]]
-    then
-        clear
-        check_java17
-        version_grab
-        check_current17
-        dl=$(python3 mcurlgrabber.py server-url $ver)
-        folder_creator_vanilla
-        cd $dirname
-        wget $dl
-        sleep 1
-        select_ram_17
-    else
-        clear
-        check_java8
-        version_grab
-        check_current8
-        dl=$(python3 mcurlgrabber.py server-url $ver)
-        folder_creator_vanilla
-        cd $dirname
-        wget $dl
-        sleep 1
-        select_ram_8
-    fi
+    local required_java
+    required_java=$(python3 mcurlgrabber.py java-version "$ver")
+
+    clear
+    "check_java${required_java}"
+    version_grab
+    "check_current${required_java}"
+
+    dl=$(python3 mcurlgrabber.py server-url "$ver")
+    folder_creator_vanilla
+    cd "$dirname"
+    wget "$dl"
+    sleep 1
+    "select_ram_${required_java}"
 
 }
 
