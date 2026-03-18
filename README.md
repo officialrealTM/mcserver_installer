@@ -55,7 +55,7 @@ If you find this tool useful, please consider showing your support. Every little
 - Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
-- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X
+- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X (including Snapshots and Pre-releases)
 
 ### Minecraft Forge Features:
 - Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.21.X
@@ -133,7 +133,7 @@ In the last line of this file you can adjust the number after `-Xmx` to adjust m
 
 #### **Can I use this script to install Snapshot Versions of Minecraft?**
 
-**No.** This script can only install full game versions. Snapshot Versions are not supported!
+**Yes.** You can install Snapshot and Pre-release versions for Minecraft Vanilla by simply typing the snapshot name (e.g., `13w36a` or `1.21.11-pre4`) when prompted for the version.
 
 #### **I've accidentally closed my Minecraft console. How can I open it again?** 
 Dont worry, the console will kept open in the background using *screen*.  
@@ -169,6 +169,9 @@ These are all the packages used in this script:
 
 **Python Script:** mcurlgrabber.py (Thanks to [Christian](https://github.com/christian-thiele)!)
 
+## Telemetry / API
+This script sends anonymous telemetry data (such as your OS information, script version, and installed Minecraft version) to an API. This data is used purely for internal development purposes to help improve the installer and understand which platforms are most used. Absolutely no personal or identifiable information is collected or stored. If you still wish to opt out, you can disable this function by creating a `.disable_telemetry` file as described in the **Experimental Settings** below.
+
 ## Experimental Settings
 **Important:** With these experimental settings you can **disable** certain functions of the script.
 Use them at your own risk and **only** if you know what you are doing!
@@ -192,6 +195,10 @@ touch .installed
  ```bash
 touch .disable_spigot_archive
 ```
+ Disable Telemetry (API data sending):
+ ```bash
+touch .disable_telemetry
+```
 
 ### Undo experimental settings
 Enable Distro-check:
@@ -209,6 +216,10 @@ rm .installed
 Enable caching/archiving of compiled Spigot.jar(s):
 ```bash
 rm .disable_spigot_archive
+```
+Enable Telemetry (API data sending):
+```bash
+rm .disable_telemetry
 ```
 
 ## Support
