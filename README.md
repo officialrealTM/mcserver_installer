@@ -55,7 +55,7 @@ If you find this tool useful, please consider showing your support. Every little
 - Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
-- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X
+- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X (including Snapshots and Pre-releases)
 
 ### Minecraft Forge Features:
 - Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.21.X
@@ -133,7 +133,7 @@ In the last line of this file you can adjust the number after `-Xmx` to adjust m
 
 #### **Can I use this script to install Snapshot Versions of Minecraft?**
 
-**No.** This script can only install full game versions. Snapshot Versions are not supported!
+**Yes.** You can install Snapshot and Pre-release versions for Minecraft Vanilla by simply typing the snapshot name (e.g., `13w36a` or `1.21.11-pre4`) when prompted for the version.
 
 #### **I've accidentally closed my Minecraft console. How can I open it again?** 
 Dont worry, the console will kept open in the background using *screen*.  
