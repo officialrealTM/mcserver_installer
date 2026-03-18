@@ -18,7 +18,7 @@ deb12=false # Resets the flags for Java logic
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="20.2"
+scriptversion="21.0"
 
 ## Latest Version
 latestver=$(curl -s https://version.realtm.de)
@@ -662,9 +662,6 @@ function install_java17 {
     dialog --infobox "Java 17 has been installed now!" 10 30 
 }
 
-
-
-
 function install_java21 {
     dialog --infobox "Java 21 will be installed now" 10 30 && sleep 3
     clear
@@ -731,20 +728,32 @@ esac
         
 }
 
-
 function version_checker {
 
-function version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$ver"; }
-function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" == "$ver"; }
-function version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$ver"; }
-function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$ver"; }
+local base_ver="$ver"
+
+# If it's a w-snapshot (e.g. 24w14a)
+if [[ "$ver" =~ ^[0-9]{2}w[0-9]{2}[a-z]$ ]]; then
+    check_valid
+    return
+fi
+
+# Extract base version for suffixes like -pre, -rc, -snapshot
+if [[ "$ver" =~ ^([0-9]+(\.[0-9]+)*)-.*$ ]]; then
+    base_ver="${BASH_REMATCH[1]}"
+elif [[ "$ver" == *-pre* ]] || [[ "$ver" == *-rc* ]] || [[ "$ver" == *-snapshot* ]]; then
+    check_valid
+    return
+fi
+
+function version_gt() { test "$(echo -e "$1\n$2" | sort -V | head -n 1)" != "$1"; }
 
 minVer=1.7
 maxVer=1.21.11
 
-if version_lt $ver $minVer; then
+if version_gt "$minVer" "$base_ver"; then
     not_supported
-elif version_gt $ver $maxVer; then
+elif version_gt "$base_ver" "$maxVer"; then
     not_supported
 else
     check_valid
@@ -772,6 +781,13 @@ function java_selector {
     local required_java
     required_java=$(python3 mcurlgrabber.py java-version "$ver")
 
+    if [[ "$required_java" != "8" ]] && [[ "$required_java" != "16" ]] && [[ "$required_java" != "17" ]] && [[ "$required_java" != "21" ]]; then
+        dialog --title 'MC-Server Installer by realTM' --msgbox " \nThe requested version requires Java $required_java, which is currently not supported by this script!" 10 60
+        clear
+        vanilla
+        return
+    fi
+
     clear
     "check_java${required_java}"
     version_grab
@@ -788,10 +804,11 @@ function java_selector {
 
 
 function check_valid {
-    python3 mcurlgrabber.py server-url $ver
+    # Suppress the server-url output as we just want the exit status
+    python3 mcurlgrabber.py server-url "$ver" > /dev/null 2>&1
     if [[ $? -eq 1 ]]
     then
-        dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered does not exist or was entered in the wrong format!\nHint: Snapshot versions are not supported! ' 10 60
+        dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered does not exist or was entered in the wrong format!' 10 60
         clear
         vanilla
     else
