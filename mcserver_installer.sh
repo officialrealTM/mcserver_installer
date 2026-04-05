@@ -18,7 +18,7 @@ deb12=false # Resets the flags for Java logic
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="21.0"
+scriptversion="22.0"
 
 ## Latest Version
 latestver=$(curl -s https://version.realtm.de)
@@ -324,6 +324,8 @@ check_current17() { check_current_java 17; }
 
 check_current21() { check_current_java 21; }
 
+check_current25() { check_current_java 25; }
+
 
 script_creator() {
     local req=$1
@@ -331,7 +333,8 @@ script_creator() {
     cat > start.sh << 'EOF'
 #!/bin/bash
 function compare {
-    if [[ $java_version = "21"* ]]; then javaversion=21
+    if [[ $java_version = "25"* ]]; then javaversion=25
+    elif [[ $java_version = "21"* ]]; then javaversion=21
     elif [[ $java_version = "17."* ]]; then javaversion=17
     elif [[ $java_version = "16."* ]]; then javaversion=16
     elif [[ $java_version = "1.8"* ]]; then javaversion=8
@@ -364,6 +367,8 @@ script_creator_16() { script_creator 16 "screen -S Minecraft java -Xmx${ram_thir
 script_creator_17() { script_creator 17 "screen -S Minecraft java -Xmx${ram_third}G -Xms512M -jar server.jar"; }
 
 script_creator_21() { script_creator 21 "screen -S Minecraft java -Xmx${ram_third}G -Xms512M -jar server.jar"; }
+
+script_creator_25() { script_creator 25 "screen -S Minecraft java -Xmx${ram_third}G -Xms512M -jar server.jar"; }
 
 forge_script_creator_17() {
     rm -f run.bat run.sh
@@ -416,6 +421,8 @@ select_ram_16()  { select_ram script_creator_16; }
 select_ram_17()  { select_ram script_creator_17; }
 
 select_ram_21()  { select_ram script_creator_21; }
+
+select_ram_25()  { select_ram script_creator_25; }
 
 new_select_ram_17() { select_ram decide_script_version; }
 
@@ -518,6 +525,8 @@ java17() { java_prompt 17 install_java17;  }
 
 java21() { java_prompt 21 install_java21;  }
 
+java25() { java_prompt 25 install_java25;  }
+
 function check_java8 {
 
     if [[ $ubuntu = true ]]
@@ -598,6 +607,17 @@ function check_java21 {
 }
 
 
+function check_java25 {
+    for dir in /usr/lib/jvm/jdk-25*; do
+        if [[ -d "$dir" ]]; then
+            return 0
+        fi
+    done
+    java25
+    return 1
+}
+
+
 function install_java8 {
 
     dialog --infobox "Java 8 will be installed now" 10 30 && sleep 3
@@ -623,6 +643,8 @@ function install_java8 {
     clear
     fi
     dialog --infobox "Java 8 has been installed now!" 10 30 
+    sleep 3
+    clear
 }
 
 
@@ -641,6 +663,8 @@ function install_java16 {
     cd $path
     clear
     dialog --infobox "Java 16 has been installed now!" 10 30 
+    sleep 3
+    clear
 }
 
 
@@ -660,6 +684,8 @@ function install_java17 {
     sleep 5
     clear
     dialog --infobox "Java 17 has been installed now!" 10 30 
+    sleep 3
+    clear
 }
 
 function install_java21 {
@@ -674,6 +700,25 @@ function install_java21 {
     sleep 5
     clear
     dialog --infobox "Java 21 has been installed now!" 10 30 
+    sleep 3
+    clear
+}
+
+
+function install_java25 {
+    dialog --infobox "Java 25 will be installed now" 10 30 && sleep 3
+    clear
+    cd /tmp/
+    wget https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.deb
+    sudo dpkg -i jdk-25_linux-x64_bin.deb
+    rm jdk-25_linux-x64_bin.deb
+    sudo update-alternatives --config java
+    cd $path
+    sleep 5
+    clear
+    dialog --infobox "Java 25 has been installed now!" 10 30
+    sleep 3
+    clear
 }
 
 
@@ -685,7 +730,10 @@ function version_grab {
 
 
 function compare {
-    if [[ $java_version = "21"* ]]
+    if [[ $java_version = "25"* ]]
+    then
+        javaversion=25
+    elif [[ $java_version = "21"* ]]
     then
         javaversion=21
     elif [[ $java_version = "17."* ]]
@@ -749,12 +797,16 @@ fi
 function version_gt() { test "$(echo -e "$1\n$2" | sort -V | head -n 1)" != "$1"; }
 
 minVer=1.7
-maxVer=1.21.11
+maxVer=26.1
 
 if version_gt "$minVer" "$base_ver"; then
     not_supported
 elif version_gt "$base_ver" "$maxVer"; then
-    not_supported
+    if [[ -e .enable_future_pre_releases ]]; then
+        check_valid
+    else
+        not_supported
+    fi
 else
     check_valid
 fi
@@ -768,7 +820,7 @@ function not_supported {
     then
         exit
     else
-    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 1.21.X ' 10 60
+    dialog --title 'MC-Server Installer by realTM' --msgbox ' \nThe version number entered is not supported by this script!\nSupported Versions: 1.7.X - 26.X ' 10 60
     clear
     vanilla
     fi
@@ -781,7 +833,7 @@ function java_selector {
     local required_java
     required_java=$(python3 mcurlgrabber.py java-version "$ver")
 
-    if [[ "$required_java" != "8" ]] && [[ "$required_java" != "16" ]] && [[ "$required_java" != "17" ]] && [[ "$required_java" != "21" ]]; then
+    if [[ "$required_java" != "8" ]] && [[ "$required_java" != "16" ]] && [[ "$required_java" != "17" ]] && [[ "$required_java" != "21" ]] && [[ "$required_java" != "25" ]]; then
         dialog --title 'MC-Server Installer by realTM' --msgbox " \nThe requested version requires Java $required_java, which is currently not supported by this script!" 10 60
         clear
         vanilla
