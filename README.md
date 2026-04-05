@@ -58,19 +58,19 @@ If you find this tool useful, please consider showing your support. Every little
 - Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 26.X (including Snapshots and Pre-releases)
 
 ### Minecraft Forge Features:
-- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.21.X
+- Supported Minecraft Forge Versions: Minecraft 1.7.10 - 26.X
 - Installing a specific Forge Version. (A Version Overview can be found [here](https://files.minecraftforge.net/net/minecraftforge/forge/))
 
 ### Minecraft Spigot Features:
-- Supported Minecraft Spigot Versions: 1.8.X - 1.21.X
+- Supported Minecraft Spigot Versions: 1.8.X - 26.X
 - Using Spigot's offical [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to compile the spigot.jar(s)
 - Caching of already compiled spigot.jar(s) to avoid unneccessary re-compilation of already compiled spigot.jar(s)
 
 ### Minecraft Paper Features:
-- Supported Minecraft Paper Versions: 1.8.X - 1.21.X
+- Supported Minecraft Paper Versions: 1.8.X - 26.X
 - Possibility to install every existing build of Paper
 - Show list of available builds for each version to select from
-- Using Paper's official [API](https://api.papermc.io/docs/swagger-ui/index.html?configUrl=/openapi/swagger-config) to obtain available builds
+- Using Paper's official [Downloads API](https://fill.papermc.io) (v3) to obtain available builds
 - Adjusted Sub-Folder Naming (including the build-number)
 
 ### Minecraft Leaf Features:
