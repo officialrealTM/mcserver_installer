@@ -18,7 +18,7 @@ deb12=false # Resets the flags for Java logic
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="22.0"
+scriptversion="22.1"
 
 ## Latest Version
 latestver=$(curl -s https://version.realtm.de)
@@ -428,6 +428,8 @@ new_select_ram_17() { select_ram decide_script_version; }
 
 new_select_ram_21() { select_ram decide_script_version; }
 
+new_select_ram_25() { select_ram decide_script_version; }
+
 forge_custom_ram_17() { custom_ram decide_script_version; }
 
 
@@ -797,7 +799,7 @@ fi
 function version_gt() { test "$(echo -e "$1\n$2" | sort -V | head -n 1)" != "$1"; }
 
 minVer=1.7
-maxVer=26.1
+maxVer=26.1.1
 
 if version_gt "$minVer" "$base_ver"; then
     not_supported
@@ -918,6 +920,10 @@ function forge_new_installer_routine {
         then
             forge_new_init
             new_select_ram_21
+        elif [[ $ver = "26."* ]]
+        then
+            forge_new_init
+            new_select_ram_25
         else
             new_select_ram_17
         fi
@@ -932,6 +938,9 @@ function decide_script_version {
     elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
         script_creator_21
+    elif [[ $ver = "26."* ]]
+    then
+        script_creator_25
     else
         forge_script_creator_17
     fi
@@ -961,7 +970,17 @@ function forge_installer {
 
 function forge_new_version_check {
 
-    if [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
+    if [[ $ver = "26."* ]]
+    then
+        clear
+        check_java25
+        version_grab
+        check_current25
+        folder_creator_forge
+        cd $dirname
+        wget https://maven.minecraftforge.net/net/minecraftforge/forge/$ver-$forge_ex_version_number/forge-$ver-$forge_ex_version_number-installer.jar
+        forge_new_installer_routine
+    elif [[ $ver = "1.20.6" ]] || [[ $ver = "1.21"* ]]
     then
         clear
         check_java21
@@ -1059,6 +1078,8 @@ forge_vp_1.19() { version_picker ver forge_custom_version 1.19 1.19.1 1.19.2 1.1
 forge_vp_1.20() { version_picker ver forge_custom_version 1.20 1.20.1 1.20.2 1.20.3 1.20.4 1.20.6; }
 
 forge_vp_1.21() { version_picker ver forge_custom_version 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10; }
+
+forge_vp_26()   { version_picker ver forge_custom_version 26.1 26.1.1; }
 
 ############################################
 ## SPIGOT HELPER FUNCTIONS
@@ -1213,13 +1234,17 @@ svp_1_21_callback() { check_java21; version_grab; check_current21; spigot_instal
 
 spigot_vp_1.21() { version_picker ver svp_1_21_callback 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10; }
 
+svp_26_callback() { check_java25; version_grab; check_current25; spigot_installer_routine; }
+
+spigot_vp_26() { version_picker ver svp_26_callback 26.1 26.1.1; }
+
 ############################################
 ## PAPER HELPER FUNCTIONS
 ############################################
 
 create_json () {
   curl -X 'GET' \
-  'https://api.papermc.io/v2/projects/paper/versions/'$version'' -s \
+  'https://fill.papermc.io/v3/projects/paper/versions/'$version'' -s \
   -H 'accept: application/json' > builds.json
   set_build
 }
@@ -1327,7 +1352,11 @@ check_existing () {
 download_jar () {
     
     cd $path/Servers/$dirname
-    wget https://api.papermc.io/v2/projects/paper/versions/$version/builds/$build/downloads/paper-$version-$build.jar
+    local dl
+    dl=$(curl -s -X 'GET' \
+        "https://fill.papermc.io/v3/projects/paper/versions/$version/builds/$build" \
+        -H 'accept: application/json' | jq -r '.downloads["server:default"].url')
+    wget "$dl" -O paper-$version-$build.jar
     mv paper*.jar server.jar
     paper_ram_selector
 }
@@ -1335,7 +1364,10 @@ download_jar () {
 
 paper_ram_selector () {
 
-    if [[ $version = "1.17"* ]]
+    if [[ $version = "26."* ]]
+    then
+        select_ram_25
+    elif [[ $version = "1.17"* ]]
     then
         select_ram_16
     elif [[ $version = "1.20.5" ]] || [[ $version = "1.20.6" ]] || [[ $version = "1.21"* ]]
@@ -1347,8 +1379,6 @@ paper_ram_selector () {
     else
         select_ram_8
     fi
-
-
 
 }
 
@@ -1393,7 +1423,9 @@ paper_vp_1_20_callback() {
 
 paper_vp_1_20() { version_picker version paper_vp_1_20_callback 1.20 1.20.1 1.20.2 1.20.4 1.20.5 1.20.6; }
 
-paper_vp_1_21() { version_picker version "pvp_start 21" 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10; }
+paper_vp_1_21() { version_picker version "pvp_start 21" 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10 1.21.11; }
+
+paper_vp_26()   { version_picker version "pvp_start 25" 26.1.1; }
 
 ############################################
 ## LEAF HELPER FUNCTIONS
@@ -1587,9 +1619,9 @@ leaf_vp_1_21() { version_picker version lvp_1_21_callback 1.21 1.21.2 1.21.3 1.2
 
 function forge {
     local CHOICE=$(dialog --clear --backtitle "MC-Server Installer by realTM" --title "Versions" \
-        --menu "Select the major Version you want to install:" 22 50 14 \
+        --menu "Select the major Version you want to install:" 22 50 16 \
         1 "1.7" 2 "1.8" 3 "1.9" 4 "1.10" 5 "1.11" 6 "1.12" 7 "1.13" 8 "1.14" \
-        9 "1.15" 10 "1.16" 11 "1.17" 12 "1.18" 13 "1.19" 14 "1.20" 15 "1.21" \
+        9 "1.15" 10 "1.16" 11 "1.17" 12 "1.18" 13 "1.19" 14 "1.20" 15 "1.21" 16 "26" \
         2>&1 >/dev/tty)
     clear
     case $CHOICE in
@@ -1608,15 +1640,16 @@ function forge {
         13) forge_version_select 1.19 17 forge_vp_1.19 ;;
         14) ver=1.20; forge_vp_1.20 ;;
         15) forge_version_select 1.21 21 forge_vp_1.21 ;;
+        16) forge_version_select 26 25 forge_vp_26 ;;
     esac
 }
 
 
 function spigot {
     local CHOICE=$(dialog --clear --backtitle "MC-Server Installer by realTM" --title "Versions" \
-        --menu "Select the major Version you want to install:" 50 80 13 \
+        --menu "Select the major Version you want to install:" 50 80 15 \
         1 "1.8" 2 "1.9" 3 "1.10" 4 "1.11" 5 "1.12" 6 "1.13" 7 "1.14" \
-        8 "1.15" 9 "1.16" 10 "1.17" 11 "1.18" 12 "1.19" 13 "1.20" 14 "1.21" \
+        8 "1.15" 9 "1.16" 10 "1.17" 11 "1.18" 12 "1.19" 13 "1.20" 14 "1.21" 15 "26" \
         2>&1 >/dev/tty)
     clear
     case $CHOICE in
@@ -1634,6 +1667,7 @@ function spigot {
         12) spigot_version_select 1.19 17 spigot_vp_1.19 ;;
         13) ver=1.20; spigot_vp_1.20 ;;
         14) ver=1.21; spigot_vp_1.21 ;;
+        15) ver=26; spigot_vp_26 ;;
     esac
 }
 
@@ -1642,14 +1676,14 @@ function paper {
     local CHOICE=$(dialog --clear --backtitle "MC-Server Installer by realTM" --title "Select Version" \
         --menu "For which Minecraft Version do you want to install Paper?" 30 80 15 \
         1 "1.8" 2 "1.9" 3 "1.10" 4 "1.11" 5 "1.12" 6 "1.13" 7 "1.14" \
-        8 "1.15" 9 "1.16" 10 "1.17" 11 "1.18" 12 "1.19" 13 "1.20" 14 "1.21" \
+        8 "1.15" 9 "1.16" 10 "1.17" 11 "1.18" 12 "1.19" 13 "1.20" 14 "1.21" 15 "26" \
         2>&1 >/dev/tty)
     clear
     case $CHOICE in
         1) paper_vp_1_8 ;; 2) paper_vp_1_9 ;; 3) paper_vp_1_10 ;; 4) paper_vp_1_11 ;;
         5) paper_vp_1_12 ;; 6) paper_vp_1_13 ;; 7) paper_vp_1_14 ;; 8) paper_vp_1_15 ;;
         9) paper_vp_1_16 ;; 10) paper_vp_1_17 ;; 11) paper_vp_1_18 ;; 12) paper_vp_1_19 ;;
-        13) paper_vp_1_20 ;; 14) paper_vp_1_21 ;;
+        13) paper_vp_1_20 ;; 14) paper_vp_1_21 ;; 15) paper_vp_26 ;;
     esac
 }
 
