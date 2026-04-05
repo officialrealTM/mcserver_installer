@@ -48,14 +48,14 @@ If you find this tool useful, please consider showing your support. Every little
 - Graphical User Interface (GUI)
 - Easy-to-Use (even for beginners!)
 - Automatic installation of required programs/packages
-- Automatic installation of Java Versions for different Minecraft Versions (Including Java 8, Java 16, Java 17 and Java 21)
+- Automatic installation of Java Versions for different Minecraft Versions (Including Java 8, Java 16, Java 17, Java 21 and Java 25)
 - Creating Minecraft Server start-scripts (including a check if the correct Java Version is selcted)
 - Adjustable RAM-Allocation when installing a Minecraft Server
 - Installed Servers are stored in Sub-Folders, to install more than one instance
 - Support for multiple Linux Distributions (Ubuntu & Debian)
 
 ### Minecraft Vanilla Features:
-- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 1.21.X (including Snapshots and Pre-releases)
+- Supported Minecraft Vanilla Versions: Minecraft 1.7.X - 26.X (including Snapshots and Pre-releases)
 
 ### Minecraft Forge Features:
 - Supported Minecraft Forge Versions: Minecraft 1.7.10 - 1.21.X
@@ -133,7 +133,7 @@ In the last line of this file you can adjust the number after `-Xmx` to adjust m
 
 #### **Can I use this script to install Snapshot Versions of Minecraft?**
 
-**Yes.** You can install Snapshot and Pre-release versions for Minecraft Vanilla by simply typing the snapshot name (e.g., `13w36a` or `1.21.11-pre4`) when prompted for the version.
+**Yes.** You can install Snapshot and Pre-release versions for Minecraft Vanilla by simply typing the snapshot name (e.g., `13w36a` or `26.1-pre-3`) when prompted for the version.
 
 #### **I've accidentally closed my Minecraft console. How can I open it again?** 
 Dont worry, the console will kept open in the background using *screen*.  
@@ -199,6 +199,10 @@ touch .disable_spigot_archive
  ```bash
 touch .disable_telemetry
 ```
+ Enable future pre-release installations (versions beyond current max supported):
+ ```bash
+touch .enable_future_pre_releases
+```
 
 ### Undo experimental settings
 Enable Distro-check:
@@ -220,6 +224,10 @@ rm .disable_spigot_archive
 Enable Telemetry (API data sending):
 ```bash
 rm .disable_telemetry
+```
+Disable future pre-release installations:
+```bash
+rm .enable_future_pre_releases
 ```
 
 ## Support
