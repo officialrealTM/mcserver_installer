@@ -18,14 +18,14 @@ deb12=false # Resets the flags for Java logic
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="22.2"
+scriptversion="22.3"
 
 ## Latest Version
 latestver=$(curl -s https://version.realtm.de)
 
 ## Supported Minecraft Versions
 minVer=1.7
-maxVer=26.1.2
+maxVer=26.2
 
 
 
@@ -1426,7 +1426,7 @@ paper_vp_1_20() { version_picker version paper_vp_1_20_callback 1.20 1.20.1 1.20
 
 paper_vp_1_21() { version_picker version "pvp_start 21" 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10 1.21.11; }
 
-paper_vp_26()   { version_picker version "pvp_start 25" 26.1.1 26.1.2; }
+paper_vp_26()   { version_picker version "pvp_start 25" 26.1.1 26.1.2 26.2; }
 
 ############################################
 ## LEAF HELPER FUNCTIONS
