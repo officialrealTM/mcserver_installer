@@ -18,14 +18,14 @@ deb12=false # Resets the flags for Java logic
 ## END OF OS CHECK
 
 ## Script Version
-scriptversion="22.3"
+scriptversion="22.4"
 
 ## Latest Version
 latestver=$(curl -s https://version.realtm.de)
 
 ## Supported Minecraft Versions
 minVer=1.7
-maxVer=26.2
+maxVer=26.3
 
 
 
@@ -1080,7 +1080,7 @@ forge_vp_1.20() { version_picker ver forge_custom_version 1.20 1.20.1 1.20.2 1.2
 
 forge_vp_1.21() { version_picker ver forge_custom_version 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10; }
 
-forge_vp_26()   { version_picker ver forge_custom_version 26.1 26.1.1 26.1.2; }
+forge_vp_26()   { version_picker ver forge_custom_version 26.1 26.1.1 26.1.2 26.2 26.3; }
 
 ############################################
 ## SPIGOT HELPER FUNCTIONS
@@ -1237,7 +1237,7 @@ spigot_vp_1.21() { version_picker ver svp_1_21_callback 1.21 1.21.1 1.21.3 1.21.
 
 svp_26_callback() { check_java25; version_grab; check_current25; spigot_installer_routine; }
 
-spigot_vp_26() { version_picker ver svp_26_callback 26.1 26.1.1 26.1.2; }
+spigot_vp_26() { version_picker ver svp_26_callback 26.1 26.1.1 26.1.2 26.2 26.3; }
 
 ############################################
 ## PAPER HELPER FUNCTIONS
@@ -1426,7 +1426,7 @@ paper_vp_1_20() { version_picker version paper_vp_1_20_callback 1.20 1.20.1 1.20
 
 paper_vp_1_21() { version_picker version "pvp_start 21" 1.21 1.21.1 1.21.3 1.21.4 1.21.5 1.21.6 1.21.7 1.21.8 1.21.9 1.21.10 1.21.11; }
 
-paper_vp_26()   { version_picker version "pvp_start 25" 26.1.1 26.1.2 26.2; }
+paper_vp_26()   { version_picker version "pvp_start 25" 26.1.1 26.1.2 26.2 26.3; }
 
 ############################################
 ## LEAF HELPER FUNCTIONS
